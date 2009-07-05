@@ -3,6 +3,8 @@ use Moose;
 use Moose::Autobox;
 use MooseX::Types::Moose qw/ ArrayRef /;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
+use File::ShareDir qw/module_dir/;
+use List::MoreUtils qw/uniq/;
 use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller'; }
@@ -32,7 +34,15 @@ sub _auth_fields {
         map { $self->$_() } qw/ username_field password_field /;
 }
 
-sub login : Chained('/') PathPart('login') Args(0) ActionClass('REST') {}
+sub login : Chained('/') PathPart('login') Args(0) ActionClass('REST') {
+    my ($self, $c) = @_;
+    $c->stash->{additional_template_paths} =
+        [ uniq(
+            @{$c->stash->{additional_template_paths}||[]},
+            module_dir('CatalystX::SimpleLogin::Controller::Login') . '/'
+            . 'tt'
+        ) ];
+}
 
 sub login_GET {}
 

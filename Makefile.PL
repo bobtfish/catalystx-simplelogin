@@ -11,6 +11,8 @@ requires 'Catalyst::Plugin::Authentication';
 requires 'Moose::Autobox';
 requires 'MooseX::Types::Common';
 requires 'MosoeX::Types::Moose';
+requires 'File::ShareDir';
+requires 'List::MoreUtils';
 requires 'namespace::autoclean';
 
 test_requires 'Test::WWW::Mechanize::Catalyst';
