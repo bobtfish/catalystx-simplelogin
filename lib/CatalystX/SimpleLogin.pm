@@ -1,10 +1,10 @@
 package CatalystX::SimpleLogin;
-use strict;
-use warnings;
+use Moose::Role;
+use namespace::autoclean;
 
 =head1 NAME
 
-CatalystX::SimpleLogin - 
+CatalystX::SimpleLogin -
 
 =cut
 
