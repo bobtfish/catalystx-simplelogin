@@ -8,6 +8,7 @@ all_from 'lib/CatalystX/SimpleLogin.pm';
 requires 'Moose';
 requires 'Catalyst::Runtime' => '5.80005';
 requires 'Catalyst::Plugin::Authentication';
+requires 'CatalystX::InjectComponent';
 requires 'Moose::Autobox';
 requires 'MooseX::Types::Common';
 requires 'MosoeX::Types::Moose';

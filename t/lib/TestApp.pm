@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 
 use Catalyst qw/
+    +CatalystX::SimpleLogin
     Authentication
 /;
 extends 'Catalyst';
