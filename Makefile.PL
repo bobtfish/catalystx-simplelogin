@@ -7,6 +7,7 @@ all_from 'lib/CatalystX/SimpleLogin.pm';
 
 requires 'Moose';
 requires 'Catalyst::Runtime' => '5.80005';
+requires 'Catalyst::Plugin::Authentication';
 requires 'Moose::Autobox';
 requires 'MooseX::Types::Common';
 requires 'MosoeX::Types::Moose';
@@ -14,6 +15,8 @@ requires 'namespace::autoclean';
 
 test_requires 'Test::WWW::Mechanize::Catalyst';
 test_requires 'Test::More';
+test_requires 'Catalyst::View::TT';
+test_requires 'Catalyst::Action::RenderView';
 
 license 'perl';
 
