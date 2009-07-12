@@ -4,12 +4,9 @@ use Moose::Role -traits => 'MethodAttributes';
 use namespace::autoclean;
 
 sub login
-    :Chained('/')
-    :PathPart('login')
-    :Args(0)
+    :Action
     :ActionClass('REST')
     :Does('FindViewByIsa')
-    :FindViewByIsa('Catalyst::View::TT')
 {
 }
 
