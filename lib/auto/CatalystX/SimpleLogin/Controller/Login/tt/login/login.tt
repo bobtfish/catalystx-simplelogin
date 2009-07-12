@@ -1,1 +1,6 @@
-fnewjnfw
+<form method="POST" action="[% c.uri_with() %]">
+    Username: <input type="text" name="username" />
+<br /> Password: <input type="password" name="password" />
+    <input type="submit" />
+</form>
+
