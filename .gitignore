@@ -1,3 +1,4 @@
+*.swp
 cover_db
 META.yml
 Makefile
