@@ -49,7 +49,14 @@ sub _auth_fields {
         map { $self->$_() } qw/ username_field password_field /;
 }
 
-sub login : Chained('/') PathPart('login') Args(0) ActionClass('REST') {
+sub login
+    :Chained('/')
+    :PathPart('login')
+    :Args(0)
+    :ActionClass('REST')
+    :Does('FindViewByIsa')
+    :FindViewByIsa('Catalyst::View::TT')
+{
     my ($self, $c) = @_;
     $c->stash->{additional_template_paths} =
         [ uniq(
