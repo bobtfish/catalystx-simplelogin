@@ -2,18 +2,22 @@
 
 use strict;
 use warnings;
-use Test::More tests => 3;
+use Test::More 'no_plan';
+use HTTP::Request::Common;
 
 # setup library path
 use FindBin qw($Bin);
 use lib "$Bin/lib";
 
-# make sure testapp works
-use ok 'TestApp';
+use Catalyst::Test 'TestApp';
+my ($res, $c);
 
-# a live test against TestApp, the test application
-use Test::WWW::Mechanize::Catalyst 'TestApp';
-my $mech = Test::WWW::Mechanize::Catalyst->new;
-$mech->get_ok('http://localhost/', 'get main page');
-$mech->content_like(qr/it works/i, 'see if it has our text');
+ok(request('/')->is_success, 'Get /');
+ok(request('/login')->is_success, 'Get /login');
+is(request('/logout')->code, 302, 'Get 302 from /logout');
+
+($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r']);
+is($res->code, 302, 'get 302 redirect');
+is($res->header('Location'), 'http://localhost/', 'Redirect to /');
+ok($c->user, 'Have a user in $c');
 

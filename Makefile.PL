@@ -18,12 +18,12 @@ requires 'File::ShareDir';
 requires 'List::MoreUtils';
 requires 'namespace::autoclean';
 
-test_requires 'Test::WWW::Mechanize::Catalyst';
 test_requires 'Test::More';
 test_requires 'Catalyst::Action::RenderView';
 test_requires 'Catalyst::Plugin::Session';
 test_requires 'Catalyst::Plugin::Session::State::Cookie';
 test_requires 'Catalyst::Plugin::Session::Store::File';
+test_requires 'HTTP::Request::Common';
 
 license 'perl';
 
