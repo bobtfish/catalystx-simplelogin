@@ -10,12 +10,14 @@ use namespace::autoclean;
 BEGIN { extends 'Catalyst::Controller'; }
 
 has 'username_field' => (
+    is => 'ro',
     isa => NonEmptySimpleStr,
     required => 1,
     default => 'username',
 );
 
 has 'password_field' => (
+    is => 'ro',
     isa => NonEmptySimpleStr,
     required => 1,
     default => 'password',
