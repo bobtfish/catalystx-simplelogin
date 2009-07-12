@@ -63,5 +63,16 @@ sub redirect_after_login_uri {
     $c->uri_for('/');
 }
 
+sub logout : Chained('/') PathPart('logout') Args(0) {
+    my ($self, $c) = @_;
+    $c->logout;
+    $c->res->redirect($self->redirect_after_logout_uri($c));
+}
+
+sub redirect_after_logout_uri {
+    my ($self, $c) = @_;
+    $self->redirect_after_login_uri($c);
+}
+
 1;
 
