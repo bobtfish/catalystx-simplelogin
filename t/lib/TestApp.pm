@@ -5,6 +5,9 @@ use namespace::autoclean;
 use Catalyst qw/
     +CatalystX::SimpleLogin
     Authentication
+    Session
+    Session::Store::File
+    Session::State::Cookie
 /;
 extends 'Catalyst';
 

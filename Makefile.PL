@@ -13,7 +13,7 @@ requires 'Catalyst::View::TT';
 requires 'CatalystX::InjectComponent';
 requires 'Moose::Autobox';
 requires 'MooseX::Types::Common';
-requires 'MosoeX::Types::Moose';
+requires 'MooseX::Types';
 requires 'File::ShareDir';
 requires 'List::MoreUtils';
 requires 'namespace::autoclean';
@@ -21,6 +21,9 @@ requires 'namespace::autoclean';
 test_requires 'Test::WWW::Mechanize::Catalyst';
 test_requires 'Test::More';
 test_requires 'Catalyst::Action::RenderView';
+test_requires 'Catalyst::Plugin::Session';
+test_requires 'Catalyst::Plugin::Session::State::Cookie';
+test_requires 'Catalyst::Plugin::Session::Store::File';
 
 license 'perl';
 
