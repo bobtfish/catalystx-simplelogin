@@ -16,6 +16,7 @@ requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
 requires 'File::ShareDir';
 requires 'List::MoreUtils';
+requires 'HTML::FormHandler';
 requires 'namespace::autoclean';
 
 test_requires 'Test::More';
@@ -26,6 +27,10 @@ test_requires 'Catalyst::Plugin::Session::Store::File';
 test_requires 'HTTP::Request::Common';
 
 license 'perl';
+
+if ($Module::Install::AUTHOR) {
+    system("pod2text lib/CatalystX/SimpleLogin.pm > README") and die;
+}
 
 WriteAll();
 

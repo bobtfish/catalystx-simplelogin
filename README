@@ -1,0 +1,43 @@
+NAME
+    CatalystX::SimpleLogin - Provide a simple Login controller which can be
+    reused
+
+SYNOPSIS
+        package MyApp;
+        use Moose;
+        use namespace::autoclean;
+
+        use Catalyst qw/
+            +CatlystX::SimpleLogin
+            Authentication
+            Session
+            Session::State::Cookie
+            Session::Store::File
+        /;
+        extends 'Catalyst';
+
+        __PACKAGE__->config(
+            'Plugin::Authentication' => { # Auth config here }
+        );
+
+        __PACKAGE__->setup;
+
+DESCRIPTION
+    CatalystX::SimpleLogin is an application class role which will inject a
+    controller which is an instance of
+    CatalystX::SimpleLogin::Controller::Login into your application. This
+    provides a simple login and logout page with only one line of code.
+
+REQUIREMENTS
+    Working authentication configuration
+    Working session configuration
+    A TT view
+
+AUTHOR
+    Tomas Doran (t0m) "<bobtfish@bobtfish.net>"
+
+LICENSE
+    Copyright 2009 Tomas Doran. Some rights reserved.
+
+    This sofware is licensed under the same terms as perl itself.
+
