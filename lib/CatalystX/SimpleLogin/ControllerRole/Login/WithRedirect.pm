@@ -14,7 +14,7 @@ sub login_redirect()
 	my ($self, $c) = @_;
 	$c->flash->{error_msg} = 'You need to login to view this page!';
 	$c->session->{redirect_to_after_login} =  $c->request->path;
-	$c->response->redirect($c->uri_for('/login'));
+	$c->response->redirect($c->uri_for($c->controller("Login")->action_for("login")));
 }
 1;
 
