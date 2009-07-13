@@ -23,6 +23,13 @@ has 'password_field' => (
     default => 'password',
 );
 
+has 'remember_field' => (
+    is => 'ro',
+    isa => NonEmptySimpleStr,
+    required => 1,
+    default => 'remember',
+);
+
 has 'login_error_message' => (
     is => 'ro',
     isa => NonEmptySimpleStr,
@@ -82,12 +89,12 @@ sub login_POST {
 
     my $form = $self->login_form;
     my $p = $c->req->body_parameters;
-    $form->process(params => $p);
-    if ($form->validated) {
+    if ($form->process($p)) {
         # FIXME - pull values out of form again.
         if ($c->authenticate({
-            map { $_ => ($p->{$_}->flatten)[0] } $self->_auth_fields
+            map { $_ => $form->field($_)->value } $self->_auth_fields
         })) {
+            $c->{session}{expires} = 999999999999 if $form->field( $self->remember_field )->value;
             $c->res->redirect($self->redirect_after_login_uri($c));
         }
         else{
