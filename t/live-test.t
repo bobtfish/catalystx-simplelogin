@@ -21,6 +21,9 @@ is($res->code, 200, 'get errors in login form');
 like($c->res->body, qr/Wrong username or password/, 'login error');
 
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r']);
+is( $c->{session}{expires}, undef, 'Session length not set when no "remember"');
+($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r', remember => 1]);
+is( $c->{session}{expires}, 999999999999, 'Very long session set when "remember"');
 is($res->code, 302, 'get 302 redirect');
 my $cookie = $res->header('Set-Cookie');
 ok($cookie, 'Have a cookie');
