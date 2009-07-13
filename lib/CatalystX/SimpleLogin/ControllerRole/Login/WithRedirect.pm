@@ -6,7 +6,7 @@ with 'CatalystX::SimpleLogin::ControllerRole::Login';
 
 around 'redirect_after_login_uri' => sub { 
 		my ($orig, $self, $c) = @_;
-		$c->uri_for('/'.$c->session->{redirect_to_after_login} || $self->$orig($c));
+		return $c->uri_for('/'.$c->session->{redirect_to_after_login} || $self->$orig($c));
 	};
 
 sub login_redirect()
