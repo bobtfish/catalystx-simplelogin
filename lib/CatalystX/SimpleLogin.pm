@@ -23,7 +23,7 @@ CatalystX::SimpleLogin - Provide a simple Login controller which can be reused
     use namespace::autoclean;
 
     use Catalyst qw/
-        +CatlystX::SimpleLogin
+        +CatalystX::SimpleLogin
         Authentication
         Session
         Session::State::Cookie

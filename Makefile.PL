@@ -24,6 +24,7 @@ requires 'HTML::FormHandler' => '0.27'; # By which I mean you need 9c101960
                                         # from git@github.com:gshank/html-formhandler.git..
 requires 'namespace::autoclean';
 
+
 test_requires 'Test::More';
 test_requires 'Catalyst::Action::RenderView';
 test_requires 'Catalyst::Plugin::Session';

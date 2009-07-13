@@ -8,7 +8,7 @@ SYNOPSIS
         use namespace::autoclean;
 
         use Catalyst qw/
-            +CatlystX::SimpleLogin
+            +CatalystX::SimpleLogin
             Authentication
             Session
             Session::State::Cookie
