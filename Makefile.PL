@@ -15,7 +15,7 @@ requires 'Catalyst::Controller::ActionRole';
 requires 'Catalyst::ActionRole::FindViewByIsa';
 requires 'Catalyst::View::TT';
 requires 'CatalystX::InjectComponent';
-requires 'Moose::Autobox';
+requires 'Moose::Autobox' => '0.09';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
 requires 'File::ShareDir';
