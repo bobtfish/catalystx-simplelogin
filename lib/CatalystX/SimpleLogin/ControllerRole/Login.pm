@@ -69,12 +69,17 @@ sub login_POST {
     my $p = $c->req->body_parameters;
     $form->process(params => $p);
     if ($form->validated) {
+	
         # FIXME - pull values out of form again.
         if ($c->authenticate({
             map { $_ => ($p->{$_}->flatten)[0] } $self->_auth_fields
         })) {
             $c->res->redirect($self->redirect_after_login_uri($c));
         }
+	else
+	{
+		$c->stash->{error_msg} = "Failed to authenticate!";
+	}
     }
 }
 

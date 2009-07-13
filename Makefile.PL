@@ -11,6 +11,7 @@ requires 'MooseX::MethodAttributes';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::View::TT';
 requires 'CatalystX::InjectComponent';
+requires 'Catalyst::Action::REST';
 requires 'Moose::Autobox';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
@@ -18,6 +19,7 @@ requires 'File::ShareDir';
 requires 'List::MoreUtils';
 requires 'HTML::FormHandler';
 requires 'namespace::autoclean';
+
 
 test_requires 'Test::More';
 test_requires 'Catalyst::Action::RenderView';
