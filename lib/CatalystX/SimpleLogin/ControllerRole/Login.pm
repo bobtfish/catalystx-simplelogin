@@ -23,6 +23,14 @@ has 'password_field' => (
     default => 'password',
 );
 
+has 'login_error_message' => (
+    is => 'ro',
+    isa => NonEmptySimpleStr,
+    required => 1,
+    default => 'Wrong username or password',
+);
+
+
 has 'extra_auth_fields' => (
     isa => ArrayRef[NonEmptySimpleStr],
     is => 'ro',
@@ -81,6 +89,9 @@ sub login_POST {
             map { $_ => ($p->{$_}->flatten)[0] } $self->_auth_fields
         })) {
             $c->res->redirect($self->redirect_after_login_uri($c));
+        }
+        else{
+            $form->field( $self->password_field )->add_error( $self->login_error_message );
         }
     }
 }

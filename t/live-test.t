@@ -16,6 +16,10 @@ ok(request('/')->is_success, 'Get /');
 ok(request('/login')->is_success, 'Get /login');
 is(request('/logout')->code, 302, 'Get 302 from /logout');
 
+($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 'aaaa']);
+is($res->code, 200, 'get errors in login form');
+like($c->res->body, qr/Wrong username or password/, 'login error');
+
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r']);
 is($res->code, 302, 'get 302 redirect');
 my $cookie = $res->header('Set-Cookie');
