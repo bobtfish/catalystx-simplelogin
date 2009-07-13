@@ -20,8 +20,8 @@ requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
 requires 'File::ShareDir';
 requires 'List::MoreUtils';
-requires 'HTML::FormHandler' => '0.27'; # By which I mean you need 9c101960
-                                        # from git@github.com:gshank/html-formhandler.git..
+requires 'HTML::FormHandler' => '0.26001'; # By which I mean you need 9c101960
+                                           # from git@github.com:gshank/html-formhandler.git..
 requires 'namespace::autoclean';
 
 
