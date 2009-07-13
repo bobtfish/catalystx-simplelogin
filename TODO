@@ -1,0 +1,5 @@
+-Fixing the Template including
+-Fixing one uninitialized value warning in LoginRedirect
+-Make loading of LoginRedirect possible via Config
+-Disable the use of NeedsLogin ActionRole when theoginRedirect is not 
+loaded
