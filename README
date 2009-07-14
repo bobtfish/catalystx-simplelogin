@@ -99,12 +99,10 @@ SEE ALSO
     Catalyst::Plugin::Session
     Catalyst::Controller::ActionRole
 
-AUTHOR
+AUTHORS
     Tomas Doran (t0m) "<bobtfish@bobtfish.net>"
-
-CONTRIBUTORS
     Zbigniew Lukasiak
-    Stephan Jauernick
+    Stephan Jauernick (stephan48) "<stephan@stejau.de>"
 
 LICENSE
     Copyright 2009 Tomas Doran. Some rights reserved.
