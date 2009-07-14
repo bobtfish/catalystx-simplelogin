@@ -109,3 +109,35 @@ sub redirect_after_login_uri {
 
 1;
 
+=head1 NAME
+
+CatalystX::SimpleLogin::ControllerRole::Login
+
+=head1 DESCRIPTION
+
+=head1 ATTRIBUTES
+
+=head1 METHODS
+
+=head1 SEE ALSO
+
+=over
+
+=item L<CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect>
+
+=item L<CatalystX::SimpleLogin::ControllerRole::Logout>
+
+=item L<CatalystX::SimpleLogin::Form::Login>
+
+=back
+
+=head1 AUTHORS
+
+See L<CatalystX::SimpleLogin> for authors.
+
+=head1 LICENSE
+
+See L<CatalystX::SimpleLogin> for license.
+
+=cut
+
