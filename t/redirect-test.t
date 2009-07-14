@@ -2,10 +2,9 @@
 
 use strict;
 use warnings;
-use Test::More 'no_plan';
+use Test::More tests => 8;
 use HTTP::Request::Common;
 
-# setup library path
 use FindBin qw($Bin);
 use lib "$Bin/lib";
 
@@ -24,7 +23,4 @@ is($res->code, 302, 'get 302 redirect to needslogin');
 is($res->header('Location'), 'http://localhost/needslogin', 'Redirect to /needslogin');
 ($res, $c) = ctx_request(GET 'http://localhost/needslogin', Cookie => $cookie);
 is($res->code, 200, 'get 200 ok for page which needs login');
-
-
-
 
