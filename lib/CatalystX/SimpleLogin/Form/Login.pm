@@ -8,6 +8,7 @@ with 'HTML::FormHandler::Render::Simple';
 has_field 'username' => ( type => 'Text' );
 has_field 'password' => ( type => 'Password' );
 has_field 'remember' => ( type => 'Checkbox' );
+has_field 'submit'   => ( type => 'Submit', value => 'Login' );
 
 __PACKAGE__->meta->make_immutable;
 
