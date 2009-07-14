@@ -28,3 +28,49 @@ sub COMPONENT {
 
 1;
 
+__END__
+
+=head1 NAME
+
+CatalystX::SimpleLogin::Controller::Login - Configurable login controller
+
+=head1 SYNOPSIS
+
+    # For simple useage exmple, see CatalystX::SimpleLogin, this is a
+    # full config example
+    __PACKAGE__->config(
+        'Controller::Login' => {
+            login => 'WithRedirect', # Optional, enables redirect-back feature
+            actions => {
+                login => { # Also optional
+                    PathPart => ['theloginpage'], # Change login action to /theloginpage
+                },
+                logout => {},
+            },
+        },
+    );
+
+=head1 DESCRIPTION
+
+=head1 SEE ALSO
+
+=over
+
+=item L<CatalystX::SimpleLogin::ControllerRole::Login>
+
+=item L<CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect>
+
+=item L<CatalystX::SimpleLogin::ControllerRole::Logout>
+
+=back
+
+=head1 AUTHORS
+
+See L<CatalystX::SimpleLogin> for authors.
+
+=head1 LICENSE
+
+See L<CatalystX::SimpleLogin> for license.
+
+=cut
+
