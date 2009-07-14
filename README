@@ -57,8 +57,8 @@ COMPONENTS
         which needs authentication, from which the user was previously
         redirected. Goes hand in hand with Catalyst::ActionRole::NeedsLogin
 
-    *   CatalystX::SimpleLogin::Form::Login - the "HTML::FormHandler form
-        for the login form."
+    *   CatalystX::SimpleLogin::Form::Login - the HTML::FormHandler form for
+        the login form.
 
     *   Catalyst::ActionRole::NeedsLogin - Used to cause a specific path to
         redirect to the login page if a user is not authenticated.
