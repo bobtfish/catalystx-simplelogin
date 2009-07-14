@@ -2,6 +2,13 @@ use strict;
 use warnings;
 use inc::Module::Install 0.91;
 
+BEGIN {
+    if ($Module::Install::AUTHOR) {
+        require Module::Install::AuthorTests;
+        require Module::Install::AuthorRequires;
+    }
+}
+
 name 'CatalystX-SimpleLogin';
 all_from 'lib/CatalystX/SimpleLogin.pm';
 
@@ -24,7 +31,6 @@ requires 'HTML::FormHandler' => '0.26001'; # By which I mean you need 9c101960
                                            # from git@github.com:gshank/html-formhandler.git..
 requires 'namespace::autoclean';
 
-
 test_requires 'Test::More';
 test_requires 'Catalyst::Action::RenderView';
 test_requires 'Catalyst::Plugin::Session';
@@ -32,9 +38,16 @@ test_requires 'Catalyst::Plugin::Session::State::Cookie';
 test_requires 'Catalyst::Plugin::Session::Store::File';
 test_requires 'HTTP::Request::Common';
 
+author_requires 'Test::NoTabs';
+author_requires 'Test::Pod' => '1.14';
+author_requires 'Test::Pod::Coverage' => '1.08';
+
 license 'perl';
 
 resources repository => 'http://github.com/bobtfish/catalystx-simplelogin';
+
+tests 't/*.t';
+author_tests 't/author/*.t';
 
 if ($Module::Install::AUTHOR) {
     system("pod2text lib/CatalystX/SimpleLogin.pm > README") and die;
