@@ -90,7 +90,7 @@ user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::N
 
 =item *
 
-L<CatalystX::SimpleLogin::Form::Login> - the L<HTML::FormHandler form for the login form.
+L<CatalystX::SimpleLogin::Form::Login> - the L<HTML::FormHandler> form for the login form.
 
 =item *
 
