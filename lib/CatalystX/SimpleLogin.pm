@@ -158,17 +158,15 @@ if you want to hack on something and need a hand. :)
 
 =back
 
-=head1 AUTHOR
-
-Tomas Doran (t0m) C<< <bobtfish@bobtfish.net> >>
-
-=head1 CONTRIBUTORS
+=head1 AUTHORS
 
 =over
 
+=item Tomas Doran (t0m) C<< <bobtfish@bobtfish.net> >>
+
 =item Zbigniew Lukasiak
 
-=item Stephan Jauernick
+=item Stephan Jauernick (stephan48) C<< <stephan@stejau.de> >>
 
 =back
 
