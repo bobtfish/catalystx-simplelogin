@@ -117,7 +117,32 @@ CatalystX::SimpleLogin::ControllerRole::Login
 
 =head1 ATTRIBUTES
 
+=head2 username_field
+
+=head2 password_field
+
+=head2 remember_field
+
+=head2
+
 =head1 METHODS
+
+=head2 login
+
+Login action
+
+=head2 login_GET
+
+Displays the login form
+
+=head2 login_POST
+
+Processes a submitted login form, and if correct, logs the user in
+and redirects
+
+=head2 redirect_after_login_uri
+
+Defaults to C<< $c->uri_for('/'); >>
 
 =head1 SEE ALSO
 

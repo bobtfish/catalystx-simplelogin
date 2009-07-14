@@ -1,10 +1,10 @@
 #!/usr/bin/env perl
 
-BEGIN { 
+BEGIN {
     $ENV{CATALYST_ENGINE} ||= 'HTTP';
     $ENV{CATALYST_SCRIPT_GEN} = 31;
     require Catalyst::Engine::HTTP;
-}  
+}
 
 use strict;
 use warnings;
@@ -40,7 +40,7 @@ GetOptions(
     'restartregex|rr=s'   => \$restart_regex,
     'restartdirectory=s'  => \$restart_directory,
     'daemon'              => \$background,
-    'pidfile=s'           => \$pidfile,          
+    'pidfile=s'           => \$pidfile,
 );
 
 pod2usage(1) if $help;
@@ -65,7 +65,7 @@ TestApp->run( $port, $host, {
     restart_regex     => qr/$restart_regex/,
     restart_directory => $restart_directory,
     background        => $background,
-    pidfile           => $pidfile,				
+    pidfile           => $pidfile,
 } );
 
 1;
