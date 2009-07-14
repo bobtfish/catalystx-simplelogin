@@ -23,5 +23,54 @@ sub login_redirect {
     $c->response->redirect($c->uri_for($c->controller("Login")->action_for("login")));
 }
 
+=head1 NAME
+ 
+CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect - Provides the C<login>
+action with a wrapper to redirect to a page which needs authentication, from which the
+user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::NeedsLogin>
+
+=head1 SYNOPSIS
+ 
+package MyApp;
+use Moose;
+use namespace::autoclean;
+ 
+use Catalyst qw/
++CatalystX::SimpleLogin
+Authentication
+Session
+Session::State::Cookie
+Session::Store::File
+/;
+extends 'Catalyst';
+ 
+__PACKAGE__->config(
+'Plugin::Authentication' => { # Auth config here },
+'Controller::Login'      => { login => 'WithRedirect', }, #Forces the use of CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect instead of CatalystX::SimpleLogin::ControllerRole::Login
+);
+ 
+__PACKAGE__->setup;
+ 
+=head1 AUTHOR
+ 
+Stephan Jauernick (stephan48) C<< <stephan@stejau.de> >>
+ 
+=head1 CONTRIBUTORS
+ 
+=over
+ 
+=item Zbigniew Lukasiak
+ 
+=item Tomas Doran
+ 
+=back
+ 
+=head1 LICENSE
+ 
+Copyright 2009 Stephan Jauernick. Some rights reserved.
+ 
+This sofware is free software, and is licensed under the same terms as perl itself.
+ 
+=cut
 1;
 
