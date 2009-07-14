@@ -8,7 +8,7 @@ all_from 'lib/CatalystX/SimpleLogin.pm';
 requires 'Moose';
 requires 'Catalyst::Runtime' => '5.80005';
 requires 'MooseX::MethodAttributes';
-requires 'Catalyst::Action::REST' => '0.74'; # By which I mean you need db8bb64
+requires 'Catalyst::Action::REST' => '0.74'; # By which I mean you need 102106
                                              # from git://github.com/bobtfish/catalyst-action-rest.git
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Controller::ActionRole';
