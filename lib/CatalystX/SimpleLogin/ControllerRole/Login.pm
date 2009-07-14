@@ -90,7 +90,6 @@ sub login_POST {
     my $form = $self->login_form;
     my $p = $c->req->body_parameters;
     if ($form->process($p)) {
-        # FIXME - pull values out of form again.
         if ($c->authenticate({
             map { $_ => $form->field($_)->value } $self->_auth_fields
         })) {
