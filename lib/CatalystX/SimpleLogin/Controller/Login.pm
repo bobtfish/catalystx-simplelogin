@@ -52,6 +52,17 @@ CatalystX::SimpleLogin::Controller::Login - Configurable login controller
 
 =head1 DESCRIPTION
 
+Controller base class which exists to have login roles composed onto it
+for the login and logout actions.
+
+=head1 METHODS
+
+=head2 COMPONENT
+
+Composes one of L<CatalystX::SimpleLogin::ControllerRole::Login|the standard> or
+or L<CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect|the redirect back>
+login roles, and the logout role.
+
 =head1 SEE ALSO
 
 =over
