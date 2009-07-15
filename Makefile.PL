@@ -39,6 +39,7 @@ test_requires 'Catalyst::Plugin::Session::Store::File';
 test_requires 'HTTP::Request::Common';
 test_requires 'Catalyst::ActionRole::ACL';
 
+author_requires 'Test::EOL';
 author_requires 'Test::NoTabs';
 author_requires 'Test::Pod' => '1.14';
 author_requires 'Test::Pod::Coverage' => '1.08';
