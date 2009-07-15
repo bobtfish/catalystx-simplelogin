@@ -14,6 +14,9 @@ around execute => sub {
 		return $self->$orig(@_);
 	}
 };
+
+1;
+
 __END__
 
 =head1 NAME
@@ -65,5 +68,3 @@ See L<CatalystX::SimpleLogin> for license.
 
 =cut
 
-
-1;

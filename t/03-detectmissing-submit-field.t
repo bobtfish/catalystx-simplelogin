@@ -15,7 +15,3 @@ my ($res, $c);
 ($res, $c) = ctx_request(GET 'http://localhost/login');
 like($c->res->body, qr/type="submit"/, 'search for a submit button');
 
-
-
-
- 
