@@ -19,6 +19,7 @@ is(request('/logout')->code, 302, 'Get 302 from /logout');
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 'aaaa']);
 is($res->code, 200, 'get errors in login form');
 like($c->res->body, qr/Wrong username or password/, 'login error');
+like($c->res->body, qr/submit/, 'submit button on form');
 
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r']);
 is( $c->{session}{expires}, undef, 'Session length not set when no "remember"');

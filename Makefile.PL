@@ -47,7 +47,7 @@ license 'perl';
 resources repository => 'http://github.com/bobtfish/catalystx-simplelogin';
 
 tests 't/*.t';
-author_tests 't/author/';
+author_tests 't/author';
 
 if ($Module::Install::AUTHOR) {
     system("pod2text lib/CatalystX/SimpleLogin.pm > README") and die;
