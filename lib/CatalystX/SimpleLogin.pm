@@ -168,6 +168,8 @@ if you want to hack on something and need a hand. :)
 
 =item Stephan Jauernick (stephan48) C<< <stephan@stejau.de> >>
 
+=item Gerda Shank (gshank) C<< gshank@cpan.org >>
+
 =back
 
 =head1 LICENSE
