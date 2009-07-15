@@ -37,6 +37,7 @@ test_requires 'Catalyst::Plugin::Session';
 test_requires 'Catalyst::Plugin::Session::State::Cookie';
 test_requires 'Catalyst::Plugin::Session::Store::File';
 test_requires 'HTTP::Request::Common';
+test_requires 'Catalyst::ActionRole::ACL';
 
 author_requires 'Test::NoTabs';
 author_requires 'Test::Pod' => '1.14';

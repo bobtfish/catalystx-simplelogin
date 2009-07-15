@@ -33,10 +33,8 @@ __PACKAGE__->config(
         },
     },
     'Controller::Login' => {
-	    login => 'WithRedirect',
-    }
-       login => 'WithRedirect',
-    }
+        login => 'WithRedirect',
+    },
 );
 
 __PACKAGE__->setup;
