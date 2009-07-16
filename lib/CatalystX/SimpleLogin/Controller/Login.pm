@@ -1,38 +1,124 @@
 package CatalystX::SimpleLogin::Controller::Login;
 use Moose;
+use Moose::Autobox;
+use MooseX::Types::Moose qw/ ArrayRef ClassName Object /;
+use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
+use File::ShareDir qw/module_dir/;
+use List::MoreUtils qw/uniq/;
+use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller::ActionRole'; }
 
-# Deal with different ways to use this controller here. Yes, I apply the roles directly onto this class FIXME.
-sub COMPONENT {
-    my ($class, $app, $args) = @_;
-    my $login_prefix = 'CatalystX::SimpleLogin::ControllerRole::Login';
-    my $login =
-        exists $args->{login}
-        ? $login_prefix . '::' . $args->{login}
-        : $login_prefix;
-    # FIXME - This blows goats, if you say roles => [qw/Role1 Role2/],
-    #         it doesn't play nice with methodattributes.
+with 'CatalystX::Component::Traits';
 
-    Class::MOP::load_class($login);
-    $login->meta->apply($class->meta);
+__PACKAGE__->config(
+    traits => ['+CatalystX::SimpleLogin::ControllerRole::Logout'],
+);
 
-    my $logout = 'CatalystX::SimpleLogin::ControllerRole::Logout';
-    Class::MOP::load_class($logout);
-    $logout->meta->apply($class->meta);
+has 'username_field' => (
+    is => 'ro',
+    isa => NonEmptySimpleStr,
+    required => 1,
+    default => 'username',
+);
 
-    $class->meta->make_immutable;
-    $class->new($app, $args);
+has 'password_field' => (
+    is => 'ro',
+    isa => NonEmptySimpleStr,
+    required => 1,
+    default => 'password',
+);
+
+has 'remember_field' => (
+    is => 'ro',
+    isa => NonEmptySimpleStr,
+    required => 1,
+    default => 'remember',
+);
+
+has 'login_error_message' => (
+    is => 'ro',
+    isa => NonEmptySimpleStr,
+    required => 1,
+    default => 'Wrong username or password',
+);
+
+
+has 'extra_auth_fields' => (
+    isa => ArrayRef[NonEmptySimpleStr],
+    is => 'ro',
+    default => sub { [] },
+);
+
+has login_form_class => (
+    isa => ClassName,
+    is => 'ro',
+    default => 'CatalystX::SimpleLogin::Form::Login',
+);
+
+has login_form => (
+    isa => Object,
+    is => 'ro',
+    lazy => 1,
+    default => sub { shift->login_form_class->new },
+);
+
+sub _auth_fields {
+    my ($self) = @_;
+
+    return @{ $self->extra_auth_fields },
+        map { $self->$_() } qw/ username_field password_field /;
+}
+
+sub login
+    :Chained('/')
+    :PathPart('login')
+    :Args(0)
+    :ActionClass('REST')
+    :Does('FindViewByIsa')
+    :FindViewByIsa('Catalyst::View::TT')
+{
+    my ($self, $c) = @_;
+    $c->stash->{additional_template_paths} =
+        [ uniq(
+            @{$c->stash->{additional_template_paths}||[]},
+            module_dir('CatalystX::SimpleLogin::Controller::Login') . '/'
+            . 'tt'
+        ) ];
+    $c->stash->{form} = $self->login_form;
+}
+
+sub login_GET {}
+
+sub login_POST {
+    my ($self, $c) = @_;
+
+    my $form = $self->login_form;
+    my $p = $c->req->body_parameters;
+    if ($form->process($p)) {
+        if ($c->authenticate({
+            map { $_ => $form->field($_)->value } $self->_auth_fields
+        })) {
+            $c->{session}{expires} = 999999999999 if $form->field( $self->remember_field )->value;
+            $c->res->redirect($self->redirect_after_login_uri($c));
+        }
+        else{
+            $form->field( $self->password_field )->add_error( $self->login_error_message );
+        }
+    }
+}
+
+sub redirect_after_login_uri {
+    my ($self, $c) = @_;
+    $c->uri_for('/');
 }
 
 1;
 
-__END__
-
 =head1 NAME
 
-CatalystX::SimpleLogin::Controller::Login - Configurable login controller
+CatalystX::SimpleLogin::Controller::Login
 
 =head1 SYNOPSIS
 
@@ -55,23 +141,42 @@ CatalystX::SimpleLogin::Controller::Login - Configurable login controller
 Controller base class which exists to have login roles composed onto it
 for the login and logout actions.
 
+=head1 ATTRIBUTES
+
+=head2 username_field
+
+=head2 password_field
+
+=head2 remember_field
+
+=head2
+
 =head1 METHODS
 
-=head2 COMPONENT
+=head2 login
 
-Composes one of L<CatalystX::SimpleLogin::ControllerRole::Login|the standard> or
-or L<CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect|the redirect back>
-login roles, and the logout role.
+Login action
+
+=head2 login_GET
+
+Displays the login form
+
+=head2 login_POST
+
+Processes a submitted login form, and if correct, logs the user in
+and redirects
+
+=head2 redirect_after_login_uri
+
+Defaults to C<< $c->uri_for('/'); >>
 
 =head1 SEE ALSO
 
 =over
 
-=item L<CatalystX::SimpleLogin::ControllerRole::Login>
-
 =item L<CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect>
 
-=item L<CatalystX::SimpleLogin::ControllerRole::Logout>
+=item L<CatalystX::SimpleLogin::Form::Login>
 
 =back
 
