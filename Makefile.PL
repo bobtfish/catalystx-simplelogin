@@ -14,7 +14,7 @@ all_from 'lib/CatalystX/SimpleLogin.pm';
 
 requires 'Moose';
 requires 'Catalyst::Runtime' => '5.80005';
-requires 'MooseX::MethodAttributes';
+requires 'MooseX::MethodAttributes' => '0.14_01';
 requires 'Catalyst::Action::REST' => '0.74'; # By which I mean you need 102106
                                              # from git://github.com/bobtfish/catalyst-action-rest.git
 requires 'Catalyst::Plugin::Authentication';
@@ -28,8 +28,7 @@ requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
 requires 'File::ShareDir';
 requires 'List::MoreUtils';
-requires 'HTML::FormHandler' => '0.26001'; # By which I mean you need 9c101960
-                                           # from git@github.com:gshank/html-formhandler.git..
+requires 'HTML::FormHandler' => '0.26001';
 requires 'namespace::autoclean';
 
 test_requires 'Test::More';

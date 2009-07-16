@@ -118,7 +118,7 @@ sub redirect_after_login_uri {
 
 =head1 NAME
 
-CatalystX::SimpleLogin::Controller::Login
+CatalystX::SimpleLogin::Controller::Login - Configurable login controller
 
 =head1 SYNOPSIS
 
