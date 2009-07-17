@@ -14,7 +14,7 @@ all_from 'lib/CatalystX/SimpleLogin.pm';
 
 requires 'Moose';
 requires 'Catalyst::Runtime' => '5.80005';
-requires 'MooseX::MethodAttributes' => '0.14_01';
+requires 'MooseX::MethodAttributes' => '0.14_01'; # CPAN dev release
 requires 'Catalyst::Action::REST' => '0.74'; # By which I mean you need 102106
                                              # from git://github.com/bobtfish/catalyst-action-rest.git
 requires 'Catalyst::Plugin::Authentication';
@@ -23,6 +23,7 @@ requires 'Catalyst::ActionRole::FindViewByIsa';
 requires 'Catalyst::View::TT';
 requires 'CatalystX::InjectComponent';
 requires 'CatalystX::Component::Traits' => '0.04';
+requires 'MooseX::Traits::Pluggable' => '0.05'; # b2291c9 from git://github.com/bobtfish/moosex-traits-pluggable.git
 requires 'Moose::Autobox' => '0.09';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
