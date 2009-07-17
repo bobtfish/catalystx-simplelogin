@@ -22,8 +22,7 @@ requires 'Catalyst::Controller::ActionRole';
 requires 'Catalyst::ActionRole::FindViewByIsa';
 requires 'Catalyst::View::TT';
 requires 'CatalystX::InjectComponent';
-requires 'CatalystX::Component::Traits' => '0.04';
-requires 'MooseX::Traits::Pluggable' => '0.05'; # b2291c9 from git://github.com/bobtfish/moosex-traits-pluggable.git
+requires 'CatalystX::Component::Traits' => '0.05';
 requires 'Moose::Autobox' => '0.09';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
