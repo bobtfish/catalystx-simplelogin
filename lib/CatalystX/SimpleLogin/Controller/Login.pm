@@ -13,7 +13,7 @@ BEGIN { extends 'Catalyst::Controller::ActionRole'; }
 with 'CatalystX::Component::Traits';
 
 __PACKAGE__->config(
-    traits => ['+CatalystX::SimpleLogin::ControllerRole::Logout'],
+    traits => 'Logout',
 );
 
 has 'username_field' => (

@@ -1,4 +1,4 @@
-package CatalystX::SimpleLogin::ControllerRole::Logout;
+package CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout;
 use MooseX::MethodAttributes ();
 use Moose::Role -traits => 'MethodAttributes';
 use namespace::autoclean;
@@ -18,7 +18,7 @@ sub redirect_after_logout_uri {
 
 =head1 NAME
 
-CatalystX::SimpleLogin::ControllerRole:Logout
+CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout
 
 =head1 DESCRIPTION
 
