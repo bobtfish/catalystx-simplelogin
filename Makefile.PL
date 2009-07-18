@@ -13,12 +13,12 @@ name 'CatalystX-SimpleLogin';
 all_from 'lib/CatalystX/SimpleLogin.pm';
 
 requires 'Moose';
-requires 'Catalyst::Runtime' => '5.80005';
+requires 'Catalyst::Runtime' => '5.80007'; # r10920
 requires 'MooseX::MethodAttributes' => '0.14_01'; # CPAN dev release
-requires 'Catalyst::Action::REST' => '0.74'; # By which I mean you need 102106
+requires 'Catalyst::Action::REST' => '0.74'; # By which I mean you need 2998eff
                                              # from git://github.com/bobtfish/catalyst-action-rest.git
 requires 'Catalyst::Plugin::Authentication';
-requires 'Catalyst::Controller::ActionRole';
+requires 'Catalyst::Controller::ActionRole' => '0.12';
 requires 'Catalyst::ActionRole::FindViewByIsa';
 requires 'Catalyst::View::TT';
 requires 'CatalystX::InjectComponent';
@@ -39,7 +39,7 @@ test_requires 'Catalyst::Plugin::Session::Store::File';
 test_requires 'HTTP::Request::Common';
 test_requires 'Catalyst::ActionRole::ACL';
 
-author_requires 'Test::EOL';
+author_requires 'Test::EOL' => '0.3';
 author_requires 'Test::NoTabs';
 author_requires 'Test::Pod' => '1.14';
 author_requires 'Test::Pod::Coverage' => '1.08';
