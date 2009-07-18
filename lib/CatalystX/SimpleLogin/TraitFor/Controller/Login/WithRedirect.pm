@@ -1,9 +1,11 @@
-package CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect;
+package CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect;
 use MooseX::MethodAttributes ();
 use Moose::Role -traits => 'MethodAttributes';
 use namespace::autoclean;
 
-with 'CatalystX::SimpleLogin::ControllerRole::Login';
+requires qw/
+    redirect_after_login_uri
+/;
 
 around 'redirect_after_login_uri' => sub {
     my ($orig, $self, $c, @args) = @_;
@@ -29,7 +31,7 @@ __END__
 
 =head1 NAME
 
-CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect - redirect
+CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect - redirect
 users who login back to the page they originally requested.
 
 =head1 SYNOPSIS
