@@ -11,10 +11,12 @@ use namespace::autoclean;
 BEGIN { extends 'Catalyst::Controller::ActionRole'; }
 
 with 'CatalystX::Component::Traits';
-
-__PACKAGE__->config(
-    traits => 'Logout',
-);
+# FIXME - Compose this always here, otherwise if we want ::WithRedirect we
+#         fail epicly.. Needs MethodAttributes role combination..
+with 'CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout';
+#__PACKAGE__->config(
+#    traits => 'Logout',
+#);
 
 has 'username_field' => (
     is => 'ro',
