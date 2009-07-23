@@ -69,15 +69,17 @@ has login_form_class_roles => (
 has login_form => (
     isa => Object,
     is => 'ro',
-    lazy => 1,
-    default => sub { 
-                my $self = shift;
-		$self->apply_login_form_class_roles($self->login_form_class_roles);
-		return $self->login_form_class->new;
-        },
+    lazy_build => 1,
+    builder => '_build_login_form',
 );
+
 with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
 
+sub _build_login_form {
+	my $self = shift;
+	$self->apply_login_form_class_roles($self->login_form_class_roles->flatten);
+	return $self->login_form_class->new;
+}
 
 sub _auth_fields {
     my ($self) = @_;
