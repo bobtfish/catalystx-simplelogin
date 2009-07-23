@@ -1,5 +1,6 @@
 <html>
 <body>
+[% error_msg %]
 [% content %]
 </body>
 </html>

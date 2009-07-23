@@ -12,6 +12,11 @@ sub needslogin :Local :Does('NeedsLogin') {
     my ($self, $c) = @_;
     $c->res->body('NeedsLogin works!');
 }
+#:LoginRedirectMessage('Please Login to view this Test Action')
+sub needslogincustommsg :Local :Does('NeedsLogin')  {
+    my ($self, $c) = @_;
+    $c->res->body('NeedsLogin works!');
+}
 
 sub needsloginandhasacl :Local :Does('NeedsLogin') :Does('ACL') :RequiresRole('abc') :ACLDetachTo('denied') {
     my ($self, $c) = @_;

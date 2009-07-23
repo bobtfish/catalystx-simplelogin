@@ -8,7 +8,9 @@ around execute => sub {
 	my ($controller, $c, @args) = @_;
 
 	if (!$c->user) {
-		$c->controller('Login')->login_redirect($c, @args);
+		my $message = (($self->attributes->{LoginRedirectMessage}[0]) ? $self->attributes->{LoginRedirectMessage}[0] :'You need to login to view this page!');
+		#die $message;
+		$c->controller('Login')->login_redirect($c, $message, @args);
 	}
 	else {
 		return $self->$orig(@_);
