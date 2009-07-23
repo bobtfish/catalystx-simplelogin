@@ -31,9 +31,13 @@ Catalyst::ActionRole::NeedsLogin - checks if a user is logged in and if not redi
     sub something : Path Does('NeedsLogin') {
         # Redirects to /login if not logged in
     }
+    
+    sub something : Path Does('NeedsLogin') :LoginRedirectMessage('Your custom Message') {
+        # Redirects to /login if not logged in-
+    }
 
     # Turn on in config
-    MyApp->config('Contoller::Login' => { login => 'WithRedirect' });
+    MyApp->config('Contoller::Login' => { traits => ['WithRedirect'] });
 
 =head1 DESCRIPTION
 
