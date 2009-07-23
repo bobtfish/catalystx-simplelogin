@@ -7,10 +7,11 @@ use File::ShareDir qw/module_dir/;
 use List::MoreUtils qw/uniq/;
 use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
-
+use Data::Dumper;
 BEGIN { extends 'Catalyst::Controller::ActionRole'; }
 
 with 'CatalystX::Component::Traits';
+
 # FIXME - Compose this always here, otherwise if we want ::WithRedirect we
 #         fail epicly.. Needs MethodAttributes role combination..
 with 'CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout';
@@ -59,12 +60,24 @@ has login_form_class => (
     default => 'CatalystX::SimpleLogin::Form::Login',
 );
 
+has login_form_class_roles => (
+    isa => ArrayRef[NonEmptySimpleStr],
+    is => 'ro',
+    default => sub  { [] },
+);
+
 has login_form => (
     isa => Object,
     is => 'ro',
     lazy => 1,
-    default => sub { shift->login_form_class->new },
+    default => sub { 
+                my $self = shift;
+		$self->apply_login_form_class_roles($self->login_form_class_roles);
+		return $self->login_form_class->new;
+        },
 );
+with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
+
 
 sub _auth_fields {
     my ($self) = @_;
