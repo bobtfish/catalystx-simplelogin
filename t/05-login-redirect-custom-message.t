@@ -13,12 +13,8 @@ use Catalyst::Test 'TestAppRedirect';
 my ($res, $c);
 
 ($res, $c) = ctx_request(GET 'http://localhost/needslogincustommsg');
+is($res->header('Location'), 'http://localhost/login', 'Redirect to /login');
+my $cookie = $res->header('Set-Cookie');
+ok($cookie, 'Have a cookie');
+($res, $c) = ctx_request(GET 'http://localhost/login', Cookie => $cookie);
 like($c->res->body, qr/Please Login to view this Test Action/, 'check for custom login msg');
-#like($c->stash, qr/Please Login to view this Test Action/, 'check for custom login msg');
-warn 'Stash:'.Dumper($c->stash)."\n";
-warn 'Flash:'.Dumper($c->flash)."\n";
-warn 'Session:'.Dumper($c->session)."\n";
-warn 'Body:'.Dumper($c->res->body)."\n";
-
-
-

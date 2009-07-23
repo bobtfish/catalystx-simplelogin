@@ -1,6 +1,6 @@
 <html>
 <body>
-[% error_msg %]
+[% error_msg || c.flash.error_msg %]
 [% content %]
 </body>
 </html>

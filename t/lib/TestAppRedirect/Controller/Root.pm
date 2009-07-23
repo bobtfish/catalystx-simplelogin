@@ -12,8 +12,8 @@ sub needslogin :Local :Does('NeedsLogin') {
     my ($self, $c) = @_;
     $c->res->body('NeedsLogin works!');
 }
-#:LoginRedirectMessage('Please Login to view this Test Action')
-sub needslogincustommsg :Local :Does('NeedsLogin')  {
+
+sub needslogincustommsg :Local :Does('NeedsLogin') :LoginRedirectMessage('Please Login to view this Test Action')  {
     my ($self, $c) = @_;
     $c->res->body('NeedsLogin works!');
 }
