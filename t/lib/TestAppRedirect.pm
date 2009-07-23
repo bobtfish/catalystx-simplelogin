@@ -36,7 +36,7 @@ __PACKAGE__->config(
         traits => 'WithRedirect',
     },
     'Plugin::Session' => {
-	flash_to_stash => 1
+        flash_to_stash => 1
     }
 );
 
