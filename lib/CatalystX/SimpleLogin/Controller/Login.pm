@@ -7,7 +7,7 @@ use File::ShareDir qw/module_dir/;
 use List::MoreUtils qw/uniq/;
 use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
-use Data::Dumper;
+
 BEGIN { extends 'Catalyst::Controller::ActionRole'; }
 
 with 'CatalystX::Component::Traits';
@@ -47,7 +47,6 @@ has 'login_error_message' => (
     default => 'Wrong username or password',
 );
 
-
 has 'extra_auth_fields' => (
     isa => ArrayRef[NonEmptySimpleStr],
     is => 'ro',
@@ -56,7 +55,7 @@ has 'extra_auth_fields' => (
 
 has login_form_class => (
     isa => ClassName,
-    is => 'ro',
+    is => 'rw',
     default => 'CatalystX::SimpleLogin::Form::Login',
 );
 
@@ -70,7 +69,6 @@ has login_form => (
     isa => Object,
     is => 'ro',
     lazy_build => 1,
-    builder => '_build_login_form',
 );
 
 with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
