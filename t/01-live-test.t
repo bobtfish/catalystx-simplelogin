@@ -22,9 +22,9 @@ like($c->res->body, qr/Wrong username or password/, 'login error');
 like($c->res->body, qr/submit/, 'submit button on form');
 
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r']);
-is( $c->{session}{expires}, undef, 'Session length not set when no "remember"');
+ok( ($c->session_expires-time()-7200) <= 0, 'Session length low when no "remember"');
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r', remember => 1]);
-is( $c->{session}{expires}, 999999999999, 'Very long session set when "remember"');
+ok( ($c->session_expires-time()-7200) >= 0, 'Long session set when "remember"');
 is($res->code, 302, 'get 302 redirect');
 my $cookie = $res->header('Set-Cookie');
 ok($cookie, 'Have a cookie');

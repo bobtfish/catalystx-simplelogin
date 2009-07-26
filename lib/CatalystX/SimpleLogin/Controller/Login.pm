@@ -117,7 +117,8 @@ sub login_POST {
         if ($c->authenticate({
             map { $_ => $form->field($_)->value } $self->_auth_fields
         })) {
-            $c->{session}{expires} = 999999999999 if $form->field( $self->remember_field )->value;
+            $c->session->{expires} = 999999999999
+                if $form->field( $self->remember_field )->value;
             $c->res->redirect($self->redirect_after_login_uri($c));
         }
         else{
