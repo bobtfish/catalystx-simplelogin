@@ -6,9 +6,11 @@ around execute => sub {
 	my $orig = shift;
 	my $self = shift;
 	my ($controller, $c, @args) = @_;
-	
+
 	if (!$c->user) {
-		my $message = (($self->attributes->{LoginRedirectMessage}[0]) ? $self->attributes->{LoginRedirectMessage}[0] :'You need to login to view this page!');
+		my $message = ($self->attributes->{LoginRedirectMessage}[0])
+            ? $self->attributes->{LoginRedirectMessage}[0]
+            :'You need to login to view this page!';
 		$c->controller('Login')->login_redirect($c, $message, @args);
 	}
 	else {
@@ -31,7 +33,7 @@ Catalyst::ActionRole::NeedsLogin - checks if a user is logged in and if not redi
     sub something : Path Does('NeedsLogin') {
         # Redirects to /login if not logged in
     }
-    
+
     sub something : Path Does('NeedsLogin') :LoginRedirectMessage('Your custom Message') {
         # Redirects to /login if not logged in-
     }
