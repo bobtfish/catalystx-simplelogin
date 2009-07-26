@@ -75,7 +75,9 @@ with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
 
 sub _build_login_form {
 	my $self = shift;
-	$self->apply_login_form_class_roles($self->login_form_class_roles->flatten);
+	$self->apply_login_form_class_roles($self->login_form_class_roles->flatten)
+        if scalar $self->login_form_class_roles->flatten; # FIXME - Should MX::RelatedClassRoles
+                                                          #         do this automagically?
 	return $self->login_form_class->new;
 }
 
