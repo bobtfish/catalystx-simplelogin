@@ -14,9 +14,8 @@ all_from 'lib/CatalystX/SimpleLogin.pm';
 
 requires 'Moose';
 requires 'Catalyst::Runtime' => '5.80007'; # r10920
-requires 'MooseX::MethodAttributes' => '0.14_01'; # CPAN dev release
-requires 'Catalyst::Action::REST' => '0.74'; # By which I mean you need 2998eff
-                                             # from git://github.com/bobtfish/catalyst-action-rest.git
+requires 'MooseX::MethodAttributes' => '0.15';
+requires 'Catalyst::Action::REST' => '0.74';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::Controller::ActionRole' => '0.12';
 requires 'Catalyst::ActionRole::FindViewByIsa';
@@ -26,6 +25,7 @@ requires 'CatalystX::Component::Traits' => '0.05';
 requires 'Moose::Autobox' => '0.09';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
+requires 'MooseX::RelatedClassRoles' => '0.004';
 requires 'File::ShareDir';
 requires 'List::MoreUtils';
 requires 'HTML::FormHandler' => '0.26001';
