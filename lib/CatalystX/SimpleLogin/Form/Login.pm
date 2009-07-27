@@ -5,6 +5,7 @@ use namespace::autoclean;
 extends 'HTML::FormHandler';
 with 'HTML::FormHandler::Render::Simple';
 
+has_field 'realm' => ( type => 'Text' );
 has_field 'username' => ( type => 'Text' );
 has_field 'password' => ( type => 'Password' );
 has_field 'remember' => ( type => 'Checkbox' );
