@@ -53,6 +53,12 @@ has 'extra_auth_fields' => (
     default => sub { [] },
 );
 
+has 'allowed_auth_realms' => (
+    isa => ArrayRef[NonEmptySimpleStr],
+    is => 'ro',
+    default => sub { [] },
+);
+
 has login_form_class => (
     isa => ClassName,
     is => 'rw',
@@ -114,9 +120,10 @@ sub login_POST {
     my $form = $self->login_form;
     my $p = $c->req->body_parameters;
     if ($form->process($p)) {
+	my $realm = (($self->allowed_auth_realms->any == $form->field('realm')->value) ? $form->field('realm')->value : $c->config->{'Plugin::Authentication'}->{default_realm});
         if ($c->authenticate({
             map { $_ => $form->field($_)->value } $self->_auth_fields
-        })) {
+        },$realm)) {
             $c->extend_session_expires(999999999999)
                 if $form->field( $self->remember_field )->value;
             $c->res->redirect($self->redirect_after_login_uri($c));
