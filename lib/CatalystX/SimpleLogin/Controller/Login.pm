@@ -208,3 +208,4 @@ See L<CatalystX::SimpleLogin> for license.
 
 =cut
 
+1;
