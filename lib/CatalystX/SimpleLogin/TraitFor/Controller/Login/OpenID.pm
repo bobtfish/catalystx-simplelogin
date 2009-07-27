@@ -34,8 +34,6 @@ around 'login_GET' => sub  {
     }
 };
 
-__END__
-
 =head1 NAME
 
 CatalystX::SimpleLogin::TraitFor::Controller::Login::OpenID - allows a User to login via OpenID
