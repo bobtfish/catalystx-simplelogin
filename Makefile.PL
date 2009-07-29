@@ -21,7 +21,7 @@ requires 'Catalyst::Controller::ActionRole' => '0.12';
 requires 'Catalyst::ActionRole::FindViewByIsa';
 requires 'Catalyst::View::TT';
 requires 'CatalystX::InjectComponent';
-requires 'CatalystX::Component::Traits' => '0.05';
+requires 'CatalystX::Component::Traits' => '0.08';
 requires 'Moose::Autobox' => '0.09';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
