@@ -55,5 +55,7 @@ if ($Module::Install::AUTHOR) {
     system("pod2text lib/CatalystX/SimpleLogin.pm > README") and die;
 }
 
+auto_install;
+auto_provides;
 WriteAll();
 
