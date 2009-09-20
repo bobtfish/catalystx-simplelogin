@@ -1,6 +1,5 @@
 package CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect;
-use MooseX::MethodAttributes ();
-use Moose::Role -traits => 'MethodAttributes';
+use MooseX::MethodAttributes::Role;
 use namespace::autoclean;
 
 requires qw/
