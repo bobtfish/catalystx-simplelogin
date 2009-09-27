@@ -1,7 +1,7 @@
 package CatalystX::SimpleLogin::Controller::Login;
 use Moose;
 use Moose::Autobox;
-use MooseX::Types::Moose qw/ ArrayRef ClassName Object /;
+use MooseX::Types::Moose qw/ HashRef ArrayRef ClassName Object /;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use File::ShareDir qw/module_dir/;
 use List::MoreUtils qw/uniq/;
@@ -12,12 +12,14 @@ BEGIN { extends 'Catalyst::Controller::ActionRole'; }
 
 with 'CatalystX::Component::Traits';
 
-# FIXME - Compose this always here, otherwise if we want ::WithRedirect we
-#         fail epicly.. Needs MethodAttributes role combination..
-with 'CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout';
-#__PACKAGE__->config(
-#    traits => 'Logout',
-#);
+__PACKAGE__->config(
+    traits => 'Logout',
+);
+
+sub BUILD {
+    my $self = shift;
+    $self->login_form; # Build login form at construction time
+}
 
 has 'username_field' => (
     is => 'ro',
@@ -71,6 +73,12 @@ has login_form => (
     lazy_build => 1,
 );
 
+has login_form_args => (
+    isa => HashRef,
+    is => 'ro',
+    default => sub { {} },
+);
+
 with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
 
 sub _build_login_form {
@@ -78,7 +86,7 @@ sub _build_login_form {
 	$self->apply_login_form_class_roles($self->login_form_class_roles->flatten)
         if scalar $self->login_form_class_roles->flatten; # FIXME - Should MX::RelatedClassRoles
                                                           #         do this automagically?
-	return $self->login_form_class->new;
+	return $self->login_form_class->new( $self->login_form_args );
 }
 
 sub _auth_fields {
@@ -170,6 +178,10 @@ for the login and logout actions.
 =head2
 
 =head1 METHODS
+
+=head2 BUILD
+
+Cause form instance to be built at application startup.
 
 =head2 login
 
