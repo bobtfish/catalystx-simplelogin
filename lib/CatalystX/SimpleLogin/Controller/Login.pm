@@ -89,13 +89,6 @@ sub _build_login_form {
 	return $self->login_form_class->new( $self->login_form_args );
 }
 
-sub _auth_fields {
-    my ($self) = @_;
-
-    return @{ $self->extra_auth_fields },
-        map { $self->$_() } qw/ username_field password_field /;
-}
-
 sub login
     :Chained('/')
     :PathPart('login')
@@ -123,7 +116,9 @@ sub login_POST {
     my $p = $c->req->body_parameters;
     if ($form->process($p)) {
         if ($c->authenticate({
-            map { $_ => $form->field($_)->value } $self->_auth_fields
+            $self->username_field => $form->field('username')->value,
+            $self->password_field => $form->field('password')->value,
+            map { $_ => $form->field($_) } @{ $self->extra_auth_fields },
         })) {
             $c->extend_session_expires(999999999999)
                 if $form->field( $self->remember_field )->value;
