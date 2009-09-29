@@ -83,7 +83,6 @@ sub login_GET {}
 sub login_POST {
     my ($self, $c) = @_;
 
-#   my $form = $self->login_form;
     my $result = $self->login_form->run(ctx => $c, params => $c->req->body_params);
     if ($result->validated) {
         $c->extend_session_expires(999999999999)
@@ -151,7 +150,9 @@ and redirects
 
 =head2 redirect_after_login_uri
 
-Defaults to C<< $c->uri_for('/'); >>
+If you are using WithRedirect (i.e. it has been set in your config), 
+then you need to set 'redirect_after_login_uri' if you want something
+other than the default, which is C<< $c->uri_for('/'); >>
 
 =head1 SEE ALSO
 
