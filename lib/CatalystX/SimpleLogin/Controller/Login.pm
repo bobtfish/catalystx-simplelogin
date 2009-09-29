@@ -69,13 +69,9 @@ sub login
     :FindViewByIsa('Catalyst::View::TT')
 {
     my ($self, $c) = @_;
-    $c->stash->{additional_template_paths} =
-        [ uniq(
-            @{$c->stash->{additional_template_paths}||[]},
-            module_dir('CatalystX::SimpleLogin::Controller::Login') . '/'
-            . 'tt'
-        ) ];
-    $c->stash->{form} = $self->login_form;
+    my $result = $self->login_form->run;
+    my $rendered_form = $result->render;
+    $c->stash( template => $self->template || \$rendered_form );
 }
 
 sub login_GET {}
