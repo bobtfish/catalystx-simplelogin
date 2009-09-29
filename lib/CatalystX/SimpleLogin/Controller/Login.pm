@@ -21,40 +21,6 @@ sub BUILD {
     $self->login_form; # Build login form at construction time
 }
 
-has 'username_field' => (
-    is => 'ro',
-    isa => NonEmptySimpleStr,
-    required => 1,
-    default => 'username',
-);
-
-has 'password_field' => (
-    is => 'ro',
-    isa => NonEmptySimpleStr,
-    required => 1,
-    default => 'password',
-);
-
-has 'remember_field' => (
-    is => 'ro',
-    isa => NonEmptySimpleStr,
-    required => 1,
-    default => 'remember',
-);
-
-has 'login_error_message' => (
-    is => 'ro',
-    isa => NonEmptySimpleStr,
-    required => 1,
-    default => 'Wrong username or password',
-);
-
-has 'extra_auth_fields' => (
-    isa => ArrayRef[NonEmptySimpleStr],
-    is => 'ro',
-    default => sub { [] },
-);
-
 has login_form_class => (
     isa => ClassName,
     is => 'rw',
@@ -77,6 +43,11 @@ has login_form_args => (
     isa => HashRef,
     is => 'ro',
     default => sub { {} },
+);
+
+has template => (
+    isa => NonEmptySimpleStr,
+    is => 'ro',
 );
 
 with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
@@ -112,22 +83,15 @@ sub login_GET {}
 sub login_POST {
     my ($self, $c) = @_;
 
-    my $form = $self->login_form;
-    my $p = $c->req->body_parameters;
-    if ($form->process($p)) {
-        if ($c->authenticate({
-            $self->username_field => $form->field('username')->value,
-            $self->password_field => $form->field('password')->value,
-            map { $_ => $form->field($_) } @{ $self->extra_auth_fields },
-        })) {
-            $c->extend_session_expires(999999999999)
-                if $form->field( $self->remember_field )->value;
-            $c->res->redirect($self->redirect_after_login_uri($c));
-        }
-        else{
-            $form->field( $self->password_field )->add_error( $self->login_error_message );
-        }
+#   my $form = $self->login_form;
+    my $result = $self->login_form->run(ctx => $c, params => $c->req->body_params);
+    if ($result->validated) {
+        $c->extend_session_expires(999999999999)
+            if $result->field( 'remember' )->value;
+        $c->res->redirect($self->redirect_after_login_uri($c));
     }
+    my $rendered_form = $result->render;
+    $c->stash( template => $self->template || \$rendered_form );
 }
 
 sub redirect_after_login_uri {
@@ -157,20 +121,14 @@ CatalystX::SimpleLogin::Controller::Login - Configurable login controller
         },
     );
 
+See L<CatalystX::SimpleLogin::Form::Login> for configuring the form.
+
 =head1 DESCRIPTION
 
 Controller base class which exists to have login roles composed onto it
 for the login and logout actions.
 
 =head1 ATTRIBUTES
-
-=head2 username_field
-
-=head2 password_field
-
-=head2 remember_field
-
-=head2
 
 =head1 METHODS
 
