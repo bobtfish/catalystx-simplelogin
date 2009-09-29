@@ -17,8 +17,6 @@ requires 'Catalyst::Runtime' => '5.80013';
 requires 'MooseX::MethodAttributes' => '0.16_02';
 requires 'Catalyst::Action::REST' => '0.74';
 requires 'Catalyst::Plugin::Authentication';
-requires 'Catalyst::Controller::ActionRole' => '0.12';
-requires 'Catalyst::ActionRole::FindViewByIsa';
 requires 'Catalyst::View::TT';
 requires 'CatalystX::InjectComponent';
 requires 'CatalystX::Component::Traits' => '0.10';
@@ -37,6 +35,7 @@ test_requires 'Catalyst::Plugin::Session';
 test_requires 'Catalyst::Plugin::Session::State::Cookie';
 test_requires 'Catalyst::Plugin::Session::Store::File';
 test_requires 'HTTP::Request::Common';
+test_requires 'Catalyst::Controller::ActionRole' => '0.12';
 test_requires 'Catalyst::ActionRole::ACL';
 
 author_requires 'Test::EOL' => '0.3';

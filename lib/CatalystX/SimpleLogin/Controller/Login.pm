@@ -8,9 +8,12 @@ use List::MoreUtils qw/uniq/;
 use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller::ActionRole'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
-with 'CatalystX::Component::Traits';
+with qw(
+    CatalystX::Component::Traits
+    Catalyst::Component::ContextClosure
+);
 
 __PACKAGE__->config(
     traits => 'Logout',
@@ -89,40 +92,46 @@ sub _build_login_form {
 	return $self->login_form_class->new( $self->login_form_args );
 }
 
+sub render_login_form {
+    my ($self, $ctx, $form) = @_;
+    return $form->render;
+}
+
 sub login
     :Chained('/')
     :PathPart('login')
     :Args(0)
     :ActionClass('REST')
-    :Does('FindViewByIsa')
-    :FindViewByIsa('Catalyst::View::TT')
 {
-    my ($self, $c) = @_;
-    $c->stash->{additional_template_paths} =
-        [ uniq(
-            @{$c->stash->{additional_template_paths}||[]},
-            module_dir('CatalystX::SimpleLogin::Controller::Login') . '/'
-            . 'tt'
-        ) ];
-    $c->stash->{form} = $self->login_form;
+    my ($self, $ctx) = @_;
+
+    my $form = $self->login_form;
+
+    $ctx->stash(
+        login_form        => $form,
+        render_login_form => $self->make_context_closure(sub {
+            my ($ctx) = @_;
+            $self->render_login_form($ctx, $form);
+        }, $ctx),
+    );
 }
 
 sub login_GET {}
 
 sub login_POST {
-    my ($self, $c) = @_;
+    my ($self, $ctx) = @_;
 
     my $form = $self->login_form;
-    my $p = $c->req->body_parameters;
+    my $p = $ctx->req->body_parameters;
     if ($form->process($p)) {
-        if ($c->authenticate({
+        if ($ctx->authenticate({
             $self->username_field => $form->field('username')->value,
             $self->password_field => $form->field('password')->value,
             map { $_ => $form->field($_) } @{ $self->extra_auth_fields },
         })) {
-            $c->extend_session_expires(999999999999)
+            $ctx->extend_session_expires(999999999999)
                 if $form->field( $self->remember_field )->value;
-            $c->res->redirect($self->redirect_after_login_uri($c));
+            $ctx->res->redirect($self->redirect_after_login_uri($ctx));
         }
         else{
             $form->field( $self->password_field )->add_error( $self->login_error_message );
@@ -131,8 +140,8 @@ sub login_POST {
 }
 
 sub redirect_after_login_uri {
-    my ($self, $c) = @_;
-    $c->uri_for('/');
+    my ($self, $ctx) = @_;
+    $ctx->uri_for('/');
 }
 
 1;
@@ -194,6 +203,12 @@ and redirects
 =head2 redirect_after_login_uri
 
 Defaults to C<< $c->uri_for('/'); >>
+
+=head2 render_login_form
+
+Renders the login form. By default it just calls the form's render method. If
+you want to do something different, like rendering the form with a template
+through your view, this is the place to hook into.
 
 =head1 SEE ALSO
 
