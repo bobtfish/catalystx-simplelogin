@@ -48,11 +48,11 @@ COMPONENTS
         modifiers to run before / after the login or logout actions or
         override methods.
 
-    *   CatalystX::SimpleLogin::ControllerRole::Login - provides the "login"
-        action and associated methods. you can compose this manually
-        yourself if you want just that action.
+    *   CatalystX::SimpleLogin::TraitFor::Controller::Logout - provides the
+        "logout" action and associated methods. you can compose this
+        manually yourself if you want just that action.
 
-    *   CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect -
+    *   CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect -
         provides the "login" action with a wrapper to redirect to a page
         which needs authentication, from which the user was previously
         redirected. Goes hand in hand with Catalyst::ActionRole::NeedsLogin
@@ -68,8 +68,6 @@ TODO
 
     Please feel free to add to or re-arrange this list :)
 
-    Fix the Template including - breaks if native templating has .tt2
-    extension
     Fix wrappers with templates
     Form templating - enable per form template + per field type and per
     field templates
@@ -77,13 +75,12 @@ TODO
     Document all this stuff.
     Examples of use / customisation in documentation
     Fixing one uninitialized value warning in LoginRedirect
-    Disable the use of NeedsLogin ActionRole when theoginRedirect is not
-    loaded
+    Disable the use of NeedsLogin ActionRole when WithRedirect is not loaded
 
 SOURCE CODE
-        http://github.com/bobtfish/catalyst-actionrole-acl/tree/master
+        http://github.com/bobtfish/catalystx-simplelogin/tree/master
 
-        git://github.com/bobtfish/catalyst-actionrole-acl.git
+        git://github.com/bobtfish/catalystx-simplelogin.git
 
     Forks and patches are welcome. Please speak to t0m or zby on #catalyst
     (irc.perl.org) if you want to hack on something and need a hand. :)
