@@ -24,9 +24,9 @@ has_field 'submit'   => ( type => 'Submit', value => 'Login' );
 sub validate {
     my $self = shift;
 
-    my $values = $self->values;
-    delete $values->{remember};
-    unless ($self->ctx->authenticate($values)) { 
+    my %values = %{$self->values}; # copy the values
+    delete $values{remember};
+    unless ($self->ctx->authenticate(\%values)) { 
         $self->field( 'password' )->add_error( $self->login_error_message );
     }
 }
@@ -75,7 +75,7 @@ A L<HTML::FormHandler> form for the login form.
 =head1 CUSTOMIZATION
 
 If the password and username fields have different names in your
-authentiation, set them using the field's 'accessor' attribute.
+authentication, set them using the field's 'accessor' attribute.
 You can also change the way that the form is displayed by setting
 attributes.  In MyApp.pm:
 

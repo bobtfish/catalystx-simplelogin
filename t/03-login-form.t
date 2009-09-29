@@ -26,12 +26,13 @@ my $values = { username => 'Bob', password => 'bobpw' };
 my $result = $form->run( ctx => $ctx, params => $values );
 ok( $result, 'result created' );
 ok( $result->validated, 'result validated' );
+$values->{remember} = 0;
 is_deeply( $result->value, $values, 'values correct' );
 
 $form = $form_class->new( field_list => [ '+username' => { accessor => 'user_name' },
         '+password' => { accessor => 'pw' } ] );
 $result = $form->run( ctx => $ctx, params => $values );
-my $custom_values = { user_name => 'Bob', pw => 'bobpw' };
+my $custom_values = { user_name => 'Bob', pw => 'bobpw', remember => 0 };
 is_deeply( $result->value, $custom_values, 'accessors used for fields' );
 
 
