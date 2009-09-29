@@ -1,7 +1,7 @@
 package CatalystX::SimpleLogin::Controller::Login;
 use Moose;
 use Moose::Autobox;
-use MooseX::Types::Moose qw/ HashRef ArrayRef ClassName Object /;
+use MooseX::Types::Moose qw/ HashRef ArrayRef ClassName Object Str /;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use File::ShareDir qw/module_dir/;
 use List::MoreUtils qw/uniq/;
@@ -82,6 +82,18 @@ has login_form_args => (
     default => sub { {} },
 );
 
+has login_form_stash_key => (
+    is      => 'ro',
+    isa     => Str,
+    default => 'login_form',
+);
+
+has render_login_form_stash_key => (
+    is      => 'ro',
+    isa     => Str,
+    default => 'render_login_form',
+);
+
 with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
 
 sub _build_login_form {
@@ -108,8 +120,8 @@ sub login
     my $form = $self->login_form;
 
     $ctx->stash(
-        login_form        => $form,
-        render_login_form => $self->make_context_closure(sub {
+        $self->login_form_stash_key        => $form,
+        $self->render_login_form_stash_key => $self->make_context_closure(sub {
             my ($ctx) = @_;
             $self->render_login_form($ctx, $form);
         }, $ctx),
