@@ -214,7 +214,9 @@ and redirects
 
 =head2 redirect_after_login_uri
 
-Defaults to C<< $c->uri_for('/'); >>
+If you are using WithRedirect (i.e. it has been set in your config), 
+then you need to set 'redirect_after_login_uri' if you want something
+other than the default, which is C<< $c->uri_for('/'); >>
 
 =head2 render_login_form
 

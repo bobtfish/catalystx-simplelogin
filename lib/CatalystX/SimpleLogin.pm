@@ -78,13 +78,13 @@ logout actions or override methods.
 
 =item *
 
-L<CatalystX::SimpleLogin::ControllerRole::Login> - provides the C<login> action
+L<CatalystX::SimpleLogin::TraitFor::Controller::Logout> - provides the C<logout> action
 and associated methods. you can compose this manually yourself if you want just that
 action.
 
 =item *
 
-L<CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect> - provides the C<login>
+L<CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect> - provides the C<login>
 action with a wrapper to redirect to a page which needs authentication, from which the
 user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::NeedsLogin>
 
@@ -107,12 +107,6 @@ Please feel free to add to or re-arrange this list :)
 
 =over
 
-=item Fix the Template including - breaks if native templating has .tt2 extension
-
-=item Fix wrappers with templates
-
-=item Form templating - enable per form template + per field type and per field templates
-
 =item Fix extension documentation
 
 =item Document all this stuff.
@@ -121,15 +115,15 @@ Please feel free to add to or re-arrange this list :)
 
 =item Fixing one uninitialized value warning in LoginRedirect
 
-=item Disable the use of NeedsLogin ActionRole when theoginRedirect is not loaded
+=item Disable the use of NeedsLogin ActionRole when WithRedirect is not loaded
 
 =back
 
 =head1 SOURCE CODE
 
-    http://github.com/bobtfish/catalyst-actionrole-acl/tree/master
+    http://github.com/bobtfish/catalystx-simplelogin/tree/master
 
-    git://github.com/bobtfish/catalyst-actionrole-acl.git
+    git://github.com/bobtfish/catalystx-simplelogin.git
 
 Forks and patches are welcome. Please speak to t0m or zby on #catalyst (irc.perl.org)
 if you want to hack on something and need a hand. :)
