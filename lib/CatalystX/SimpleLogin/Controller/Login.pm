@@ -1,16 +1,17 @@
 package CatalystX::SimpleLogin::Controller::Login;
 use Moose;
 use Moose::Autobox;
-use MooseX::Types::Moose qw/ HashRef ArrayRef ClassName Object /;
+use MooseX::Types::Moose qw/ HashRef ArrayRef ClassName Object Str /;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
-use File::ShareDir qw/module_dir/;
-use List::MoreUtils qw/uniq/;
 use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller::ActionRole'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
-with 'CatalystX::Component::Traits';
+with qw(
+    CatalystX::Component::Traits
+    Catalyst::Component::ContextClosure
+);
 
 __PACKAGE__->config(
     traits => 'Logout',
@@ -45,9 +46,17 @@ has login_form_args => (
     default => sub { {} },
 );
 
-has template => (
-    isa => NonEmptySimpleStr,
-    is => 'ro',
+has login_form_stash_key => (
+    is      => 'ro',
+    isa     => Str,
+    default => 'login_form',
+);
+
+has render_login_form_stash_key => (
+    is      => 'ro',
+    isa     => Str,
+    default => 'render_login_form',
+>>>>>>> rafl/master
 );
 
 with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
@@ -60,38 +69,47 @@ sub _build_login_form {
 	return $self->login_form_class->new( $self->login_form_args );
 }
 
+sub render_login_form {
+    my ($self, $ctx, $form) = @_;
+    return $form->render;
+}
+
 sub login
     :Chained('/')
     :PathPart('login')
     :Args(0)
     :ActionClass('REST')
-    :Does('FindViewByIsa')
-    :FindViewByIsa('Catalyst::View::TT')
 {
-    my ($self, $c) = @_;
-    my $result = $self->login_form->run;
-    my $rendered_form = $result->render;
-    $c->stash( template => $self->template || \$rendered_form );
+    my ($self, $ctx) = @_;
+
+    my $form = $self->login_form;
+
+    $ctx->stash(
+        $self->login_form_stash_key        => $form,
+        $self->render_login_form_stash_key => $self->make_context_closure(sub {
+            my ($ctx) = @_;
+            $self->render_login_form($ctx, $form);
+        }, $ctx),
+    );
 }
 
 sub login_GET {}
 
 sub login_POST {
-    my ($self, $c) = @_;
+    my ($self, $ctx) = @_;
 
-    my $result = $self->login_form->run(ctx => $c, params => $c->req->body_params);
-    if ($result->validated) {
+    my $form = $self->login_form;
+    my $p = $ctx->req->body_parameters;
+    if ($form->process(ctx => $ctx, params => $p)) {
         $c->extend_session_expires(999999999999)
             if $result->field( 'remember' )->value;
         $c->res->redirect($self->redirect_after_login_uri($c));
     }
-    my $rendered_form = $result->render;
-    $c->stash( template => $self->template || \$rendered_form );
 }
 
 sub redirect_after_login_uri {
-    my ($self, $c) = @_;
-    $c->uri_for('/');
+    my ($self, $ctx) = @_;
+    $ctx->uri_for('/');
 }
 
 1;
@@ -146,9 +164,21 @@ and redirects
 
 =head2 redirect_after_login_uri
 
+<<<<<<< HEAD
 If you are using WithRedirect (i.e. it has been set in your config), 
 then you need to set 'redirect_after_login_uri' if you want something
 other than the default, which is C<< $c->uri_for('/'); >>
+=======
+If you are using WithRedirect (i.e. it has been set in your config),
+then you need to set 'redirect_after_login_uri' if you want something
+other than the default, which is C<< $c->uri_for('/'); >>
+
+=head2 render_login_form
+
+Renders the login form. By default it just calls the form's render method. If
+you want to do something different, like rendering the form with a template
+through your view, this is the place to hook into.
+>>>>>>> rafl/master
 
 =head1 SEE ALSO
 

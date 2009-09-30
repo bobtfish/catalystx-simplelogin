@@ -68,9 +68,6 @@ TODO
 
     Please feel free to add to or re-arrange this list :)
 
-    Fix wrappers with templates
-    Form templating - enable per form template + per field type and per
-    field templates
     Fix extension documentation
     Document all this stuff.
     Examples of use / customisation in documentation
@@ -101,6 +98,7 @@ AUTHORS
     Zbigniew Lukasiak
     Stephan Jauernick (stephan48) "<stephan@stejau.de>"
     Gerda Shank (gshank) "gshank@cpan.org"
+    Florian Ragwitz "rafl@debian.org"
 
 LICENSE
     Copyright 2009 Tomas Doran. Some rights reserved.

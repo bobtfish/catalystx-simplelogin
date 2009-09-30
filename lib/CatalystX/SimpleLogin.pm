@@ -3,7 +3,6 @@ use Moose::Role;
 use CatalystX::InjectComponent;
 use namespace::autoclean;
 
-use 5.008;
 our $VERSION = '0.01';
 
 after 'setup_components' => sub {
@@ -110,10 +109,6 @@ Please feel free to add to or re-arrange this list :)
 
 =over
 
-=item Fix wrappers with templates
-
-=item Form templating - enable per form template + per field type and per field templates
-
 =item Fix extension documentation
 
 =item Document all this stuff.
@@ -170,6 +165,8 @@ if you want to hack on something and need a hand. :)
 =item Stephan Jauernick (stephan48) C<< <stephan@stejau.de> >>
 
 =item Gerda Shank (gshank) C<< gshank@cpan.org >>
+
+=item Florian Ragwitz C<< rafl@debian.org >>
 
 =back
 
