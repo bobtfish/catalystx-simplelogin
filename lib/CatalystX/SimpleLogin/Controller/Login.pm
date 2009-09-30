@@ -163,11 +163,6 @@ and redirects
 
 =head2 redirect_after_login_uri
 
-<<<<<<< HEAD
-If you are using WithRedirect (i.e. it has been set in your config), 
-then you need to set 'redirect_after_login_uri' if you want something
-other than the default, which is C<< $c->uri_for('/'); >>
-=======
 If you are using WithRedirect (i.e. it has been set in your config),
 then you need to set 'redirect_after_login_uri' if you want something
 other than the default, which is C<< $c->uri_for('/'); >>
@@ -177,7 +172,6 @@ other than the default, which is C<< $c->uri_for('/'); >>
 Renders the login form. By default it just calls the form's render method. If
 you want to do something different, like rendering the form with a template
 through your view, this is the place to hook into.
->>>>>>> rafl/master
 
 =head1 SEE ALSO
 
