@@ -82,7 +82,7 @@ sub login
     my ($self, $ctx) = @_;
 
     my $form = $self->login_form;
-
+    $form->process;
     $ctx->stash(
         $self->login_form_stash_key        => $form,
         $self->render_login_form_stash_key => $self->make_context_closure(sub {
