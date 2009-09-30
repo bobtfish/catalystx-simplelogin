@@ -52,6 +52,11 @@ has login_form_stash_key => (
     default => 'login_form',
 );
 
+has render_to_stash_template => (
+    is      => 'ro',
+    isa     => 'Bool',
+);
+
 has render_login_form_stash_key => (
     is      => 'ro',
     isa     => Str,
@@ -90,6 +95,8 @@ sub login
             $self->render_login_form($ctx, $form);
         }, $ctx),
     );
+    $ctx->stash( template => \$self->render_login_form($ctx, $form) )
+        if $self->render_to_stash_template;
 }
 
 sub login_GET {}
