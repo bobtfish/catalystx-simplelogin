@@ -3,6 +3,8 @@ use Moose::Role;
 use CatalystX::InjectComponent;
 use namespace::autoclean;
 
+our $VERSION = '0.01';
+
 after 'setup_components' => sub {
     my $class = shift;
     CatalystX::InjectComponent->inject(
@@ -42,7 +44,8 @@ CatalystX::SimpleLogin - Provide a simple Login controller which can be reused
 CatalystX::SimpleLogin is an application class L<Moose::Role|role> which will
 inject a L<Catalyst::Controller|controller>
 which is an instance of L<CatalystX::SimpleLogin::Controller::Login> into your
-application. This provides a simple login and logout page with only one line of code.
+application. This provides a simple login and logout page with the adition
+of only one line of code and one template to your application.
 
 =head1 REQUIREMENTS
 
@@ -54,7 +57,7 @@ application. This provides a simple login and logout page with only one line of 
 
 =item Working session configuration
 
-=item A TT view
+=item A view
 
 =back
 
@@ -62,7 +65,7 @@ application. This provides a simple login and logout page with only one line of 
 
 CatalystX::SimpleLogin is a prototype for CatalystX::Elements. As such, one of the goals
 is to make it easy for users to customise the provided component to the maximum degree
-possible, and also, to main a linear relationship between effort invested and level of
+possible, and also, to have a linear relationship between effort invested and level of
 customisation achieved.
 
 =head1 COMPONENTS
@@ -78,13 +81,13 @@ logout actions or override methods.
 
 =item *
 
-L<CatalystX::SimpleLogin::ControllerRole::Login> - provides the C<login> action
-and associated methods. you can compose this manually yourself if you want just that
+L<CatalystX::SimpleLogin::TraitFor::Controller::Logout> - provides the C<logout> action
+and associated methods. You can compose this manually yourself if you want just that
 action.
 
 =item *
 
-L<CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect> - provides the C<login>
+L<CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect> - provides the C<login>
 action with a wrapper to redirect to a page which needs authentication, from which the
 user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::NeedsLogin>
 
@@ -107,12 +110,6 @@ Please feel free to add to or re-arrange this list :)
 
 =over
 
-=item Fix the Template including - breaks if native templating has .tt2 extension
-
-=item Fix wrappers with templates
-
-=item Form templating - enable per form template + per field type and per field templates
-
 =item Fix extension documentation
 
 =item Document all this stuff.
@@ -121,40 +118,58 @@ Please feel free to add to or re-arrange this list :)
 
 =item Fixing one uninitialized value warning in LoginRedirect
 
-=item Disable the use of NeedsLogin ActionRole when theoginRedirect is not loaded
+=item Disable the use of NeedsLogin ActionRole when WithRedirect is not loaded
 
 =back
 
 =head1 SOURCE CODE
 
-    http://github.com/bobtfish/catalyst-actionrole-acl/tree/master
+    http://github.com/bobtfish/catalystx-simplelogin/tree/master
 
-    git://github.com/bobtfish/catalyst-actionrole-acl.git
+    git://github.com/bobtfish/catalystx-simplelogin.git
 
-Forks and patches are welcome. Please speak to t0m or zby on #catalyst (irc.perl.org)
-if you want to hack on something and need a hand. :)
+Forks and patches are welcome. #formhandler or #catalyst (irc.perl.org)
+are both good places to ask about using or developing this code.
 
 =head1 SEE ALSO
 
 =over
 
-=item L<Catalyst>
+=item *
 
-=item L<Moose> and L<Moose::Role>
+L<Catalyst>
 
-=item L<MooseX::MethodAttributes::Role::Meta::Role>
+=item *
 
-=item L<CatalystX::InjectComponent>
+L<Moose> and L<Moose::Role>
 
-=item L<HTML::FormHandler>
+=item *
 
-=item L<Catalyst::View::TT>
+L<MooseX::MethodAttributes::Role> - Actions compsed from L<Moose::Role|Roles>.
 
-=item L<Catalyst::Plugin::Authentication>
+=item *
 
-=item L<Catalyst::Plugin::Session>
+L<CatalystX::InjectComponent> - Injects the controller class
 
-=item L<Catalyst::Controller::ActionRole>
+=item *
+
+L<HTML::FormHandler> - Generates the login form
+
+=item *
+
+L<Catalyst::Plugin::Authentication> - Responsible for the actual heavy lifting of authenticating the user
+
+=item *
+
+L<Catalyst::Plugin::Session>
+
+=item *
+
+L<Catalyst::Controller::ActionRole> - Allows you to decorate actions with roles (E.g L<Catalyst::ActionRole::NeedsLogin|To force a redirect to the login page>)
+
+=item *
+
+L<CatalystX::Component::Traits> - Allows L<Moose::Role|roles> to be composed onto components from config
 
 =back
 
@@ -169,6 +184,8 @@ if you want to hack on something and need a hand. :)
 =item Stephan Jauernick (stephan48) C<< <stephan@stejau.de> >>
 
 =item Gerda Shank (gshank) C<< gshank@cpan.org >>
+
+=item Florian Ragwitz C<< rafl@debian.org >>
 
 =back
 
