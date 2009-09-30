@@ -164,6 +164,8 @@ if you want to hack on something and need a hand. :)
 
 =item Gerda Shank (gshank) C<< gshank@cpan.org >>
 
+=item Florian Ragwitz C<< rafl@debian.org >>
+
 =back
 
 =head1 LICENSE
