@@ -56,7 +56,6 @@ has render_login_form_stash_key => (
     is      => 'ro',
     isa     => Str,
     default => 'render_login_form',
->>>>>>> rafl/master
 );
 
 with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
@@ -101,9 +100,9 @@ sub login_POST {
     my $form = $self->login_form;
     my $p = $ctx->req->body_parameters;
     if ($form->process(ctx => $ctx, params => $p)) {
-        $c->extend_session_expires(999999999999)
-            if $result->field( 'remember' )->value;
-        $c->res->redirect($self->redirect_after_login_uri($c));
+        $ctx->extend_session_expires(999999999999)
+            if $form->field( 'remember' )->value;
+        $ctx->res->redirect($self->redirect_after_login_uri($ctx));
     }
 }
 
