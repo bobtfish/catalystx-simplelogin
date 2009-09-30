@@ -24,8 +24,6 @@ requires 'Moose::Autobox' => '0.09';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
 requires 'MooseX::RelatedClassRoles' => '0.004';
-requires 'File::ShareDir';
-requires 'List::MoreUtils';
 requires 'HTML::FormHandler' => '0.26001';
 requires 'namespace::autoclean';
 

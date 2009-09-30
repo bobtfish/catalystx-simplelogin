@@ -3,8 +3,6 @@ use Moose;
 use Moose::Autobox;
 use MooseX::Types::Moose qw/ HashRef ArrayRef ClassName Object Str /;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
-use File::ShareDir qw/module_dir/;
-use List::MoreUtils qw/uniq/;
 use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
 
@@ -214,7 +212,7 @@ and redirects
 
 =head2 redirect_after_login_uri
 
-If you are using WithRedirect (i.e. it has been set in your config), 
+If you are using WithRedirect (i.e. it has been set in your config),
 then you need to set 'redirect_after_login_uri' if you want something
 other than the default, which is C<< $c->uri_for('/'); >>
 
