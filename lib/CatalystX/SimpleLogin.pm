@@ -37,7 +37,11 @@ CatalystX::SimpleLogin - Provide a simple Login controller which can be reused
         'Plugin::Authentication' => { # Auth config here }
     );
 
-    __PACKAGE__->setup;
+   __PACKAGE__->config(
+        'Controller::Login' => { # SimpleLogin config here }
+   );
+
+   __PACKAGE__->setup;
 
 =head1 DESCRIPTION
 
@@ -67,6 +71,17 @@ is to make it easy for users to customise the provided component to the maximum 
 possible, and also, to main a linear relationship between effort invested and level of
 customisation achieved.
 
+Three traits are shipped with SimpleLogin: WithRedirect, Logout, and RenderAsTTTemplate.
+These traits are set in the config:
+
+   __PACKAGE__->config(
+        'Controller::Login' => {
+            traits => ['Logout', 'WithRedirect', 'RenderAsTTTemplate'],
+            login_form_args => { # see the login form }, 
+   );
+
+   
+
 =head1 COMPONENTS
 
 =over
@@ -81,14 +96,21 @@ logout actions or override methods.
 =item *
 
 L<CatalystX::SimpleLogin::TraitFor::Controller::Logout> - provides the C<logout> action
-and associated methods. you can compose this manually yourself if you want just that
-action.
+and associated methods. You can compose this manually yourself if you want just that
+action. This trait is set by default, but if you set another trait in your config, you
+will have to include it.
 
 =item *
 
 L<CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect> - provides the C<login>
 action with a wrapper to redirect to a page which needs authentication, from which the
 user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::NeedsLogin>
+
+=item *
+
+L<CatalystX::SimpleLogin::TraitFor::Controller::Login::RenderAsTTTemplate> - sets
+the stash variable 'template' to point to a string reference containing the 
+rendered template so that it's not necessary to have a login.tt template file.
 
 =item *
 

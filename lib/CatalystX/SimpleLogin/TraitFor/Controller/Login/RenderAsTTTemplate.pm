@@ -4,8 +4,17 @@ use MooseX::MethodAttributes::Role;
 use namespace::autoclean;
 
 after 'login' => sub {
-	my ( $self, $ctx ) = @_;
-	$ctx->stash( template => \$self->render_login_form($ctx, $result) );
+    my ( $self, $ctx ) = @_;
+
+    my $rendered_form = $ctx->{stash}->{$self->login_form_stash_key}->render;
+    $ctx->stash( template => \$rendered_form );
+};
+
+after 'login_POST' => sub {
+    my ( $self, $ctx ) = @_;
+
+    my $rendered_form = $ctx->{stash}->{$self->login_form_stash_key}->render;
+    $ctx->stash( template => \$rendered_form );
 };
 
 1;

@@ -20,7 +20,11 @@ SYNOPSIS
             'Plugin::Authentication' => { # Auth config here }
         );
 
-        __PACKAGE__->setup;
+       __PACKAGE__->config(
+            'Controller::Login' => { # SimpleLogin config here }
+       );
+
+       __PACKAGE__->setup;
 
 DESCRIPTION
     CatalystX::SimpleLogin is an application class Moose::Role which will
@@ -41,6 +45,15 @@ CUSTOMISATION
     relationship between effort invested and level of customisation
     achieved.
 
+    Three traits are shipped with SimpleLogin: WithRedirect, Logout, and
+    RenderAsTTTemplate. These traits are set in the config:
+
+       __PACKAGE__->config(
+            'Controller::Login' => {
+                traits => ['Logout', 'WithRedirect', 'RenderAsTTTemplate'],
+                login_form_args => { # see the login form }, 
+       );
+
 COMPONENTS
     *   CatalystX::SimpleLogin::Controller::Login - first point of call for
         customisation. Override the action configs to reconfigure the paths
@@ -49,13 +62,20 @@ COMPONENTS
         override methods.
 
     *   CatalystX::SimpleLogin::TraitFor::Controller::Logout - provides the
-        "logout" action and associated methods. you can compose this
-        manually yourself if you want just that action.
+        "logout" action and associated methods. You can compose this
+        manually yourself if you want just that action. This trait is set by
+        default, but if you set another trait in your config, you will have
+        to include it.
 
     *   CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect -
         provides the "login" action with a wrapper to redirect to a page
         which needs authentication, from which the user was previously
         redirected. Goes hand in hand with Catalyst::ActionRole::NeedsLogin
+
+    *   CatalystX::SimpleLogin::TraitFor::Controller::Login::RenderAsTTTempl
+        ate - sets the stash variable 'template' to point to a string
+        reference containing the rendered template so that it's not
+        necessary to have a login.tt template file.
 
     *   CatalystX::SimpleLogin::Form::Login - the HTML::FormHandler form for
         the login form.

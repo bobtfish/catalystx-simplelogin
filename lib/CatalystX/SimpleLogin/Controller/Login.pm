@@ -52,11 +52,6 @@ has login_form_stash_key => (
     default => 'login_form',
 );
 
-has render_to_stash_template => (
-    is      => 'ro',
-    isa     => 'Bool',
-);
-
 has render_login_form_stash_key => (
     is      => 'ro',
     isa     => Str,
@@ -66,11 +61,11 @@ has render_login_form_stash_key => (
 with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
 
 sub _build_login_form {
-	my $self = shift;
-	$self->apply_login_form_class_roles($self->login_form_class_roles->flatten)
+    my $self = shift;
+    $self->apply_login_form_class_roles($self->login_form_class_roles->flatten)
         if scalar $self->login_form_class_roles->flatten; # FIXME - Should MX::RelatedClassRoles
                                                           #         do this automagically?
-	return $self->login_form_class->new( $self->login_form_args );
+    return $self->login_form_class->new( $self->login_form_args );
 }
 
 sub render_login_form {
@@ -95,8 +90,6 @@ sub login
             $self->render_login_form($ctx, $form);
         }, $ctx),
     );
-    $ctx->stash( template => \$self->render_login_form($ctx, $form) )
-        if $self->render_to_stash_template;
 }
 
 sub login_GET {}
