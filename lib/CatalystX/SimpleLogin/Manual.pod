@@ -101,18 +101,56 @@ Restart the server and you can see the new action. Go to C< localhost:3000/hello
 and you'll get the 'Hello, user!' page. Now execute C< localhost:3000/logout > and try
 C< localhost:3000/hello_user > again. You will be presented with a login screen.
 
-You can also add a message, which will be put into the flash key 'error_msg', (but
-we can't see this yet since that would require creating a template to display it).
+You can also add a message, which will be put into the flash key 'error_msg'. Add
+the following to the hello_user action:
 
-  : LoginRedirectMessage('Please Login to view this Test Action') 
+  : LoginRedirectMessage('Please Login to view this Action') 
     
+Now we'll create a Template Toolkit template that can be customized. Create a
+C< root/login/login.tt > file with the following lines.
+
+  [% error_msg %]
+  [% render_login_form %]
+
+Now edit C< lib/MyApp.pm > and remove the 'RenderAsTTTemplate' trait, and add
+'flash_to_stash' to the session config (to allow the error message to be
+passed to the next request):
+
+    __PACKAGE__->config( 
+        session => {
+            flash_to_stash => 1
+        }
+    );
+
+Restart the server and try to view the hello_user page without being logged in.
+You should be reredireced to the login page with the error message displayed at
+the top.
+
+You can replace C< [% render_login_form %] with your own html, and customize
+it as you please.
+
+    <div class="error">[% error_msg %]</div>
+    <form id="login_form" method="post" >
+    <fieldset class="main_fieldset">
+    <div><label class="label" for="username">Username: 
+    </label><input type="text" name="username" id="username" value="" />
+    </div>
+
+    <div><label class="label" for="password">Password: </label>
+    <input type="password" name="password" id="password" value="" />
+    </div>
+
+    <div><label class="label" for="remember">Remember: </label>
+    <input type="checkbox" name="remember" id="remember" value="1" />
+    </div>
+
+    <div><input type="submit" name="submit" id="submit" value="Login" />
+    </div>
+    </fieldset></form>
+
+Or you can customize it using L<HTML::FormHandler> HTML rendering features, and
+the 'login_form_args' config key.
 
 
 
-
-
-
-
-
-    
 
