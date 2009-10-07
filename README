@@ -1,0 +1,128 @@
+NAME
+    CatalystX::SimpleLogin - Provide a simple Login controller which can be
+    reused
+
+SYNOPSIS
+        package MyApp;
+        use Moose;
+        use namespace::autoclean;
+
+        use Catalyst qw/
+            +CatalystX::SimpleLogin
+            Authentication
+            Session
+            Session::State::Cookie
+            Session::Store::File
+        /;
+        extends 'Catalyst';
+
+        __PACKAGE__->config(
+            'Plugin::Authentication' => { # Auth config here }
+        );
+
+       __PACKAGE__->config(
+            'Controller::Login' => { # SimpleLogin config here }
+       );
+
+       __PACKAGE__->setup;
+
+DESCRIPTION
+    CatalystX::SimpleLogin is an application class Moose::Role which will
+    inject a Catalyst::Controller which is an instance of
+    CatalystX::SimpleLogin::Controller::Login into your application. This
+    provides a simple login and logout page with only one line of code.
+
+REQUIREMENTS
+    A Catalyst application
+    Working authentication configuration
+    Working session configuration
+    A TT view
+
+CUSTOMISATION
+    CatalystX::SimpleLogin is a prototype for CatalystX::Elements. As such,
+    one of the goals is to make it easy for users to customise the provided
+    component to the maximum degree possible, and also, to main a linear
+    relationship between effort invested and level of customisation
+    achieved.
+
+    Three traits are shipped with SimpleLogin: WithRedirect, Logout, and
+    RenderAsTTTemplate. These traits are set in the config:
+
+       __PACKAGE__->config(
+            'Controller::Login' => {
+                traits => ['Logout', 'WithRedirect', 'RenderAsTTTemplate'],
+                login_form_args => { # see the login form }, 
+       );
+
+COMPONENTS
+    *   CatalystX::SimpleLogin::Controller::Login - first point of call for
+        customisation. Override the action configs to reconfigure the paths
+        of the login or logout actions. Subclass to be able to apply method
+        modifiers to run before / after the login or logout actions or
+        override methods.
+
+    *   CatalystX::SimpleLogin::TraitFor::Controller::Logout - provides the
+        "logout" action and associated methods. You can compose this
+        manually yourself if you want just that action. This trait is set by
+        default, but if you set another trait in your config, you will have
+        to include it.
+
+    *   CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect -
+        provides the "login" action with a wrapper to redirect to a page
+        which needs authentication, from which the user was previously
+        redirected. Goes hand in hand with Catalyst::ActionRole::NeedsLogin
+
+    *   CatalystX::SimpleLogin::TraitFor::Controller::Login::RenderAsTTTempl
+        ate - sets the stash variable 'template' to point to a string
+        reference containing the rendered template so that it's not
+        necessary to have a login.tt template file.
+
+    *   CatalystX::SimpleLogin::Form::Login - the HTML::FormHandler form for
+        the login form.
+
+    *   Catalyst::ActionRole::NeedsLogin - Used to cause a specific path to
+        redirect to the login page if a user is not authenticated.
+
+TODO
+    Here's a list of what I think needs working on, in no particular order.
+
+    Please feel free to add to or re-arrange this list :)
+
+    Fix extension documentation
+    Document all this stuff.
+    Examples of use / customisation in documentation
+    Fixing one uninitialized value warning in LoginRedirect
+    Disable the use of NeedsLogin ActionRole when WithRedirect is not loaded
+
+SOURCE CODE
+        http://github.com/bobtfish/catalystx-simplelogin/tree/master
+
+        git://github.com/bobtfish/catalystx-simplelogin.git
+
+    Forks and patches are welcome. Please speak to t0m or zby on #catalyst
+    (irc.perl.org) if you want to hack on something and need a hand. :)
+
+SEE ALSO
+    Catalyst
+    Moose and Moose::Role
+    MooseX::MethodAttributes::Role::Meta::Role
+    CatalystX::InjectComponent
+    HTML::FormHandler
+    Catalyst::View::TT
+    Catalyst::Plugin::Authentication
+    Catalyst::Plugin::Session
+    Catalyst::Controller::ActionRole
+
+AUTHORS
+    Tomas Doran (t0m) "<bobtfish@bobtfish.net>"
+    Zbigniew Lukasiak
+    Stephan Jauernick (stephan48) "<stephan@stejau.de>"
+    Gerda Shank (gshank) "gshank@cpan.org"
+    Florian Ragwitz "rafl@debian.org"
+
+LICENSE
+    Copyright 2009 Tomas Doran. Some rights reserved.
+
+    This sofware is free software, and is licensed under the same terms as
+    perl itself.
+

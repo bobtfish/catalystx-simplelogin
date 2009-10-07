@@ -27,7 +27,7 @@ requires 'MooseX::RelatedClassRoles' => '0.004';
 requires 'HTML::FormHandler' => '0.26001';
 requires 'namespace::autoclean';
 
-test_requires 'Test::More';
+test_requires 'Test::More' => '0.94';
 test_requires 'Catalyst::Action::RenderView';
 test_requires 'Catalyst::Plugin::Session';
 test_requires 'Catalyst::Plugin::Session::State::Cookie';
