@@ -30,18 +30,19 @@ DESCRIPTION
     CatalystX::SimpleLogin is an application class Moose::Role which will
     inject a Catalyst::Controller which is an instance of
     CatalystX::SimpleLogin::Controller::Login into your application. This
-    provides a simple login and logout page with only one line of code.
+    provides a simple login and logout page with the adition of only one
+    line of code and one template to your application.
 
 REQUIREMENTS
     A Catalyst application
     Working authentication configuration
     Working session configuration
-    A TT view
+    A view
 
 CUSTOMISATION
     CatalystX::SimpleLogin is a prototype for CatalystX::Elements. As such,
     one of the goals is to make it easy for users to customise the provided
-    component to the maximum degree possible, and also, to main a linear
+    component to the maximum degree possible, and also, to have a linear
     relationship between effort invested and level of customisation
     achieved.
 
@@ -63,9 +64,12 @@ COMPONENTS
 
     *   CatalystX::SimpleLogin::TraitFor::Controller::Logout - provides the
         "logout" action and associated methods. You can compose this
-        manually yourself if you want just that action. This trait is set by
-        default, but if you set another trait in your config, you will have
-        to include it.
+        manually yourself if you want just that action.
+
+        This trait is set by default, but if you set another trait in your
+        config, you will have to include it.
+
+        FIXME - Get trait merging working..
 
     *   CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect -
         provides the "login" action with a wrapper to redirect to a page
@@ -99,19 +103,30 @@ SOURCE CODE
 
         git://github.com/bobtfish/catalystx-simplelogin.git
 
-    Forks and patches are welcome. Please speak to t0m or zby on #catalyst
-    (irc.perl.org) if you want to hack on something and need a hand. :)
+    Forks and patches are welcome. #formhandler or #catalyst (irc.perl.org)
+    are both good places to ask about using or developing this code.
 
 SEE ALSO
-    Catalyst
-    Moose and Moose::Role
-    MooseX::MethodAttributes::Role::Meta::Role
-    CatalystX::InjectComponent
-    HTML::FormHandler
-    Catalyst::View::TT
-    Catalyst::Plugin::Authentication
-    Catalyst::Plugin::Session
-    Catalyst::Controller::ActionRole
+    *   Catalyst
+
+    *   Moose and Moose::Role
+
+    *   MooseX::MethodAttributes::Role - Actions compsed from Moose::Role.
+
+    *   CatalystX::InjectComponent - Injects the controller class
+
+    *   HTML::FormHandler - Generates the login form
+
+    *   Catalyst::Plugin::Authentication - Responsible for the actual heavy
+        lifting of authenticating the user
+
+    *   Catalyst::Plugin::Session
+
+    *   Catalyst::Controller::ActionRole - Allows you to decorate actions
+        with roles (E.g Catalyst::ActionRole::NeedsLogin)
+
+    *   CatalystX::Component::Traits - Allows Moose::Role to be composed
+        onto components from config
 
 AUTHORS
     Tomas Doran (t0m) "<bobtfish@bobtfish.net>"
