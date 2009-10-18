@@ -15,7 +15,6 @@ has 'login_error_message' => (
     default => 'Wrong username or password',
 );
 
-
 has_field 'username' => ( type => 'Text' );
 has_field 'password' => ( type => 'Password' );
 has_field 'remember' => ( type => 'Checkbox' );
@@ -27,8 +26,15 @@ sub validate {
     my %values = %{$self->values}; # copy the values
     delete $values{remember};
     unless ($self->ctx->authenticate(\%values)) { 
-        $self->field( 'password' )->add_error( $self->login_error_message );
+        $self->add_auth_errors;
+        return;
     }
+    return 1;
+}
+
+sub add_auth_errors {
+    my $self = shift;
+    $self->field( 'password' )->add_error( $self->login_error_message ) if $self->field( 'username' )->has_value && $self->field( 'password' )->has_value ;
 }
 
 __PACKAGE__->meta->make_immutable;

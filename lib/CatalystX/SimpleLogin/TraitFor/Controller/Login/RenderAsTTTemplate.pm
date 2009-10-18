@@ -10,13 +10,6 @@ after 'login' => sub {
     $ctx->stash( template => \$rendered_form );
 };
 
-after 'login_POST' => sub {
-    my ( $self, $ctx ) = @_;
-
-    my $rendered_form = $ctx->{stash}->{$self->login_form_stash_key}->render;
-    $ctx->stash( template => \$rendered_form );
-};
-
 1;
 
 =head1 NAME

@@ -77,12 +77,17 @@ sub login
     :Chained('/')
     :PathPart('login')
     :Args(0)
-    :ActionClass('REST')
 {
     my ($self, $ctx) = @_;
-
     my $form = $self->login_form;
-    $form->process;
+    my $p = $ctx->req->parameters;
+   
+    if( $form->process(ctx => $ctx, params => $p) ){
+        $ctx->res->redirect($self->redirect_after_login_uri($ctx));
+        $ctx->extend_session_expires(999999999999)
+            if $form->field( 'remember' )->value;
+    }
+
     $ctx->stash(
         $self->login_form_stash_key        => $form,
         $self->render_login_form_stash_key => $self->make_context_closure(sub {
@@ -90,20 +95,6 @@ sub login
             $self->render_login_form($ctx, $form);
         }, $ctx),
     );
-}
-
-sub login_GET {}
-
-sub login_POST {
-    my ($self, $ctx) = @_;
-
-    my $form = $self->login_form;
-    my $p = $ctx->req->body_parameters;
-    if ($form->process(ctx => $ctx, params => $p)) {
-        $ctx->extend_session_expires(999999999999)
-            if $form->field( 'remember' )->value;
-        $ctx->res->redirect($self->redirect_after_login_uri($ctx));
-    }
 }
 
 sub redirect_after_login_uri {
