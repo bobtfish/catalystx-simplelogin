@@ -21,3 +21,50 @@ after 'add_auth_errors' => sub {
 
 1;
 
+=head1 NAME
+
+CatalystX::SimpleLogin::Form::LoginOpenID - OpenID validation role for the login form
+
+=head1 DESCRIPTION
+
+A L<HTML::FormHandler> role form for the login form.
+
+=head1 FIELDS
+
+
+=over
+
+=item openid_identifier
+
+=item openid-check
+
+=item openid_error_message
+
+=back
+
+=head1 METHODS
+
+=over
+
+=item add_auth_errors
+
+=back
+
+=head1 SEE ALSO
+
+=over
+
+=item L<CatalystX::SimpleLogin::ControllerRole::Login>
+
+=back
+
+=head1 AUTHORS
+
+See L<CatalystX::SimpleLogin> for authors.
+
+=head1 LICENSE
+
+See L<CatalystX::SimpleLogin> for license.
+
+=cut
+

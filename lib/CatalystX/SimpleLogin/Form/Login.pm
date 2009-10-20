@@ -68,6 +68,8 @@ A L<HTML::FormHandler> form for the login form.
 
 =item validate
 
+=item add_auth_errors
+
 =back
 
 =head1 SEE ALSO

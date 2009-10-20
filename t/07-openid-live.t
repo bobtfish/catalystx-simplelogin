@@ -9,26 +9,39 @@ use HTTP::Request::Common;
 use FindBin qw($Bin);
 use lib "$Bin/lib";
 
-use Net::OpenID::Consumer;
+use Catalyst::Authentication::Credential::OpenID;
 use Test::MockModule;
-my $module = new Test::MockModule('Net::OpenID::Consumer');
-$module->mock('claimed_identity', \&claimed_identity_mock );
-$module->mock('verified_identity', \&verified_identity_mock);
+my $module = new Test::MockModule('Catalyst::Authentication::Credential::OpenID');
+$module->mock('authenticate', \&authenticate_mock);
 
-sub verified_identity_mock {
-    my ( $self, ) = @_;
-    return Mocked::Net::OpenID::Identity->new;
+sub authenticate_mock {
+    my ( $self, $c, $realm, $authinfo ) = @_;
+    my $claimed_uri = $authinfo->{ 'openid_identifier' };
+    if ( $claimed_uri ) {
+        if( $claimed_uri eq 'aaa' ){
+            return;
+        }
+        if( $claimed_uri eq 'http://mock.open.id.server' ){
+            $c->res->redirect( 'http://localhost/login?openid-check=1' );
+            $c->detach();
+        }
+    }
+    elsif ( $c->req->params->{'openid-check'} ){
+        my $user = {
+            url => 'http://mock.open.id.server' ,
+            display => 'mocked_user' ,
+            rss => '',
+            atom => '',
+            foaf => '',
+            declared_rss => '',
+            declared_atom => '',
+            declared_foaf => '',
+            foafmaker => '',
+        };
+        return $realm->find_user($user, $c);
+    }
 }
 
-sub claimed_identity_mock {
-    my ( $self, $url ) = @_;
-    if( $url eq 'aaa' ){
-        return;
-    }
-    if( $url eq 'http://mock.open.id.server' ){
-        return Mocked::Net::OpenID::Identity->new;
-    }
-}
 
 use Catalyst::Test 'TestAppOpenID';
 my ($res, $c);
@@ -47,20 +60,3 @@ my $user = $c->user;
 is( $user->{url}, 'http://mock.open.id.server', 'user url' );
 is( $user->{display}, 'mocked_user', 'user display' );
 
-{
-    package Mocked::Net::OpenID::Identity;
-
-    sub new { return bless {}, 'Mocked::Net::OpenID::Identity' };
-    sub set_extension_args { warn 'set_extension_args' };
-    sub check_url { 'http://localhost/login?openid-check=1' };
-
-    sub url { 'http://mock.open.id.server' }
-    sub display { 'mocked_user' }
-    sub rss {}
-    sub atom {}
-    sub foaf {}
-    sub declared_rss {}
-    sub declared_atom {}
-    sub declared_foaf {}
-    sub foafmaker {}
-}
