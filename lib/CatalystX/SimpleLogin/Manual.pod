@@ -90,7 +90,7 @@ and add the following lines:
     BEGIN { extends 'Catalyst::Controller::ActionRole' }
 
 Now add a new action to C< lib/MyApp/Controller/Root.pm > and include
-C< Does('NeedsLogin') to use the Catalyst ActionRole that is part of SimpleLogin:
+C< Does('NeedsLogin') >> to use the Catalyst ActionRole that is part of SimpleLogin:
 
     sub hello_user : Local : Does('NeedsLogin') {
         my ( $self, $c ) = @_;
@@ -126,7 +126,7 @@ Restart the server and try to view the hello_user page without being logged in.
 You should be reredireced to the login page with the error message displayed at
 the top.
 
-You can replace C< [% render_login_form %] with your own html, and customize
+You can replace C< [% render_login_form %] > with your own html, and customize
 it as you please.
 
     <div class="error">[% error_msg %]</div>
