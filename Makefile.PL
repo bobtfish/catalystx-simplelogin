@@ -19,7 +19,7 @@ requires 'Catalyst::Action::REST' => '0.74';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::View::TT';
 requires 'CatalystX::InjectComponent';
-requires 'CatalystX::Component::Traits' => '0.10';
+requires 'CatalystX::Component::Traits' => '0.13';
 requires 'Moose::Autobox' => '0.09';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
