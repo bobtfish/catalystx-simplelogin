@@ -14,7 +14,7 @@ all_from 'lib/CatalystX/SimpleLogin.pm';
 
 requires 'Moose';
 requires 'Catalyst::Runtime' => '5.80013';
-requires 'MooseX::MethodAttributes' => '0.16_02';
+requires 'MooseX::MethodAttributes' => '0.18';
 requires 'Catalyst::Action::REST' => '0.74';
 requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::View::TT';

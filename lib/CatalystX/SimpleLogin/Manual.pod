@@ -90,7 +90,7 @@ and add the following lines:
     BEGIN { extends 'Catalyst::Controller::ActionRole' }
 
 Now add a new action to C< lib/MyApp/Controller/Root.pm > and include
-C< Does('NeedsLogin') >> to use the Catalyst ActionRole that is part of SimpleLogin:
+C< Does('NeedsLogin') > to use the Catalyst ActionRole that is part of SimpleLogin:
 
     sub hello_user : Local : Does('NeedsLogin') {
         my ( $self, $c ) = @_;
