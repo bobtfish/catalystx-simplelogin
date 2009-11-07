@@ -1,2 +1,7 @@
+0.02  Sat, 07 Nov 2009 21:20:00 +0000
+  * Much more documentation
+  * Traits are automatically merged
+  * Added OpenID support
+
 0.01  Wed, 30 Sep 2009 02:17:00 +0200
   * Initial release.
