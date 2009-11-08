@@ -1,6 +1,6 @@
 =head1 NAME
 
-CatalystX::SimpleLogin::Manual
+CatalystX::SimpleLogin::Manual - How to use and customise CatalystX::SimpleLogin.
 
 =head2 Tutorial
 
@@ -29,12 +29,11 @@ Add the following config for SimpleLogin:
 
     __PACKAGE__->config( 
         'Controller::Login' => {
-            traits => ['RenderAsTTTemplate', 'Logout', 'WithRedirect'],
+            traits => ['RenderAsTTTemplate', 'WithRedirect'],
         },                                                             
     );
 
 Add the following config for authentication, including two sample users:
-
 
     __PACKAGE__->config(
         'Plugin::Authentication' => {
@@ -68,7 +67,6 @@ Execute C< script/myapp_server.pl > and, as part of the debug output, you should
     | /login                              | /login/login                         |
     | /logout                             | /login/logout                        |
     '-------------------------------------+--------------------------------------'
-
     
 Go to C< localhost:3000 > and you should see the Catalyst welcome screen. Go to
 C< localhost:3000/login > and you should get a login screen containing username and
@@ -92,14 +90,14 @@ and add the following lines:
 Now add a new action to C< lib/MyApp/Controller/Root.pm > and include
 C< Does('NeedsLogin') > to use the Catalyst ActionRole that is part of SimpleLogin:
 
-    sub hello_user : Local : Does('NeedsLogin') {
+    sub hello_user : Local Does('NeedsLogin') {
         my ( $self, $c ) = @_;
         $c->res->body('<h2>Hello, user!</h2>');
     }
 
-Restart the server and you can see the new action. Go to C< localhost:3000/hello_user >
-and you'll get the 'Hello, user!' page. Now execute C< localhost:3000/logout > and try
-C< localhost:3000/hello_user > again. You will be presented with a login screen.
+Restart the server and you can see the new action. Go to C<< htp://localhost:3000/hello_user >>
+and you'll get the 'Hello, user!' page. Now execute C<< http://localhost:3000/logout >> and try
+C<< http://localhost:3000/hello_user >> again. You will be presented with a login screen.
 
 You can also add a message, which will be put into the flash key 'error_msg'. Add
 the following to the hello_user action:
@@ -117,9 +115,10 @@ Now edit C< lib/MyApp.pm > and remove the 'RenderAsTTTemplate' trait, and add
 passed to the next request):
 
     __PACKAGE__->config( 
-        session => {
+        'Plugin::Session' => {
             flash_to_stash => 1
-        }
+        },
+        # Other config..
     );
 
 Restart the server and try to view the hello_user page without being logged in.
@@ -151,6 +150,4 @@ it as you please.
 Or you can customize it using L<HTML::FormHandler> HTML rendering features, and
 the 'login_form_args' config key.
 
-
-
-
+=cut

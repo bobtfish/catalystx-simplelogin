@@ -27,10 +27,10 @@ requires 'MooseX::RelatedClassRoles' => '0.004';
 requires 'Moose::Autobox';
 requires 'HTML::FormHandler' => '0.26001';
 requires 'namespace::autoclean';
+requires 'Catalyst::Plugin::Session' => '0.27'; # Required as we use the 'Plugin::Session' config key in ::Manual
 
 test_requires 'Test::More' => '0.94';
 test_requires 'Catalyst::Action::RenderView';
-test_requires 'Catalyst::Plugin::Session';
 test_requires 'Catalyst::Plugin::Session::State::Cookie';
 test_requires 'Catalyst::Plugin::Session::Store::File';
 test_requires 'HTTP::Request::Common';

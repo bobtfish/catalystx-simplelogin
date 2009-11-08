@@ -116,12 +116,11 @@ CatalystX::SimpleLogin::Controller::Login - Configurable login controller
     # full config example
     __PACKAGE__->config(
         'Controller::Login' => {
-            login => 'WithRedirect', # Optional, enables redirect-back feature
+            traits => 'WithRedirect', # Optional, enables redirect-back feature
             actions => {
                 login => { # Also optional
                     PathPart => ['theloginpage'], # Change login action to /theloginpage
                 },
-                logout => {},
             },
         },
     );
