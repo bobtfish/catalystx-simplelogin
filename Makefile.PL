@@ -35,6 +35,7 @@ test_requires 'Catalyst::Plugin::Session::Store::File';
 test_requires 'HTTP::Request::Common';
 test_requires 'Catalyst::Controller::ActionRole' => '0.12';
 test_requires 'Catalyst::ActionRole::ACL';
+test_requires 'Catalyst::Authentication::Credential::OpenID';
 
 author_requires 'Test::EOL' => '0.3';
 author_requires 'Test::NoTabs';
