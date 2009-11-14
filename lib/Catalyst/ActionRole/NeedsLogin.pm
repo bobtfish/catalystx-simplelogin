@@ -24,7 +24,7 @@ __END__
 
 =head1 NAME
 
-Catalyst::ActionRole::NeedsLogin - checks if a user is logged in and if not redirects him to lögin page
+Catalyst::ActionRole::NeedsLogin - checks if a user is logged in and if not redirects him to login page
 
 =head1 SYNOPSIS
 
@@ -45,7 +45,7 @@ Catalyst::ActionRole::NeedsLogin - checks if a user is logged in and if not redi
 
 Provides a ActionRole for forcing the user to login.
 
--head1 WRAPPED METHODS
+=head1 WRAPPED METHODS
 
 FIXME
 
