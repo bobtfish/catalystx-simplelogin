@@ -1,3 +1,7 @@
+0.03  Sat, 14 Nov 2009 16:28:23 +0000
+  * Fix dependency on Authentication::Credential::OpenID
+  * Doc fixes
+
 0.02  Sat, 07 Nov 2009 21:20:00 +0000
   * Much more documentation
   * Traits are automatically merged
