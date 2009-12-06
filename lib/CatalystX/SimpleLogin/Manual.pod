@@ -1,0 +1,153 @@
+=head1 NAME
+
+CatalystX::SimpleLogin::Manual - How to use and customise CatalystX::SimpleLogin.
+
+=head2 Tutorial
+
+We're using a sample application here, to make the instructions a little
+easier. This assumes that you have Catalyst, Catalyst::Devel, 
+Template Toolkit, and the Catalyst authentication and session plugins
+installed.
+
+    catalyst.pl MyApp
+    cd MyApp
+    script/myapp_create.pl view HTML TT
+
+Edit lib/MyApp.pm and add CatalystX::SimpleLogin,  Authenticate, and the
+Session plugins to the use Catalyst plugin list:
+
+    use Catalyst qw/-Debug  
+                    ConfigLoader
+                    +CatalystX::SimpleLogin
+                    Authenticate
+                    Session
+                    Session::Store::File
+                    Session::State::Cookie
+                    Static::Simple/;
+
+Add the following config for SimpleLogin:
+
+    __PACKAGE__->config( 
+        'Controller::Login' => {
+            traits => ['RenderAsTTTemplate', 'WithRedirect'],
+        },                                                             
+    );
+
+Add the following config for authentication, including two sample users:
+
+    __PACKAGE__->config(
+        'Plugin::Authentication' => {
+            default => {
+                credential => {
+                    class => 'Password',
+                    password_field => 'password',
+                    password_type => 'clear'
+                },
+                store => {
+                    class => 'Minimal',
+                    users => {
+                        bob => {
+                            password => "bobpw",
+                        },
+                        william => {
+                            password => "billpw",
+                        },
+                    },
+                },
+            },
+        },
+    );
+
+Execute C< script/myapp_server.pl > and, as part of the debug output, you should see:
+
+    [debug] Loaded Chained actions:
+    .-------------------------------------+--------------------------------------.
+    | Path Spec                           | Private                              |
+    +-------------------------------------+--------------------------------------+
+    | /login                              | /login/login                         |
+    | /logout                             | /login/logout                        |
+    '-------------------------------------+--------------------------------------'
+    
+Go to C< localhost:3000 > and you should see the Catalyst welcome screen. Go to
+C< localhost:3000/login > and you should get a login screen containing username and
+password text fields, a 'Remember' checkbox, and a 'Login' button. Enter 'bob' and
+'bobpw'. You should be logged in and taken to the welcome screen. If you execute
+C< localhost:3000/logout > you will be logged out, and should see this in the
+debug output (the welcome screen will stay the same).
+
+Now go to C< lib/MyApp/Controller/Root.pm > and remove the lines saying: 
+
+    use strict;
+    use warnings;
+    use parent 'Catalyst::Controller';
+
+and add the following lines:
+
+    use Moose;
+    use namespace::autoclean;
+    BEGIN { extends 'Catalyst::Controller::ActionRole' }
+
+Now add a new action to C< lib/MyApp/Controller/Root.pm > and include
+C< Does('NeedsLogin') > to use the Catalyst ActionRole that is part of SimpleLogin:
+
+    sub hello_user : Local Does('NeedsLogin') {
+        my ( $self, $c ) = @_;
+        $c->res->body('<h2>Hello, user!</h2>');
+    }
+
+Restart the server and you can see the new action. Go to C<< htp://localhost:3000/hello_user >>
+and you'll get the 'Hello, user!' page. Now execute C<< http://localhost:3000/logout >> and try
+C<< http://localhost:3000/hello_user >> again. You will be presented with a login screen.
+
+You can also add a message, which will be put into the flash key 'error_msg'. Add
+the following to the hello_user action:
+
+  : LoginRedirectMessage('Please Login to view this Action') 
+    
+Now we'll create a Template Toolkit template that can be customized. Create a
+C< root/login/login.tt > file with the following lines.
+
+  [% error_msg %]
+  [% render_login_form %]
+
+Now edit C< lib/MyApp.pm > and remove the 'RenderAsTTTemplate' trait, and add
+'flash_to_stash' to the session config (to allow the error message to be
+passed to the next request):
+
+    __PACKAGE__->config( 
+        'Plugin::Session' => {
+            flash_to_stash => 1
+        },
+        # Other config..
+    );
+
+Restart the server and try to view the hello_user page without being logged in.
+You should be reredireced to the login page with the error message displayed at
+the top.
+
+You can replace C< [% render_login_form %] > with your own html, and customize
+it as you please.
+
+    <div class="error">[% error_msg %]</div>
+    <form id="login_form" method="post" >
+    <fieldset class="main_fieldset">
+    <div><label class="label" for="username">Username: 
+    </label><input type="text" name="username" id="username" value="" />
+    </div>
+
+    <div><label class="label" for="password">Password: </label>
+    <input type="password" name="password" id="password" value="" />
+    </div>
+
+    <div><label class="label" for="remember">Remember: </label>
+    <input type="checkbox" name="remember" id="remember" value="1" />
+    </div>
+
+    <div><input type="submit" name="submit" id="submit" value="Login" />
+    </div>
+    </fieldset></form>
+
+Or you can customize it using L<HTML::FormHandler> HTML rendering features, and
+the 'login_form_args' config key.
+
+=cut

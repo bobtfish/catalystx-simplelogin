@@ -1,63 +1,28 @@
 package CatalystX::SimpleLogin::Controller::Login;
 use Moose;
 use Moose::Autobox;
-use MooseX::Types::Moose qw/ ArrayRef ClassName Object /;
+use MooseX::Types::Moose qw/ HashRef ArrayRef ClassName Object Str /;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
-use File::ShareDir qw/module_dir/;
-use List::MoreUtils qw/uniq/;
 use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller::ActionRole'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
-with 'CatalystX::Component::Traits';
-
-# FIXME - Compose this always here, otherwise if we want ::WithRedirect we
-#         fail epicly.. Needs MethodAttributes role combination..
-with 'CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout';
-#__PACKAGE__->config(
-#    traits => 'Logout',
-#);
-
-has 'username_field' => (
-    is => 'ro',
-    isa => NonEmptySimpleStr,
-    required => 1,
-    default => 'username',
+with qw(
+    CatalystX::Component::Traits
+    Catalyst::Component::ContextClosure
 );
 
-has 'password_field' => (
-    is => 'ro',
-    isa => NonEmptySimpleStr,
-    required => 1,
-    default => 'password',
+has '+_trait_merge' => (default => 1);
+
+__PACKAGE__->config(
+    traits => 'Logout',
 );
 
-has 'remember_field' => (
-    is => 'ro',
-    isa => NonEmptySimpleStr,
-    required => 1,
-    default => 'remember',
-);
-
-has 'login_error_message' => (
-    is => 'ro',
-    isa => NonEmptySimpleStr,
-    required => 1,
-    default => 'Wrong username or password',
-);
-
-has 'extra_auth_fields' => (
-    isa => ArrayRef[NonEmptySimpleStr],
-    is => 'ro',
-    default => sub { [] },
-);
-
-has 'allowed_auth_realms' => (
-    isa => ArrayRef[NonEmptySimpleStr],
-    is => 'ro',
-    default => sub { [] },
-);
+sub BUILD {
+    my $self = shift;
+    $self->login_form; # Build login form at construction time
+}
 
 has login_form_class => (
     isa => ClassName,
@@ -77,66 +42,66 @@ has login_form => (
     lazy_build => 1,
 );
 
+has login_form_args => (
+    isa => HashRef,
+    is => 'ro',
+    default => sub { {} },
+);
+
+has login_form_stash_key => (
+    is      => 'ro',
+    isa     => Str,
+    default => 'login_form',
+);
+
+has render_login_form_stash_key => (
+    is      => 'ro',
+    isa     => Str,
+    default => 'render_login_form',
+);
+
 with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
 
 sub _build_login_form {
-	my $self = shift;
-	$self->apply_login_form_class_roles($self->login_form_class_roles->flatten)
+    my $self = shift;
+    $self->apply_login_form_class_roles($self->login_form_class_roles->flatten)
         if scalar $self->login_form_class_roles->flatten; # FIXME - Should MX::RelatedClassRoles
                                                           #         do this automagically?
-	return $self->login_form_class->new;
+    return $self->login_form_class->new( $self->login_form_args );
 }
 
-sub _auth_fields {
-    my ($self) = @_;
-
-    return @{ $self->extra_auth_fields },
-        map { $self->$_() } qw/ username_field password_field /;
+sub render_login_form {
+    my ($self, $ctx, $form) = @_;
+    return $form->render;
 }
 
 sub login
     :Chained('/')
     :PathPart('login')
     :Args(0)
-    :ActionClass('REST')
-    :Does('FindViewByIsa')
-    :FindViewByIsa('Catalyst::View::TT')
 {
-    my ($self, $c) = @_;
-    $c->stash->{additional_template_paths} =
-        [ uniq(
-            @{$c->stash->{additional_template_paths}||[]},
-            module_dir('CatalystX::SimpleLogin::Controller::Login') . '/'
-            . 'tt'
-        ) ];
-    $c->stash->{form} = $self->login_form;
-}
-
-sub login_GET {}
-
-sub login_POST {
-    my ($self, $c) = @_;
-
+    my ($self, $ctx) = @_;
     my $form = $self->login_form;
-    my $p = $c->req->body_parameters;
-    if ($form->process($p)) {
-	my $realm = (($self->allowed_auth_realms->any == $form->field('realm')->value) ? $form->field('realm')->value : $c->config->{'Plugin::Authentication'}->{default_realm});
-        if ($c->authenticate({
-            map { $_ => $form->field($_)->value } $self->_auth_fields
-        },$realm)) {
-            $c->extend_session_expires(999999999999)
-                if $form->field( $self->remember_field )->value;
-            $c->res->redirect($self->redirect_after_login_uri($c));
-        }
-        else{
-            $form->field( $self->password_field )->add_error( $self->login_error_message );
-        }
+    my $p = $ctx->req->parameters;
+   
+    if( $form->process(ctx => $ctx, params => $p) ){
+        $ctx->res->redirect($self->redirect_after_login_uri($ctx));
+        $ctx->extend_session_expires(999999999999)
+            if $form->field( 'remember' )->value;
     }
+
+    $ctx->stash(
+        $self->login_form_stash_key        => $form,
+        $self->render_login_form_stash_key => $self->make_context_closure(sub {
+            my ($ctx) = @_;
+            $self->render_login_form($ctx, $form);
+        }, $ctx),
+    );
 }
 
 sub redirect_after_login_uri {
-    my ($self, $c) = @_;
-    $c->uri_for('/');
+    my ($self, $ctx) = @_;
+    $ctx->uri_for('/');
 }
 
 1;
@@ -151,15 +116,16 @@ CatalystX::SimpleLogin::Controller::Login - Configurable login controller
     # full config example
     __PACKAGE__->config(
         'Controller::Login' => {
-            login => 'WithRedirect', # Optional, enables redirect-back feature
+            traits => 'WithRedirect', # Optional, enables redirect-back feature
             actions => {
                 login => { # Also optional
                     PathPart => ['theloginpage'], # Change login action to /theloginpage
                 },
-                logout => {},
             },
         },
     );
+
+See L<CatalystX::SimpleLogin::Form::Login> for configuring the form.
 
 =head1 DESCRIPTION
 
@@ -168,15 +134,11 @@ for the login and logout actions.
 
 =head1 ATTRIBUTES
 
-=head2 username_field
-
-=head2 password_field
-
-=head2 remember_field
-
-=head2
-
 =head1 METHODS
+
+=head2 BUILD
+
+Cause form instance to be built at application startup.
 
 =head2 login
 
@@ -193,7 +155,15 @@ and redirects
 
 =head2 redirect_after_login_uri
 
-Defaults to C<< $c->uri_for('/'); >>
+If you are using WithRedirect (i.e. it has been set in your config),
+then you need to set 'redirect_after_login_uri' if you want something
+other than the default, which is C<< $c->uri_for('/'); >>
+
+=head2 render_login_form
+
+Renders the login form. By default it just calls the form's render method. If
+you want to do something different, like rendering the form with a template
+through your view, this is the place to hook into.
 
 =head1 SEE ALSO
 
@@ -215,4 +185,3 @@ See L<CatalystX::SimpleLogin> for license.
 
 =cut
 
-1;

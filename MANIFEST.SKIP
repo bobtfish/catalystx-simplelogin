@@ -6,3 +6,4 @@ MANIFEST.SKIP~
 cover_db
 Makefile$
 Makefile.old$
+^CatalystX-SimpleLogin-.*

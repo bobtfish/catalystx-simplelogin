@@ -1,6 +1,5 @@
 package CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect;
-use MooseX::MethodAttributes ();
-use Moose::Role -traits => 'MethodAttributes';
+use MooseX::MethodAttributes::Role;
 use namespace::autoclean;
 
 requires qw/
@@ -21,8 +20,8 @@ around 'redirect_after_login_uri' => sub {
 sub login_redirect {
     my ($self, $c, $message) = @_;
     $c->flash->{error_msg} = $message; # FIXME - Flash horrible
-    $c->session->{redirect_to_after_login} =  $c->request->path;
-    $c->response->redirect($c->uri_for($c->controller("Login")->action_for("login")));
+    $c->session->{redirect_to_after_login} = $c->request->path;
+    $c->response->redirect($c->uri_for($self->action_for("login")));
 }
 
 1;
@@ -51,7 +50,7 @@ Provides the C<login>
 action with a wrapper to redirect to a page which needs authentication, from which the
 user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::NeedsLogin>
 
--head1 WRAPPED METHODS
+=head1 WRAPPED METHODS
 
 =head2 redirect_after_login_uri
 
