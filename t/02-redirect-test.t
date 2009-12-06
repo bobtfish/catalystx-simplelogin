@@ -17,7 +17,7 @@ is($res->header('Location'), 'http://localhost/login', 'Redirect to /login');
 my $cookie = $res->header('Set-Cookie');
 ok($cookie, 'Have a cookie');
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r'], Cookie => $cookie);
-is($c->session->{redirect_to_after_login}, 'needslogin', '$c->session->{redirect_to_after_login} set');
+is($c->session->{redirect_to_after_login}, undef , '$c->session->{redirect_to_after_login} unset');
 ok($c->user, 'Have a user in $c');
 is($res->code, 302, 'get 302 redirect to needslogin');
 is($res->header('Location'), 'http://localhost/needslogin', 'Redirect to /needslogin');

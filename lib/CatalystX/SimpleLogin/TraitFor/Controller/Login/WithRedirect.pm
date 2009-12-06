@@ -12,9 +12,13 @@ around 'redirect_after_login_uri' => sub {
         $c->log->warn('No $c->session, cannot do ' . __PACKAGE__);
         return $self->$orig($c, @args);
     }
-    return $c->session->{redirect_to_after_login}
-        ? $c->uri_for('/'.$c->session->{redirect_to_after_login})
-        : $self->$orig($c, @args);
+
+    return $self->$orig($c, @args)
+      unless ( $c->session->{redirect_to_after_login} );
+
+    my $dest = delete $c->session->{redirect_to_after_login};
+
+    return $c->uri_for( "/$dest" );
 };
 
 sub login_redirect {
