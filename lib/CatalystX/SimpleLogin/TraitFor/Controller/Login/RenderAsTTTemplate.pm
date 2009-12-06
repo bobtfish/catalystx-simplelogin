@@ -3,7 +3,10 @@ package CatalystX::SimpleLogin::TraitFor::Controller::Login::RenderAsTTTemplate;
 use MooseX::MethodAttributes::Role;
 use namespace::autoclean;
 
-requires 'login_form_stash_key';
+requires qw/
+    login
+    login_form_stash_key
+/;
 
 after 'login' => sub {
     my ( $self, $ctx ) = @_;

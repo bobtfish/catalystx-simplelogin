@@ -21,7 +21,7 @@ sub login_redirect {
     my ($self, $c, $message) = @_;
     $c->flash->{error_msg} = $message; # FIXME - Flash horrible
     $c->session->{redirect_to_after_login} = $c->request->path;
-    $c->response->redirect($c->uri_for($c->controller("Login")->action_for("login")));
+    $c->response->redirect($c->uri_for($self->action_for("login")));
 }
 
 1;
