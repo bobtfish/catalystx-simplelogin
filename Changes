@@ -1,3 +1,8 @@
+0.04  Sun, 06 Dec 2009 13:25:23 +0000
+  * Fix too low a dependency on HTML::Formhandler
+  * Clean up a couple of things in the controller code to use $self
+    rather than $c->controller('Login').
+
 0.03  Sat, 14 Nov 2009 16:28:23 +0000
   * Fix dependency on Authentication::Credential::OpenID
   * Doc fixes
