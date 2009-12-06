@@ -2,12 +2,8 @@ use strict;
 use warnings;
 use inc::Module::Install 0.91;
 
-BEGIN {
-    if ($Module::Install::AUTHOR) {
-        require Module::Install::AuthorTests;
-        require Module::Install::AuthorRequires;
-    }
-}
+use Module::Install::AuthorTests;
+use Module::Install::AuthorRequires;
 
 name 'CatalystX-SimpleLogin';
 all_from 'lib/CatalystX/SimpleLogin.pm';
@@ -25,7 +21,7 @@ requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
 requires 'MooseX::RelatedClassRoles' => '0.004';
 requires 'Moose::Autobox';
-requires 'HTML::FormHandler' => '0.26001';
+requires 'HTML::FormHandler' => '0.28001';
 requires 'namespace::autoclean';
 requires 'Catalyst::Plugin::Session' => '0.27'; # Required as we use the 'Plugin::Session' config key in ::Manual
 
