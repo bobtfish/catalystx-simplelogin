@@ -15,7 +15,6 @@ has 'login_error_message' => (
     default => 'Wrong username or password',
 );
 
-has_field 'realm' => ( type => 'Text' );
 has_field 'username' => ( type => 'Text' );
 has_field 'password' => ( type => 'Password' );
 has_field 'remember' => ( type => 'Checkbox' );
