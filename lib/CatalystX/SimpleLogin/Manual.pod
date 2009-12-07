@@ -25,14 +25,6 @@ Session plugins to the use Catalyst plugin list:
                     Session::State::Cookie
                     Static::Simple/;
 
-Add the following config for SimpleLogin:
-
-    __PACKAGE__->config(
-        'Controller::Login' => {
-            traits => ['RenderAsTTTemplate', 'WithRedirect'],
-        },
-    );
-
 Add the following config for authentication, including two sample users:
 
     __PACKAGE__->config(
