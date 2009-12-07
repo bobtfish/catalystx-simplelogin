@@ -103,8 +103,6 @@ action.
 This trait is set by default, but if you set another trait in your config, you
 will have to include it.
 
-B<FIXME> - Get trait merging working..
-
 =item *
 
 L<CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect> - provides the C<login>
