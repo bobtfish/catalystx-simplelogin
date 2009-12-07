@@ -1,3 +1,10 @@
+  * WARNING: BREAKING CHANGE - The WithRedirect and RenderAsTTTemplate
+    traits are now composed as default to reduce the amount of config
+    needed in the tutorial, and as these are mostly what people want.
+    If you don't want these traits, then you'll have to remove them with
+    config.
+  * Various documentation cleanups.
+
 0.04  Sun, 06 Dec 2009 13:25:23 +0000
   * Fix too low a dependency on HTML::Formhandler
   * Clean up a couple of things in the controller code to use $self
