@@ -77,11 +77,9 @@ These traits are set in the config:
 
    __PACKAGE__->config(
         'Controller::Login' => {
-            traits => ['Logout', 'WithRedirect', 'RenderAsTTTemplate'],
-            login_form_args => { # see the login form }, 
+            traits => [qw/ Logout WithRedirect RenderAsTTTemplate /],
+            login_form_args => { # see the login form },
    );
-
-   
 
 =head1 COMPONENTS
 
@@ -112,7 +110,7 @@ user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::N
 =item *
 
 L<CatalystX::SimpleLogin::TraitFor::Controller::Login::RenderAsTTTemplate> - sets
-the stash variable 'template' to point to a string reference containing the 
+the stash variable 'template' to point to a string reference containing the
 rendered template so that it's not necessary to have a login.tt template file.
 
 =item *
