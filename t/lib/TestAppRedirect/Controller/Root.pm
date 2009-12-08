@@ -11,6 +11,7 @@ sub index : Path { }
 sub needslogin :Local :Does('NeedsLogin') {
     my ($self, $c) = @_;
     $c->res->body('NeedsLogin works!');
+	$c->res->header('X-In-NeedsLogin-Method', 1);
 }
 
 sub needslogincustommsg :Local :Does('NeedsLogin') :LoginRedirectMessage('Please Login to view this Test Action')  {

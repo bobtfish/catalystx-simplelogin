@@ -2,7 +2,7 @@
 
 use strict;
 use warnings;
-use Test::More tests => 8;
+use Test::More tests => 9;
 use HTTP::Request::Common;
 
 use FindBin qw($Bin);
@@ -14,6 +14,9 @@ my ($res, $c);
 ($res, $c) = ctx_request(GET 'http://localhost/needslogin');
 is($res->code, 302, 'get 302 redirect for page which needs login');
 is($res->header('Location'), 'http://localhost/login', 'Redirect to /login');
+
+ok(!$res->header('X-In-NeedsLogin-Method'), 'Action shouldnt run!');
+
 my $cookie = $res->header('Set-Cookie');
 ok($cookie, 'Have a cookie');
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r'], Cookie => $cookie);
