@@ -15,7 +15,7 @@ __PACKAGE__->config(
     'Plugin::Authentication' => {
         default => {
             credential => {
-                class => 'OpenID',
+                class => 'MockOpenID',
             },
         },
     },
