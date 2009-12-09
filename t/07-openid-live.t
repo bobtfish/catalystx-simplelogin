@@ -9,6 +9,15 @@ use HTTP::Request::Common;
 use FindBin qw($Bin);
 use lib "$Bin/lib";
 
+BEGIN {
+    unless (
+        eval { require Crypt::DH } &&
+        eval { require Catalyst::Authentication::Credential::OpenID; }
+    ) {
+        plan skip_all => 'OpenID dependencies not installed';
+    }
+}
+
 use Catalyst::Test 'TestAppOpenID';
 my ($res, $c);
 
