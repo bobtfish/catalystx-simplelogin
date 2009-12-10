@@ -6,13 +6,27 @@ BEGIN { extends 'Catalyst::Controller::ActionRole' }
 
 __PACKAGE__->config(namespace => q{});
 
-sub index : Path { }
-
-sub needslogin :Local :Does('NeedsLogin') {
+sub index : Path {
     my ($self, $c) = @_;
-    $c->res->body('NeedsLogin works!');
-	$c->res->header('X-In-NeedsLogin-Method', 1);
+    $c->res->body("MOO");
 }
+
+sub _needslogin {
+    my ($self, $ctx) = @_;
+    $ctx->res->body('NeedsLogin works!');
+    $ctx->res->header('X-Action-Run'
+        =>  ($ctx->res->header('X-Action-Run')||'')
+            . $ctx->action
+    );
+}
+
+sub needslogin :Local :Does('NeedsLogin') {shift->_needslogin(shift)}
+
+sub base : Chained('/') PathPart('') CaptureArgs(0) :Does('NeedsLogin') {shift->_needslogin(shift)}
+sub needslogin_chained : Chained('base') Args(0) {shift->_needslogin(shift)}
+
+sub base2 : Chained('/') PathPart('') CaptureArgs(0) {shift->_needslogin(shift)}
+sub needslogin_chained2 : Chained('base2') Args(0) :Does('NeedsLogin') {shift->_needslogin(shift)}
 
 sub needslogincustommsg :Local :Does('NeedsLogin') :LoginRedirectMessage('Please Login to view this Test Action')  {
     my ($self, $c) = @_;
