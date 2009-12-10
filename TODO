@@ -92,4 +92,6 @@ LLLAAAAAMMMMEEEEE:
 18:48 <@t0m> stephan48: Yes, you don't need to.
 18:48 <@t0m> stephan48: Just add tests there..
 
-
+* Fix the OpenID controller so that it automatically uses the openID form role.
+* Tests for the openID controller
+* Remove extra features in basic test app.
