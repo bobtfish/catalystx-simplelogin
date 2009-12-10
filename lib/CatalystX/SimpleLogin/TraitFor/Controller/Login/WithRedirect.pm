@@ -23,6 +23,7 @@ sub login_redirect {
     $c->flash->{error_msg} = $message; # FIXME - Flash horrible
     $c->session->{redirect_to_after_login} = $c->uri_for($c->action, $c->req->captures, $c->req->args->flatten, $c->req->parameters);
     $c->response->redirect($c->uri_for($self->action_for("login")));
+    $c->detach;
 }
 
 1;
