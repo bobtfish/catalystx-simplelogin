@@ -3,6 +3,16 @@ use HTML::FormHandler::Moose::Role;
 
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 
+BEGIN {
+    unless (
+        eval { require Crypt::DH } &&
+        eval { require Catalyst::Authentication::Credential::OpenID; }
+    ) {
+        warn("Cannot load " . __PACKAGE__ . " - Catalyst OpenID authentication credential not installed\n");
+        exit 1;
+    }
+}
+
 has_field 'openid_identifier' => ( type => 'Text' );
 has_field 'openid-check' => ( widget => 'no_render' );
 

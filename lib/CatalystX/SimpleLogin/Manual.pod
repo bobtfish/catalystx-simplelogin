@@ -5,7 +5,7 @@ CatalystX::SimpleLogin::Manual - How to use and customise CatalystX::SimpleLogin
 =head2 Tutorial
 
 We're using a sample application here, to make the instructions a little
-easier. This assumes that you have Catalyst, Catalyst::Devel, 
+easier. This assumes that you have Catalyst, Catalyst::Devel,
 Template Toolkit, and the Catalyst authentication and session plugins
 installed.
 
@@ -16,7 +16,7 @@ installed.
 Edit lib/MyApp.pm and add CatalystX::SimpleLogin,  Authenticate, and the
 Session plugins to the use Catalyst plugin list:
 
-    use Catalyst qw/-Debug  
+    use Catalyst qw/-Debug
                     ConfigLoader
                     +CatalystX::SimpleLogin
                     Authenticate
@@ -24,14 +24,6 @@ Session plugins to the use Catalyst plugin list:
                     Session::Store::File
                     Session::State::Cookie
                     Static::Simple/;
-
-Add the following config for SimpleLogin:
-
-    __PACKAGE__->config( 
-        'Controller::Login' => {
-            traits => ['RenderAsTTTemplate', 'WithRedirect'],
-        },                                                             
-    );
 
 Add the following config for authentication, including two sample users:
 
@@ -67,7 +59,7 @@ Execute C< script/myapp_server.pl > and, as part of the debug output, you should
     | /login                              | /login/login                         |
     | /logout                             | /login/logout                        |
     '-------------------------------------+--------------------------------------'
-    
+
 Go to C< localhost:3000 > and you should see the Catalyst welcome screen. Go to
 C< localhost:3000/login > and you should get a login screen containing username and
 password text fields, a 'Remember' checkbox, and a 'Login' button. Enter 'bob' and
@@ -75,7 +67,7 @@ password text fields, a 'Remember' checkbox, and a 'Login' button. Enter 'bob' a
 C< localhost:3000/logout > you will be logged out, and should see this in the
 debug output (the welcome screen will stay the same).
 
-Now go to C< lib/MyApp/Controller/Root.pm > and remove the lines saying: 
+Now go to C< lib/MyApp/Controller/Root.pm > and remove the lines saying:
 
     use strict;
     use warnings;
@@ -102,8 +94,8 @@ C<< http://localhost:3000/hello_user >> again. You will be presented with a logi
 You can also add a message, which will be put into the flash key 'error_msg'. Add
 the following to the hello_user action:
 
-  : LoginRedirectMessage('Please Login to view this Action') 
-    
+  : LoginRedirectMessage('Please Login to view this Action')
+
 Now we'll create a Template Toolkit template that can be customized. Create a
 C< root/login/login.tt > file with the following lines.
 
@@ -114,7 +106,7 @@ Now edit C< lib/MyApp.pm > and remove the 'RenderAsTTTemplate' trait, and add
 'flash_to_stash' to the session config (to allow the error message to be
 passed to the next request):
 
-    __PACKAGE__->config( 
+    __PACKAGE__->config(
         'Plugin::Session' => {
             flash_to_stash => 1
         },
@@ -131,7 +123,7 @@ it as you please.
     <div class="error">[% error_msg %]</div>
     <form id="login_form" method="post" >
     <fieldset class="main_fieldset">
-    <div><label class="label" for="username">Username: 
+    <div><label class="label" for="username">Username:
     </label><input type="text" name="username" id="username" value="" />
     </div>
 

@@ -3,7 +3,7 @@ use Moose::Role;
 use CatalystX::InjectComponent;
 use namespace::autoclean;
 
-our $VERSION = '0.03';
+our $VERSION = '0.05';
 
 after 'setup_components' => sub {
     my $class = shift;
@@ -77,11 +77,9 @@ These traits are set in the config:
 
    __PACKAGE__->config(
         'Controller::Login' => {
-            traits => ['Logout', 'WithRedirect', 'RenderAsTTTemplate'],
-            login_form_args => { # see the login form }, 
+            traits => [qw/ Logout WithRedirect RenderAsTTTemplate /],
+            login_form_args => { # see the login form },
    );
-
-   
 
 =head1 COMPONENTS
 
@@ -103,8 +101,6 @@ action.
 This trait is set by default, but if you set another trait in your config, you
 will have to include it.
 
-B<FIXME> - Get trait merging working..
-
 =item *
 
 L<CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect> - provides the C<login>
@@ -114,7 +110,7 @@ user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::N
 =item *
 
 L<CatalystX::SimpleLogin::TraitFor::Controller::Login::RenderAsTTTemplate> - sets
-the stash variable 'template' to point to a string reference containing the 
+the stash variable 'template' to point to a string reference containing the
 rendered template so that it's not necessary to have a login.tt template file.
 
 =item *

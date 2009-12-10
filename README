@@ -51,8 +51,8 @@ CUSTOMISATION
 
        __PACKAGE__->config(
             'Controller::Login' => {
-                traits => ['Logout', 'WithRedirect', 'RenderAsTTTemplate'],
-                login_form_args => { # see the login form }, 
+                traits => [qw/ Logout WithRedirect RenderAsTTTemplate /],
+                login_form_args => { # see the login form },
        );
 
 COMPONENTS
@@ -68,8 +68,6 @@ COMPONENTS
 
         This trait is set by default, but if you set another trait in your
         config, you will have to include it.
-
-        FIXME - Get trait merging working..
 
     *   CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect -
         provides the "login" action with a wrapper to redirect to a page

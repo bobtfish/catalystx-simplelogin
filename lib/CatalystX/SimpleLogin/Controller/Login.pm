@@ -16,7 +16,11 @@ with qw(
 has '+_trait_merge' => (default => 1);
 
 __PACKAGE__->config(
-    traits => 'Logout',
+    traits => [qw/
+        WithRedirect
+        RenderAsTTTemplate
+        Logout
+    /],
 );
 
 sub BUILD {
