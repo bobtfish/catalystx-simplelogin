@@ -1,7 +1,3 @@
-11:03 <+osfameron> t0m: OK, I'm going to try to integrate CX::SimpleLogin -- I've set myself an arbitrary 1 hour goal to do it :-)
-11:04 <+osfameron> (I'm sure it'll only take 5 mins, but I can be a bit dumb at reading and grokking docs ;-)
-11:04 <@t0m> osfameron: good luck! :) The docs aren't yet awseome.. Please be yelling as/when it's not obvious :)
-11:05 <+osfameron> t0m: and you'll say "patches welcome"? ;-P
 11:05 <@t0m> osfameron: Heh, well, I may actually be writing some of them if you can point out where it's needed as it's my personal crap ;_)
 11:25 <+osfameron> t0m: do I have to Does('NeedsLogin') ?  I'm already doing :RequiresRole(user)
 11:26 <@t0m> osfameron: yes.
@@ -10,42 +6,11 @@
 11:27 <+osfameron> t0m: I don't see where to put the actual logic of logging in though?
 11:28 <@t0m> osfameron: erm, you don't need to. That's all supplied by CX::SimpleLogin::Controller::Login
 11:28 <+osfameron> t0m: um... how does it know?
-11:31 <+osfameron> gosh, lots of deps
 11:31 <+osfameron> I thought I'd have most of them having ActionRole and Auth roles and all
-11:33 <@t0m> osfameron: Yeah, sorry, it should maybe have been called Task::BeLike::t0m ;)
 11:34 <+osfameron> is it going to expect to do authentication differently, or will it plug into 'Authentication' that I already have setup ?
-11:34 <+osfameron> wow, Crypt::DH tests are slow...
-11:34 <+osfameron> could you remove the deps on the crypto stuff then?
-11:34 <+osfameron> as that stuff takes ages to install/test and is fragile.
-11:34 <+osfameron> *cough* Angerwhale
-11:35 <@t0m> osfameron: Yes, well, kinda.. I can at least make OpenID optional, and do something about making sure you have the right crypt things to not be horribly slow..
-11:36 <+osfameron> ooo! search.cpan.org knows where your repository is
-11:36  * osfameron logs into the bug tracker of doom
-11:42 <+osfameron> logged
-11:42 <+osfameron> in fact that crypto dep is still running
-11:42  * osfameron grumbles
-11:43 <+osfameron> ah.  strace says: waitpid(8526, 
-11:43 <+osfameron> piece of crap
-11:43 <+osfameron> (Crypt::DH)-- # broken test
-11:44 <+osfameron> for fuck's sake
-11:44 <+osfameron> the test is called: t/07-openid-live.t
-11:45 <+osfameron> it's actually failing doing a fucking LIVE test?
-11:45 <+osfameron> (Crypt::DH)-- ' 
-11:45 <+osfameron> I'm in a fucking library, the port is probably blocked or something
-11:45 <+osfameron> that sounds sensible
-11:46 <+osfameron> thanks
-11:50 < ijw> osfameron: Bloody live tests in modules have been winding me up for weeks.
-11:51 <+osfameron> well, 'notest' as Caelum suggested works fine
-11:52 <+osfameron> I'd rather run the other (non-live) tests though
-11:54 <+osfameron> ah
-11:54 <+osfameron> or to have M::I create honour something like: make installdeps --notests  ?
-11:55 <+osfameron> yarr
 11:57 <+osfameron> t0m: ::Form::Login could usefully document what the standard fields are?  (i.e. if you already have those then no need to configure further?)
 12:00 <+osfameron> t0m: do I need to 'use' ::ActionRole::NeedsLogin to get it ?
 12:00 <+osfameron> the docs don't have a use line, so I don't know if it's automagically folded in?
-12:00 <+osfameron> ooo, Chained++ # only have 1 place in each controller that I need the Does(NeedsLogin) part
-12:01 <@t0m> osfameron: no, as long as your controller @ISA controller::ActionRole, then Does(NeedsLogin) will take care of loading the class for you
-12:01 <+osfameron> oki
 12:02 <+osfameron> hmm, Can't locate object method "login_redirect" at ::NeedsLogin line 14
 12:02 <+osfameron> I think I have WithRedirect in the traits
 12:03 <+osfameron> ah no, hadn't saved Web.pm
@@ -55,43 +20,14 @@
 12:06 <+osfameron> ah
 12:06 <+osfameron> if you're on /login
 12:06 <+osfameron> then after you login, you stay there
-12:07 <+osfameron> hmm, does NeedsLogin work with Chained?
-12:09 <+osfameron> I've added :Does(NeedsLogin) to various places, but it only seems to be honouring it for the index :Path :Args(0) one
-12:09 <+osfameron> not for the chained ones
-12:12 <+osfameron> t0m: or is that something I'm doing rong?
-12:14 <+osfameron> oki, no worries.  I'll come back to it later myself
-12:16 <@t0m> osfameron++ # Thanks, that was really helpful - I'll document / add tests for everything you've been confused/unsure about tonight :)
-12:36 <+osfameron> t0m: no worries, I'll have another look when you've had time to update those.  And let me know about :Chained stuff! ;-)
-12:36 <+osfameron> thanks for the module, I think it'll be shiny now that I'm beginning to get a picture of it
 
 LLLAAAAAMMMMEEEEE:
 'Controller::Login' => {
          login_form_class_roles => [ 'CatalystX::SimpleLogin::Form::LoginOpenID']
     },
 
-18:29 < stephan48> code: http://pastebin.com/f2f2d7024 log: http://pastebin.com/f2a456d1
-18:32 <@t0m> stephan48: so what's the actual issue?
-18:32 <@t0m> You hit a page, get redirected to /login
-18:32 <@t0m> you login, then it redirects you to your code
-18:32 <@t0m> which explodes.
-18:33 <@t0m> erm, I'm confused a bit, actually. As there isn't actually a hit where you login
-18:33 <@t0m> It just shows you the login page..
-18:39 < stephan48> t0m, yea but hit after redirect /profile/update should also redirect to login
-18:39 < stephan48> because user is not logged in....
-18:40 < stephan48> so /profile/show works like it should(redirect) but /profile/update doesnt work (no redirecz)
-18:40 <@t0m> ah, right :) I get it :)
-18:40 <@t0m> yeah, that's a bug :)
-18:47 < stephan48> t0m, as far as i see it needs we atleast need a controller and actionrole :)
-18:47 < stephan48> same with chained code
-18:47 <@t0m> stephan48: http://github.com/bobtfish/catalystx-simplelogin/blob/master/t/lib/TestAppRedirect/Controller/Root.pm
-18:47 < c0bra> t0m: and so I have my __PACKAGE__->config call wrapped in an if-check on __PACKAGE__->debug
-18:47 <@t0m> c0bra: yes, please nopaste the code.
-18:47 <@t0m> And when I say 'the code', I mean your MyApp.pm class.
-18:47 < c0bra> sure
-18:48 < stephan48> t0m, i already copied that ;)
-18:48 <@t0m> stephan48: Yes, you don't need to.
-18:48 <@t0m> stephan48: Just add tests there..
-
 * Fix the OpenID controller so that it automatically uses the openID form role.
 * Tests for the openID controller
 * Remove extra features in basic test app.
+* Need to test login redirect with args & captures & params and stuff
+* Fix /login redirect to /login bug?
