@@ -1,3 +1,8 @@
+0.06  Fri, 11 Dec 2009 00:01:23 +0000
+  * Fix Catalyst::ActionRole::NeedsLogin to correctly detach from
+    action chains + tests.
+  * Add an experimental controller for OpenID support.
+
 0.05  Wed, 09 Dec 2009 22:50:23 +0000
   * WARNING: BREAKING CHANGE - The WithRedirect and RenderAsTTTemplate
     traits are now composed as default to reduce the amount of config
