@@ -3,7 +3,7 @@ use Moose::Role;
 use CatalystX::InjectComponent;
 use namespace::autoclean;
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 after 'setup_components' => sub {
     my $class = shift;
