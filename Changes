@@ -1,3 +1,11 @@
+0.07  Sun, 13 Dec 2009 20:00:23 +0000
+  * Fix so that you can pass parameters to the login form from config to change
+    the keys used in the $c->authenticate call, so that you can use an arbitrary
+    DBIC schema result class.
+  * Add tests with a DBIC using app.
+  * Significant refactoring in the test suite to reduce code and template duplication
+    between the test applications.
+
 0.06  Fri, 11 Dec 2009 00:01:23 +0000
   * Fix Catalyst::ActionRole::NeedsLogin to correctly detach from
     action chains + tests.
