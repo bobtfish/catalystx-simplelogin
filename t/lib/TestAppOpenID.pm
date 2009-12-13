@@ -2,14 +2,7 @@ package TestAppOpenID;
 use Moose;
 use namespace::autoclean;
 
-use Catalyst qw/
-    +CatalystX::SimpleLogin
-    Authentication
-    Session
-    Session::Store::File
-    Session::State::Cookie
-/;
-extends 'Catalyst';
+extends 'TestAppBase';
 
 __PACKAGE__->config(
     'Plugin::Authentication' => {
@@ -17,6 +10,9 @@ __PACKAGE__->config(
             credential => {
                 class => 'MockOpenID',
             },
+            store => {
+                class => 'Null',
+            }
         },
     },
     'Controller::Login' => {

@@ -1,5 +1,6 @@
 package TestAppBase;
 use Moose;
+use CatalystX::InjectComponent;
 use namespace::autoclean;
 
 use Catalyst qw/
@@ -42,5 +43,19 @@ __PACKAGE__->config(
         },
     },
 );
+
+after 'setup_components' => sub {
+    my ($app) = @_;
+    CatalystX::InjectComponent->inject(
+        into => $app,
+        component => 'TestAppBase::Controller::Root',
+        as => 'Root',
+    ) unless $app->controller('Root');
+    CatalystX::InjectComponent->inject(
+        into => $app,
+        component => 'TestAppBase::View::HTML',
+        as => 'HTML',
+    ) unless $app->controller('HTML');
+};
 
 1;
