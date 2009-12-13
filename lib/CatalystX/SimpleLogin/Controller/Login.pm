@@ -71,7 +71,7 @@ sub _build_login_form {
     $self->apply_login_form_class_roles($self->login_form_class_roles->flatten)
         if scalar $self->login_form_class_roles->flatten; # FIXME - Should MX::RelatedClassRoles
                                                           #         do this automagically?
-    return $self->login_form_class->new( $self->login_form_args );
+    return $self->login_form_class->new( %{$self->login_form_args} ); # FIXME - Formhandler doesn't like hashref
 }
 
 sub render_login_form {

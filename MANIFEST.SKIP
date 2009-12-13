@@ -1,3 +1,4 @@
+^t/lib/TestAppDBIC/testdbic.db$
 ^TODO
 .git/
 blib

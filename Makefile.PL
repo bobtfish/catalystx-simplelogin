@@ -26,6 +26,7 @@ requires 'namespace::autoclean';
 requires 'Catalyst::Plugin::Session' => '0.27'; # Required as we use the 'Plugin::Session' config key in ::Manual
 
 test_requires 'Test::More' => '0.94';
+test_requires 'Test::Exception';
 test_requires 'Catalyst::Action::RenderView';
 test_requires 'Catalyst::Plugin::Session::State::Cookie';
 test_requires 'Catalyst::Plugin::Session::Store::File';
@@ -39,6 +40,8 @@ author_requires 'Test::EOL' => '0.3';
 author_requires 'Test::NoTabs';
 author_requires 'Test::Pod' => '1.14';
 author_requires 'Test::Pod::Coverage' => '1.08';
+author_requires 'Catalyst::Model::DBIC::Schema';
+author_requires 'Catalyst::Authentication::Store::DBIx::Class';
 
 license 'perl';
 
