@@ -10,7 +10,16 @@ use Catalyst qw/
     Session::State::Cookie
 /;
 extends 'Catalyst';
-
+# HULK SMASH.
+# Catalyst->import calls setup_home, which results in config for
+# the root directory being set if not already set. Ergo we end
+# up with the templates for this class, rather than the subclass,
+# which is fail..
+# FIXME - Do the appropriate handwave here to tell TT about the extra
+#         base app include path, rather than throwing the root dir
+#         away..
+__PACKAGE__->config(home => undef, root => undef);
+# Normal default config.
 __PACKAGE__->config(
     'Plugin::Authentication' => {
         default => {

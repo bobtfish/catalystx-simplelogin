@@ -2,13 +2,6 @@ package TestAppOpenID::Controller::Root;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller' }
-
-__PACKAGE__->config(namespace => q{});
-
-sub index : Path { }
-
-sub end : ActionClass('RenderView') {}
+BEGIN { extends 'TestAppBase::Controller::Root' }
 
 __PACKAGE__->meta->make_immutable;
-

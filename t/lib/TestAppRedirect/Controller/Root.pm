@@ -2,14 +2,12 @@ package TestAppRedirect::Controller::Root;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller::ActionRole' }
+BEGIN { extends 'TestAppBase::Controller::Root' }
 
-__PACKAGE__->config(namespace => q{});
-
-sub index : Path {
+after index => sub {
     my ($self, $c) = @_;
     $c->res->body("MOO");
-}
+};
 
 sub _needslogin {
     my ($self, $ctx) = @_;
@@ -45,7 +43,4 @@ sub denied :Private {
      $c->res->body('Denied!');
 }
 
-sub end : ActionClass('RenderView') {}
-
 __PACKAGE__->meta->make_immutable;
-
