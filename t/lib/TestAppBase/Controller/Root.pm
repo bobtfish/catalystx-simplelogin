@@ -4,7 +4,15 @@ use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller::ActionRole' }
 
-__PACKAGE__->config(namespace => q{});
+__PACKAGE__->config(
+    namespace => '',
+);
+
+sub auto : Action {
+    my ($self, $c) = @_;
+    $c->stash->{additional_template_paths} =
+          [$c->config->{home} . '/../TestAppBase/root'];
+}
 
 sub index : Path { }
 
