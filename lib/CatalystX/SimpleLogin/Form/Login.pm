@@ -35,8 +35,12 @@ sub validate {
     my %values = %{$self->values}; # copy the values
     unless (
         $self->ctx->authenticate({
-            map { $self->${ \sprintf("authenticate_%s_field_name", $_)}() => $self->values->{$_} }
-            qw/ username password /
+            map {
+                my $param_name = sprintf("authenticate_%s_field_name", $_);
+                ($self->can($param_name) ? $self->$param_name() : $_) => $self->values->{$_};
+            }
+            grep { ! /remember/ }
+            keys %{ $self->values }
         })
     ) {
         $self->add_auth_errors;
