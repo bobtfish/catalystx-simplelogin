@@ -4,7 +4,14 @@ use namespace::autoclean;
 
 extends 'TestAppBase';
 
+__PACKAGE__->config(
+    'Controller::Login' => {
+        # Doing our own templates, without the redirect stuff.
+        traits => ['-WithRedirect', '-RenderAsTTTemplate'],
+    },
+);
+
 __PACKAGE__->setup;
 
-__PACKAGE__->meta->make_immutable( replace_constructor => 1 );
+1;
 

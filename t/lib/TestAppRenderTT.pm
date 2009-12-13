@@ -6,11 +6,10 @@ extends 'TestAppBase';
 
 __PACKAGE__->config(
     'Controller::Login' => {
-        traits => ['RenderAsTTTemplate', 'Logout'],
+        # No config needed, you get renderastt by default :)
     },
 );
 
 __PACKAGE__->setup;
 
-__PACKAGE__->meta->make_immutable( replace_constructor => 1 );
-
+1;
