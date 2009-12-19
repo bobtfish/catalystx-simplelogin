@@ -14,7 +14,7 @@ around 'redirect_after_login_uri' => sub {
         return $self->$orig($c, @args);
     }
     return $c->session->{redirect_to_after_login}
-        ? $c->session->{redirect_to_after_login}
+        ? delete $c->session->{redirect_to_after_login}
         : $self->$orig($c, @args);
 };
 
