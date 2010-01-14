@@ -19,7 +19,7 @@ Session plugins to the use Catalyst plugin list:
     use Catalyst qw/-Debug
                     ConfigLoader
                     +CatalystX::SimpleLogin
-                    Authenticate
+                    Authentication
                     Session
                     Session::Store::File
                     Session::State::Cookie
