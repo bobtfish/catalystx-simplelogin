@@ -1,5 +1,6 @@
 package CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout;
 use MooseX::MethodAttributes::Role;
+use MooseX::Types::Moose qw/Str/;
 use namespace::autoclean;
 
 sub logout : Chained('/') PathPart('logout') Args(0) {
@@ -8,10 +9,18 @@ sub logout : Chained('/') PathPart('logout') Args(0) {
     $c->res->redirect($self->redirect_after_logout_uri($c));
 }
 
+
+
 sub redirect_after_logout_uri {
     my ($self, $c) = @_;
-    $c->uri_for('/');
+    $c->uri_for($self->_redirect_after_logout_uri);
 }
+has _redirect_after_logout_uri => (
+    isa => Str,
+    default => '/',
+    init_arg => 'redirect_after_logout_uri',
+    is => 'ro',
+);
 
 1;
 
@@ -38,15 +47,13 @@ retuned by C<< $self->redirect_after_logout_uri >>.
 
 Returns the uri to redirect to after logout.
 
-Defaults to C<< $c->uri_for('/'); >>
+Defaults to C<< $c->uri_for('/'); >> you can override this
+by setting the C<<redirect_after_logout_uri>> key in config
+to a path to be passed to C<< $c->uri_for >>.
 
-=head1 TODO
-
-=over
-
-=item Make logout uri come from config
-
-=back
+Alternatively, you can write your own redirect_after_logout_uri
+in your Login controller if you are extending CatalystX::SimpleLogin
+and it will override the method from this role.
 
 =head1 SEE ALSO
 
