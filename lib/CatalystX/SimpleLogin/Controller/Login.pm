@@ -105,8 +105,14 @@ sub login
 
 sub redirect_after_login_uri {
     my ($self, $ctx) = @_;
-    $ctx->uri_for('/');
+    $ctx->uri_for($self->_redirect_after_login_uri);
 }
+has _redirect_after_login_uri => (
+    is => Str,
+    is => 'ro',
+    init_arg => 'redirect_after_login_uri',
+    default => '/',
+);
 
 1;
 
@@ -159,9 +165,17 @@ and redirects
 
 =head2 redirect_after_login_uri
 
-If you are using WithRedirect (i.e. it has been set in your config),
-then you need to set 'redirect_after_login_uri' if you want something
-other than the default, which is C<< $c->uri_for('/'); >>
+If you are using WithRedirect (i.e. by default), then this methd is overridden
+to redirect the user back to the page they intially hit which required
+authentication.
+
+Note that even if the original URI was a post, then the redirect back will only
+be a GET.
+
+If you choose B<NOT> to compose the WithRedirect trait, then you can set the
+uri users are redirected to with the C<redirect_after_login_uri> config key,
+or by overriding the redirect_after_login_uri method in your own login
+controller if you need custom logic.
 
 =head2 render_login_form
 
