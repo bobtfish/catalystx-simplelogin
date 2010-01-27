@@ -1,3 +1,4 @@
+0.08  Wed, 27 Jan 2010 22:02:11 +0000
   * Fix Login controller so that it works with the RequiresLogin action
     role without the WithRedirect trait composed.
   * Added redirect_after_login_uri configuration key to Controller::Login which
