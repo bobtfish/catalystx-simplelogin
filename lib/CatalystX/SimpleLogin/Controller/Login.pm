@@ -103,6 +103,12 @@ sub login
     );
 }
 
+sub login_redirect {
+    my ($self, $c) = @_;
+    $c->response->redirect($c->uri_for($self->action_for("login")));
+    $c->detach;
+}
+
 sub redirect_after_login_uri {
     my ($self, $ctx) = @_;
     $ctx->uri_for($self->_redirect_after_login_uri);
