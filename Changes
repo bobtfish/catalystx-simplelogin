@@ -1,3 +1,12 @@
+  * Fix Login controller so that it works with the RequiresLogin action
+    role without the WithRedirect trait composed.
+  * Added redirect_after_login_uri configuration key to Controller::Login which
+    can be used to set the path to redirect the user after login (if the
+    WithRedirect trait is not used)
+  * Added redirect_after_logout_uri configuration key to Controller::Login which
+    can be used to set the path to redirect the user after logout.
+  * Fix manual typo (Curtis 'Ovid' Poe)
+
 0.07  Sun, 13 Dec 2009 20:00:23 +0000
   * Fix so that you can pass parameters to the login form from config to change
     the keys used in the $c->authenticate call, so that you can use an arbitrary
