@@ -6,7 +6,7 @@ use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller::ActionRole'; }
 
 with qw(
     CatalystX::Component::Traits
@@ -93,7 +93,7 @@ sub required
 {}
 
 sub login
-    :Chained('required')
+    :Chained('not_required')
     :PathPart('login')
     :Args(0)
 {

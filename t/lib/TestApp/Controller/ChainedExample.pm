@@ -4,7 +4,7 @@ use namespace::autoclean;
 
 BEGIN { extends 'Catalyst::Controller::ActionRole' }
 
-sub base : Chained('/login/required') PathPart('') CaptureArgs(0) {} # Chain everything in the controller off of here.
+sub base : Chained('/login/required') PathPart('chainedexample') CaptureArgs(0) {} # Chain everything in the controller off of here.
 
 sub index : Chained('base') PathPart('') Args(0) { # /chainedexample
 }

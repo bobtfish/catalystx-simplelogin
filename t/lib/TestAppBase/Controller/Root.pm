@@ -12,6 +12,7 @@ sub auto : Action {
     my ($self, $c) = @_;
     $c->stash->{additional_template_paths} =
           [$c->config->{home} . '/../TestAppBase/root'];
+    1;
 }
 
 sub index : Path { }
