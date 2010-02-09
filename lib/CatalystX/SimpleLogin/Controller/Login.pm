@@ -81,7 +81,7 @@ sub render_login_form {
 
 sub not_required
     :Chained('/')
-    :PahPart('')
+    :PathPart('')
     :CaptureArgs(0)
 {}
 

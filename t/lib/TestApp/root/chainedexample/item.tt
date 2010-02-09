@@ -1,4 +1,4 @@
-[% c.user.username %] you inputted [% arg1 | html %].
+[% c.user.id %] you inputted [% arg1 | html %].
 [%# N.B. Trusting your safety to XSS attacks from arbitrary
          user input to a lone | html in TT is probably
          a stupendously bad idea. I'd recommend being

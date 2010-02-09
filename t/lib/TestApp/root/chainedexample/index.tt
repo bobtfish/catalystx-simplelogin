@@ -1,1 +1,1 @@
-Welcome [% c.user.username %].
+Welcome [% c.user.id %].

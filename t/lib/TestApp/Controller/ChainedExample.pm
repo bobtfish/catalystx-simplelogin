@@ -14,6 +14,8 @@ sub item : Chained('base') PathPart('') Args(1) { #/chainedexample/$arg1
     $c->stash->{arg1} = $arg1;
 }
 
-sub public : Chained('/login/not_required') Args(0) {} # /chainedexample/public
+sub no_auth_base : Chained('/login/not_required') PathPart('chainedexample') CaptureArgs(0) {} 
+
+sub public : Chained('no_auth_base') Args(0) {} # /chainedexample/public
 
 __PACKAGE__->meta->make_immutable;
