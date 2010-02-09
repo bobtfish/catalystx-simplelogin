@@ -79,8 +79,21 @@ sub render_login_form {
     return $form->render;
 }
 
-sub login
+sub not_required
     :Chained('/')
+    :PahPart('')
+    :CaptureArgs(0)
+{}
+
+sub required
+    :Chained('/')
+    :PathPart('')
+    :CaptureArgs(0)
+    :Does('NeedsLogin')
+{}
+
+sub login
+    :Chained('required')
     :PathPart('login')
     :Args(0)
 {
