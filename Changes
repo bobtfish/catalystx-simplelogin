@@ -1,4 +1,4 @@
-0.09
+0.09  Sat, 20 Feb 2010 18:05:05 +0000
   * Add actions for people using Chained controllers to chain off.
     /login/required and /login/not_required
   * Point new users to the manual at the top of the POD so they know it's there.
