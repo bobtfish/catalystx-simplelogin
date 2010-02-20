@@ -26,6 +26,11 @@ SYNOPSIS
 
        __PACKAGE__->setup;
 
+ATTENTION!
+    If you're new here, you should start by reading
+    CatalystX::SimpleLogin::Manual, which provides a gentler introduction to
+    using this code. Come back here when you're done there.
+
 DESCRIPTION
     CatalystX::SimpleLogin is an application class Moose::Role which will
     inject a Catalyst::Controller which is an instance of
