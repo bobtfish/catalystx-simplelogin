@@ -12,6 +12,8 @@ around execute => sub {
             ? $self->attributes->{LoginRedirectMessage}[0]
             :'You need to login to view this page!';
 		$c->controller('Login')->login_redirect($c, $message, @args);
+		$c->log->warn("REDIRECTED");
+		$c->detach;
 	}
 	else {
 		return $self->$orig(@_);

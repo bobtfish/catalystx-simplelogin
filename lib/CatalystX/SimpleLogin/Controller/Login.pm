@@ -6,7 +6,7 @@ use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller::ActionRole'; }
 
 with qw(
     CatalystX::Component::Traits
@@ -79,8 +79,21 @@ sub render_login_form {
     return $form->render;
 }
 
-sub login
+sub not_required
     :Chained('/')
+    :PathPart('')
+    :CaptureArgs(0)
+{}
+
+sub required
+    :Chained('/')
+    :PathPart('')
+    :CaptureArgs(0)
+    :Does('NeedsLogin')
+{}
+
+sub login
+    :Chained('not_required')
     :PathPart('login')
     :Args(0)
 {
