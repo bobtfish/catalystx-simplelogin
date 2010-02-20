@@ -43,6 +43,12 @@ CatalystX::SimpleLogin - Provide a simple Login controller which can be reused
 
    __PACKAGE__->setup;
 
+=head1 ATTENTION!
+
+If you're new here, you should start by reading
+L<CatalystX::SimpleLogin::Manual>, which provides a gentler introduction to
+using this code. Come back here when you're done there.
+
 =head1 DESCRIPTION
 
 CatalystX::SimpleLogin is an application class L<Moose::Role|role> which will

@@ -1,5 +1,7 @@
+0.09
   * Add actions for people using Chained controllers to chain off.
     /login/required and /login/not_required
+  * Point new users to the manual at the top of the POD so they know it's there.
 
 0.08  Wed, 27 Jan 2010 22:02:11 +0000
   * Fix Login controller so that it works with the RequiresLogin action
