@@ -1,4 +1,5 @@
 ^t/lib/TestAppDBIC/testdbic.db$
+\..*.swp
 ^TODO
 .git/
 blib
