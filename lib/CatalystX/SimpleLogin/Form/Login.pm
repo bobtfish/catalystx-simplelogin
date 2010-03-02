@@ -4,9 +4,22 @@ use namespace::autoclean;
 
 extends 'HTML::FormHandler';
 #with 'HTML::FormHandler::Render::Simple';
+use MooseX::Types::Moose qw/ HashRef /;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 
 has '+name' => ( default => 'login_form' );
+
+has authenticate_args => (
+    is        => 'ro',
+    isa       => HashRef,
+    predicate => 'has_authenticate_args',
+);
+
+has authenticate_realm => (
+    is        => 'ro',
+    isa       => NonEmptySimpleStr,
+    predicate => 'has_authenticate_realm',
+);
 
 has 'login_error_message' => (
     is => 'ro',
@@ -34,14 +47,18 @@ sub validate {
 
     my %values = %{$self->values}; # copy the values
     unless (
-        $self->ctx->authenticate({
-            map {
-                my $param_name = sprintf("authenticate_%s_field_name", $_);
-                ($self->can($param_name) ? $self->$param_name() : $_) => $self->values->{$_};
-            }
-            grep { ! /remember/ }
-            keys %{ $self->values }
-        })
+        $self->ctx->authenticate(
+            {
+                (map {
+                    my $param_name = sprintf("authenticate_%s_field_name", $_);
+                    ($self->can($param_name) ? $self->$param_name() : $_) => $self->values->{$_};
+                }
+                grep { ! /remember/ }
+                keys %{ $self->values }),
+                ($self->has_authenticate_args ? %{ $self->authenticate_args } : ()),
+            },
+            ($self->has_authenticate_realm ? $self->authenticate_realm : ()),
+        )
     ) {
         $self->add_auth_errors;
         return;
