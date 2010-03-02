@@ -100,7 +100,7 @@ sub login
     my ($self, $ctx) = @_;
     my $form = $self->login_form;
     my $p = $ctx->req->parameters;
-   
+
     if( $form->process(ctx => $ctx, params => $p) ){
         $ctx->res->redirect($self->redirect_after_login_uri($ctx));
         $ctx->extend_session_expires(999999999999)
@@ -117,15 +117,16 @@ sub login
 }
 
 sub login_redirect {
-    my ($self, $c) = @_;
-    $c->response->redirect($c->uri_for($self->action_for("login")));
-    $c->detach;
+    my ($self, $ctx) = @_;
+    $ctx->response->redirect($ctx->uri_for($self->action_for("login")));
+    $ctx->detach;
 }
 
 sub redirect_after_login_uri {
     my ($self, $ctx) = @_;
     $ctx->uri_for($self->_redirect_after_login_uri);
 }
+
 has _redirect_after_login_uri => (
     is => Str,
     is => 'ro',
