@@ -21,7 +21,13 @@ around 'redirect_after_login_uri' => sub {
 before login_redirect => sub {
     my ($self, $c, $message) = @_;
     $c->flash->{error_msg} = $message; # FIXME - Flash horrible
-    $c->session->{redirect_to_after_login} = $c->uri_for($c->action, $c->req->captures, $c->req->args->flatten, $c->req->parameters);
+    $c->session->{redirect_to_after_login}
+        = $c->uri_for(
+            $c->action,
+            $c->req->captures,
+            $c->req->args->flatten,
+            $c->req->parameters,
+            );
 };
 
 1;
