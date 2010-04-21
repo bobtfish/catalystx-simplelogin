@@ -1,15 +1,25 @@
 package CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout;
 use MooseX::MethodAttributes::Role;
-use MooseX::Types::Moose qw/Str/;
+use MooseX::Types::Moose qw/Str Bool/;
 use namespace::autoclean;
 
 sub logout : Chained('/') PathPart('logout') Args(0) {
     my ($self, $c) = @_;
     $c->logout;
+    $self->do_clear_session_on_logout($c) if $self->clear_session_on_logout;
     $c->res->redirect($self->redirect_after_logout_uri($c));
 }
 
+has clear_session_on_logout => (
+    isa => Bool,
+    is => 'ro',
+    default => 0,
+);
 
+sub do_clear_session_on_logout {
+    my ($self, $c) = @_;
+    $c->session({});
+}
 
 sub redirect_after_logout_uri {
     my ($self, $c) = @_;
