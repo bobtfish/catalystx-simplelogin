@@ -46,7 +46,7 @@ author_requires 'Catalyst::Authentication::Store::DBIx::Class';
 
 license 'perl';
 
-resources repository => 'http://github.com/bobtfish/catalystx-simplelogin';
+resources repository => 'git://github.com/bobtfish/catalystx-simplelogin.git';
 
 tests 't/*.t';
 author_tests 't/author';
