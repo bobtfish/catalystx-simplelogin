@@ -18,7 +18,7 @@ has clear_session_on_logout => (
 
 sub do_clear_session_on_logout {
     my ($self, $c) = @_;
-    $c->session({});
+    $c->delete_session;
 }
 
 sub redirect_after_logout_uri {
@@ -64,6 +64,13 @@ to a path to be passed to C<< $c->uri_for >>.
 Alternatively, you can write your own redirect_after_logout_uri
 in your Login controller if you are extending CatalystX::SimpleLogin
 and it will override the method from this role.
+
+=head2 do_clear_session_on_logout
+
+Deletes the session after a logout.
+
+To enable this use the following in your config:
+    __PACKAGE__->config('Controller::Login' => { clear_session_on_logout => 1 });
 
 =head1 SEE ALSO
 
