@@ -27,7 +27,8 @@ before login_redirect => sub {
             $c->req->captures,
             $c->req->args->flatten,
             $c->req->parameters,
-            );
+            )
+            ->as_string;
 };
 
 1;
