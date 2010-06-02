@@ -1,3 +1,7 @@
+0.10  Wed, 02 Jul 2010 17:03:41 +0000
+  * Add a clear_session_on_logout config setting which will blow away the
+    contents of the session on logout.
+
 0.09  Sat, 20 Feb 2010 18:05:05 +0000
   * Add actions for people using Chained controllers to chain off.
     /login/required and /login/not_required
