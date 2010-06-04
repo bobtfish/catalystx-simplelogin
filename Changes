@@ -1,3 +1,6 @@
+0.11
+  * Add a chunk of documentation (Drew Taylour)
+
 0.10  Wed, 02 Jul 2010 17:03:41 +0000
   * Add a clear_session_on_logout config setting which will blow away the
     contents of the session on logout.
