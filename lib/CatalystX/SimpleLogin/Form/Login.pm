@@ -117,8 +117,21 @@ A L<HTML::FormHandler> form for the login form.
 
 =head1 CUSTOMIZATION
 
-If the password and username fields have different names in your
-authentication, set them using the field's 'accessor' attribute.
+By default, the params passed to authenticate() are 'username' and
+'password'. If you need to use different names, then you'll need to
+set the correct value(s) via login_form_args in the configuration.
+The keys are 'authenticate_username_field_name' and/or
+'authenticate_password_field_name'.
+
+    __PACKAGE__->config(
+        'Controller::Login' => {
+            login_form_args => {
+               authenticate_username_field_name => 'name',
+               authenticate_password_field_name => 'password2',
+            }
+        },
+    );
+
 You can also change the way that the form is displayed by setting
 attributes.  In MyApp.pm:
 
@@ -127,7 +140,6 @@ attributes.  In MyApp.pm:
             login_form_args => {
                login_error_message => 'Login failed',
                field_list => {
-                   '+username' => { accessor => 'user_name' },
                    '+submit' => { value => 'Login' },
                }
             }

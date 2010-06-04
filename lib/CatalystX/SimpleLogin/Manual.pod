@@ -91,6 +91,57 @@ Restart the server and you can see the new action. Go to C<< htp://localhost:300
 and you'll get the 'Hello, user!' page. Now execute C<< http://localhost:3000/logout >> and try
 C<< http://localhost:3000/hello_user >> again. You will be presented with a login screen.
 
+=head3 Authorization
+
+CatalystX::SimpleLogin also provides /login/required and /login/not_required for easy
+chaining off of for actions which should only be available to authenticated users.
+
+    package MyApp::Controller::Secure;
+
+    sub setup : Chained('/login/required') PathPart('') CaptureArgs(1) {
+        my ( $self, $c, $id ) = @_;
+        # setup actions for authenticated-user-only access
+        $c->stash->{id} = $id;
+    }
+
+    sub something_secure : Chained('setup') PathPart Args(0) {
+        my ( $self, $c ) = @_;
+        # only authenticated users will have access to this action
+    }
+
+    sub open_to_all : Chained('/login/not_required') PathPart Args(0) {
+        my ( $self, $c ) = @_;
+        # this is available to everyone
+    }
+
+
+For more fine-grained control, you can use ACL checks to refine access 
+control policies. This functionality is provided via L<<Catalyst::ActionRole::ACL>>. 
+Please consult the ACL documentation for steps to setup your application.
+The ACL checks work by allowing you to add additional attributes on your
+actions which control the particular role(s) required or allowed.
+
+    package MyApp;
+    __PACKAGE__->config(
+        'Controller::Login' => {
+            actions => {
+                required => {
+                    Does => ['ACL'],
+                    AllowedRole => ['admin', 'poweruser'], # ANY of these
+                    # RequiresRole => ['extranet'], # ALL of these
+                    ACLDetachTo => 'login',
+                },
+            },
+        },
+    );
+
+    package MyApp::Controller::Foo;
+    BEGIN { extends 'Catalyst::Controller::ActionRole' }
+
+    sub do_something : Chained('/login/required')
+                     : Does('ACL') RequiredRole('createinvoice') ACLDetachTo('/login') {}
+
+
 You can also add a message, which will be put into the flash key 'error_msg'. Add
 the following to the hello_user action:
 
