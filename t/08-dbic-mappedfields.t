@@ -11,11 +11,14 @@ BEGIN {
     my @needed = qw/
         Catalyst::Model::DBIC::Schema
         Catalyst::Authentication::Store::DBIx::Class
+        DBIx::Class::Optional::Dependencies
     /;
     plan skip_all => "One of the required classes for this test $@ (" . join(',', @needed) . ") not found."
         unless eval {
             Class::MOP::load_class($_) for @needed; 1;
         };
+    plan skip_all => 'Test needs ' . DBIx::Class::Optional::Dependencies->req_missing_for('admin')
+        unless DBIx::Class::Optional::Dependencies->req_ok_for('admin');
 }
 
 use Catalyst::Test qw/TestAppDBIC/;
