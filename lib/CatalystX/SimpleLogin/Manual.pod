@@ -153,13 +153,16 @@ C< root/login/login.tt > file with the following lines.
   [% error_msg %]
   [% render_login_form %]
 
-Now edit C< lib/MyApp.pm > and remove the 'RenderAsTTTemplate' trait, and add
+Now edit C< lib/MyApp.pm > and add config to remove the 'RenderAsTTTemplate' trait, and add
 'flash_to_stash' to the session config (to allow the error message to be
 passed to the next request):
 
     __PACKAGE__->config(
         'Plugin::Session' => {
             flash_to_stash => 1
+        },
+        'Controller::Login' => {
+            traits => ['-RenderAsTTTemplate'],
         },
         # Other config..
     );

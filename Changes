@@ -1,3 +1,6 @@
+  * Fix the docs to make it clearer how to remove traits and use your own
+    login form.
+
 0.12
   * Fix test failures with various DBIC versions by relying on the DBIC
     dependency magic (RT#58307).
