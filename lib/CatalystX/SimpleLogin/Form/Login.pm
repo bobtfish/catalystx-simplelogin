@@ -3,7 +3,6 @@ use HTML::FormHandler::Moose;
 use namespace::autoclean;
 
 extends 'HTML::FormHandler';
-#with 'HTML::FormHandler::Render::Simple';
 use MooseX::Types::Moose qw/ HashRef /;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 
@@ -139,19 +138,19 @@ attributes.  In MyApp.pm:
         'Controller::Login' => {
             login_form_args => {
                login_error_message => 'Login failed',
-               field_list => {
+               field_list => [
                    '+submit' => { value => 'Login' },
-               }
+               ]
             }
         },
     );
 
 Additional fields can be added:
 
-   field_list => {
+   field_list => [
        'foo' => ( type => 'MyField' ),
        'bar' => { type => 'Text' },
-   }
+   ]
 
 =head1 AUTHORS
 
