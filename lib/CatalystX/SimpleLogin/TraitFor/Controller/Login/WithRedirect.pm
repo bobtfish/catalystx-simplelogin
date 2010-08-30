@@ -73,7 +73,7 @@ FIXME
 
 =over
 
-=item L<CatalystX::SimpleLogin::ControllerRole::Login>
+=item L<CatalystX::SimpleLogin::Controller::Login>
 
 =item L<CatalystX::SimpleLogin::Form::Login>
 
