@@ -210,7 +210,7 @@ through your view, this is the place to hook into.
 
 =over
 
-=item L<CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect>
+=item L<CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect>
 
 =item L<CatalystX::SimpleLogin::Form::Login>
 
