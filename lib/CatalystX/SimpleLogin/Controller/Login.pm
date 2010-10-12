@@ -175,7 +175,11 @@ Cause form instance to be built at application startup.
 
 =head2 login
 
-Login action
+Login action.
+
+=head2 login_redirect
+
+Redirect to the login action.
 
 =head2 login_GET
 
@@ -185,6 +189,11 @@ Displays the login form
 
 Processes a submitted login form, and if correct, logs the user in
 and redirects
+
+=head2 not_required
+
+A stub action that is anchored at the root of the site ("/") and does not
+require registration (hence the name).
 
 =head2 redirect_after_login_uri
 
@@ -205,6 +214,11 @@ controller if you need custom logic.
 Renders the login form. By default it just calls the form's render method. If
 you want to do something different, like rendering the form with a template
 through your view, this is the place to hook into.
+
+=head2 required
+
+A stub action that is anchored at the root of the site ("/") and does
+require registration (hence the name).
 
 =head1 SEE ALSO
 
