@@ -61,13 +61,15 @@ user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::N
 
 =head2 redirect_after_login_uri
 
-FIXME
+Make it use and extract C<< $c->session->{redirect_to_after_login} >> 
+if it exists.
 
 =head1 METHODS
 
-=head2 login_redirect
+=head2 $controller->login_redirect($c, $message)
 
-FIXME
+This sets the error message to $message and sets
+C<< $c->session->{redirect_to_after_login} >> to the current URL.
 
 =head1 SEE ALSO
 
