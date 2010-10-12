@@ -51,16 +51,16 @@ CatalystX::SimpleLogin::TraitFor::Controller::Login::OpenID - allows a User to l
 
 =head1 DESCRIPTION
 
-Provides the C<login>
-action with a wrapper to redirect to a page which needs authentication, from which the
-user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::NeedsLogin>
+Provides the C<login> action with a wrapper to redirect to a page which needs
+authentication, from which the user was previously redirected. Goes hand in
+hand with L<Catalyst::ActionRole::NeedsLogin> .
 
--head1 WRAPPED METHODS
+=head1 WRAPPED METHODS
 
 =head2 login_GET
 
-FIXME
-
+Wrap around an openid authentication if the C<'openid.mode'> request parameter
+is set. Otherwise, use the default login_GET() method.
 
 =head1 SEE ALSO
 
