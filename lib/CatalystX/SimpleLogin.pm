@@ -3,7 +3,7 @@ use Moose::Role;
 use CatalystX::InjectComponent;
 use namespace::autoclean;
 
-our $VERSION = '0.13';
+our $VERSION = '0.14';
 
 after 'setup_components' => sub {
     my $class = shift;
@@ -214,6 +214,8 @@ L<CatalystX::Component::Traits> - Allows L<Moose::Role|roles> to be composed ont
 =item Gerda Shank (gshank) C<< gshank@cpan.org >>
 
 =item Florian Ragwitz C<< rafl@debian.org >>
+
+=item Shlomi Fish
 
 =back
 
