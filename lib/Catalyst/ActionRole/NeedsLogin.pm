@@ -31,11 +31,16 @@ Catalyst::ActionRole::NeedsLogin - checks if a user is logged in and if not redi
 
     package MyApp::Controller::NeedsAuth;
 
-    sub something : Path Does('NeedsLogin') {
+    sub inbox : Path Does('NeedsLogin') {
         # Redirects to /login if not logged in
+        my ($self, $c) = @_;
+
+        $c->stash->{template} = "inbox.tt2";
+
+        return;
     }
 
-    sub something : Path Does('NeedsLogin') :LoginRedirectMessage('Your custom Message') {
+    sub inbox : Path Does('NeedsLogin') :LoginRedirectMessage('Your custom Message') {
         # Redirects to /login if not logged in-
     }
 
@@ -48,11 +53,15 @@ Provides a ActionRole for forcing the user to login.
 
 =head1 WRAPPED METHODS
 
-FIXME
+=head2 execute
 
-=head1 METHODS
+If there is no logged-in user, call the login_redirect() method in the
+C<'Login'> controller with the Catalyst context object, $c, and the
+message specified by the C<:LoginRedirectMessage('Message here')> method
+attribute (see the synopsis).
 
-FIXME
+If there is a user logged-in (i.e: C<< $c->user >> is true), execute the body 
+of the action as it is.
 
 =head1 SEE ALSO
 
