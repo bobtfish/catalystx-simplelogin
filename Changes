@@ -1,3 +1,7 @@
+0.14 Tue, 12 Oct 2010 17:54:00 +0100
+  * Large improvements in the documentation to pass all POD coverage tests
+    and document examples well thanks to Shlomi Fish.
+
 0.13 Thu, 07 Oct 2010 09:35:00 +0100
   * Fix the docs to make it clearer how to remove traits and use your own
     login form.
