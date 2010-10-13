@@ -30,6 +30,13 @@ Catalyst::ActionRole::NeedsLogin - checks if a user is logged in and if not redi
 =head1 SYNOPSIS
 
     package MyApp::Controller::NeedsAuth;
+    
+    use Moose;
+    use namespace::autoclean;
+
+    # One needs to inherit from Catalyst::Controller::ActionRole in order
+    # to get the Does('NeedsLogin') functionality.
+    BEGIN { extends 'Catalyst::Controller::ActionRole'; }
 
     sub inbox : Path Does('NeedsLogin') {
         # Redirects to /login if not logged in

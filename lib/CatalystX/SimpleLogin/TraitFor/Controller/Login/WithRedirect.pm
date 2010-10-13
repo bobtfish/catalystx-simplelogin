@@ -43,13 +43,26 @@ users who login back to the page they originally requested.
 =head1 SYNOPSIS
 
     package MyApp::Controller::NeedsAuth;
+    
+    use Moose;
+    use namespace::autoclean;
 
-    sub something : Path Does('NeedsLogin') {
+    # One needs to inherit from Catalyst::Controller::ActionRole in order
+    # to get the Does('NeedsLogin') functionality.
+    BEGIN { extends 'Catalyst::Controller::ActionRole'; }
+
+    sub inbox : Path Does('NeedsLogin') {
         # Redirects to /login if not logged in
+        my ($self, $c) = @_;
+
+        $c->stash->{template} = "inbox.tt2";
+
+        return;
     }
 
-    # Turn on in config
-    MyApp->config('Contoller::Login' => { traits => 'Login::WithRedirect' });
+    sub inbox : Path Does('NeedsLogin') :LoginRedirectMessage('Your custom Message') {
+        # Redirects to /login if not logged in-
+    }
 
 =head1 DESCRIPTION
 
