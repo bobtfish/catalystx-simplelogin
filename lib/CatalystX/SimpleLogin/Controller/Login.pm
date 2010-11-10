@@ -101,8 +101,8 @@ sub login
     my $form = $self->login_form;
     my $p = $ctx->req->parameters;
 
-    if( $form->process(ctx => $ctx, params => $p) ){
-        $ctx->res->redirect($self->redirect_after_login_uri($ctx));
+    if( $form->process(ctx => $ctx, params => $p) ) {
+        $self->do_post_login_redirect($ctx);
         $ctx->extend_session_expires(999999999999)
             if $form->field( 'remember' )->value;
     }
@@ -114,6 +114,11 @@ sub login
             $self->render_login_form($ctx, $form);
         }, $ctx),
     );
+}
+
+sub do_post_login_redirect {
+    my ($self, $ctx) = @_;
+    $ctx->res->redirect($self->redirect_after_login_uri($ctx));
 }
 
 sub login_redirect {
