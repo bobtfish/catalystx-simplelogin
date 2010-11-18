@@ -60,7 +60,7 @@ C<'Login'> controller with the Catalyst context object, $c, and the
 message specified by the C<:LoginRedirectMessage('Message here')> method
 attribute (see the synopsis).
 
-If there is a user logged-in (i.e: C<< $c->user >> is true), execute the body 
+If there is a user logged-in (i.e: C<< $c->user >> is true), execute the body
 of the action as it is.
 
 =head1 SEE ALSO
