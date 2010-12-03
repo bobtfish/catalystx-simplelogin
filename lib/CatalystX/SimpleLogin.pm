@@ -217,6 +217,8 @@ L<CatalystX::Component::Traits> - Allows L<Moose::Role|roles> to be composed ont
 
 =item Shlomi Fish
 
+=item Oleg Kostyuk (cub-uanic) C<< cub@cpan.org >>
+
 =back
 
 =head1 LICENSE

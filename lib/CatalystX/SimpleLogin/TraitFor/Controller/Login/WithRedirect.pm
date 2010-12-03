@@ -49,7 +49,7 @@ users who login back to the page they originally requested.
     }
 
     # Turn on in config
-    MyApp->config('Contoller::Login' => { traits => 'Login::WithRedirect' });
+    MyApp->config('Contoller::Login' => { traits => 'WithRedirect' });
 
 =head1 DESCRIPTION
 
