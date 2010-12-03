@@ -205,11 +205,11 @@ L<CatalystX::Component::Traits> - Allows L<Moose::Role|roles> to be composed ont
 
 =over
 
-=item Tomas Doran (t0m) C<< <bobtfish@bobtfish.net> >>
+=item Tomas Doran (t0m) C<< bobtfish@bobtfish.net >>
 
 =item Zbigniew Lukasiak
 
-=item Stephan Jauernick (stephan48) C<< <stephan@stejau.de> >>
+=item Stephan Jauernick (stephan48) C<< stephan@stejau.de >>
 
 =item Gerda Shank (gshank) C<< gshank@cpan.org >>
 
