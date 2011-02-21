@@ -1,3 +1,7 @@
+  * Fix login redirect to just use the URI, rather than trying to compose
+    an action, as in some cases we may not have an action.
+    (E.g. when you have a sub default : Private { action)
+
 0.14 Tue, 12 Oct 2010 17:54:00 +0100
   * Large improvements in the documentation to pass all POD coverage tests
     and document examples well thanks to Shlomi Fish.
