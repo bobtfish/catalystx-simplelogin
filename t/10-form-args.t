@@ -16,6 +16,6 @@ ok(request('/')->is_success, 'Get /');
 ok(request('/login')->is_success, 'Get /login');
 ($res, $c) = ctx_request(GET 'http://localhost/login' );
 like( $c->res->body, qr/Testing Form Args/, 'extra form field added' );
-like( $c->res->body, qr/\<input type="submit" name="submit" id="submit" value="Login" \/\>/, 'submit button modified' );
+like( $c->res->body, qr/\<input type="submit" name="submit" id="submit" value="Login" (tabindex="4" )?\/\>/, 'submit button modified' );
 
 
