@@ -36,10 +36,10 @@ foreach my $type (qw/ username password /) {
     # FIXME - be able to change field names in rendered form also!
 }
 
-has_field 'username' => ( type => 'Text' );
-has_field 'password' => ( type => 'Password' );
-has_field 'remember' => ( type => 'Checkbox' );
-has_field 'submit'   => ( type => 'Submit', value => 'Login' );
+has_field 'username' => ( type => 'Text', tabindex => 1 );
+has_field 'password' => ( type => 'Password', tabindex => 2 );
+has_field 'remember' => ( type => 'Checkbox', tabindex => 3 );
+has_field 'submit'   => ( type => 'Submit', value => 'Login', tabindex => 4 );
 
 sub validate {
     my $self = shift;
