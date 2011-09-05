@@ -1,3 +1,6 @@
+
+  * Various documentation fixes and improvements
+  * Add tab index to forms
   * Fix login redirect to just use the URI, rather than trying to compose
     an action, as in some cases we may not have an action.
     (E.g. when you have a sub default : Private { action)
