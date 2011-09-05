@@ -37,7 +37,7 @@ users who login back to the page they originally requested.
 =head1 SYNOPSIS
 
     package MyApp::Controller::NeedsAuth;
-    
+
     use Moose;
     use namespace::autoclean;
 
@@ -54,9 +54,8 @@ users who login back to the page they originally requested.
         return;
     }
 
-    sub inbox : Path Does('NeedsLogin') :LoginRedirectMessage('Your custom Message') {
-        # Redirects to /login if not logged in-
-    }
+    # Turn on in config
+    MyApp->config('Contoller::Login' => { traits => 'WithRedirect' });
 
 =head1 DESCRIPTION
 
