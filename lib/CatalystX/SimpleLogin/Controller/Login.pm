@@ -172,11 +172,52 @@ for the login and logout actions.
 
 =head1 ATTRIBUTES
 
+=head2 login_form_class
+
+A class attribute containing the class of the form to be initialised. One
+can override it in a derived class with the class of a new form, possibly
+subclassing L<CatalystX::SimpleLogin::Form::Login>. For example:
+
+    package MyApp::Controller::Login;
+
+    use Moose;
+
+    extends('CatalystX::SimpleLogin::Controller::Login');
+
+    has '+login_form_class' => (
+        default => "MyApp::Form::Login",
+    );
+
+    1;
+
+=head2 login_form_class_roles
+
+An attribute containing an array reference of roles to be consumed by
+the form. One can override it in a similar way to C<login_form_class>:
+
+    package MyApp::Controller::Login;
+
+    use Moose;
+
+    extends('CatalystX::SimpleLogin::Controller::Login');
+
+    has '+login_form_class_roles' => (
+        default => sub { [qw(MyApp::FormRole::Foo MyApp::FormRole::Bar)] },
+    );
+
+    1;
+
 =head1 METHODS
 
 =head2 BUILD
 
 Cause form instance to be built at application startup.
+
+=head2 do_post_login_redirect
+
+This method does a post-login redirect. B<TODO> for BOBTFISH - should it even
+be public? If it does need to be public, then document it because the Pod
+coverage test failed.
 
 =head2 login
 
