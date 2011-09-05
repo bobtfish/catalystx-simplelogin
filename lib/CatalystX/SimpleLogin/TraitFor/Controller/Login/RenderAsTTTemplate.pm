@@ -37,7 +37,7 @@ containing the rendered form.
 
 =over
 
-=item L<CatalystX::SimpleLogin::ControllerRole::Login>
+=item L<CatalystX::SimpleLogin::Controller::Login>
 
 =back
 

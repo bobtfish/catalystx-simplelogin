@@ -69,7 +69,7 @@ C<< $c->session->{redirect_to_after_login} >> to the current URL.
 
 =over
 
-=item L<CatalystX::SimpleLogin::ControllerRole::Login>
+=item L<CatalystX::SimpleLogin::Controller::Login>
 
 =item L<CatalystX::SimpleLogin::Form::Login>
 
