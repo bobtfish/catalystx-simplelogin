@@ -76,7 +76,7 @@ To enable this use the following in your config:
 
 =over
 
-=item L<CatalystX::SimpleLogin::ControllerRole::Login>
+=item L<CatalystX::SimpleLogin::Controller::Login>
 
 =back
 

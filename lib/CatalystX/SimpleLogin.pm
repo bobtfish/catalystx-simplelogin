@@ -51,8 +51,8 @@ using this code. Come back here when you're done there.
 
 =head1 DESCRIPTION
 
-CatalystX::SimpleLogin is an application class L<Moose::Role|role> which will
-inject a L<Catalyst::Controller|controller>
+CatalystX::SimpleLogin is an application class L<Moose::Role> which will
+inject a L<Catalyst::Controller>
 which is an instance of L<CatalystX::SimpleLogin::Controller::Login> into your
 application. This provides a simple login and logout page with the adition
 of only one line of code and one template to your application.
@@ -100,7 +100,7 @@ logout actions or override methods.
 
 =item *
 
-L<CatalystX::SimpleLogin::TraitFor::Controller::Logout> - provides the C<logout> action
+L<CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout> - provides the C<logout> action
 and associated methods. You can compose this manually yourself if you want just that
 action.
 
@@ -173,7 +173,7 @@ L<Moose> and L<Moose::Role>
 
 =item *
 
-L<MooseX::MethodAttributes::Role> - Actions compsed from L<Moose::Role|Roles>.
+L<MooseX::MethodAttributes::Role> - Actions composed from L<Moose::Role>.
 
 =item *
 

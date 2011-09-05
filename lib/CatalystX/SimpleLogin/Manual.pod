@@ -116,7 +116,7 @@ chaining off of for actions which should only be available to authenticated user
 
 
 For more fine-grained control, you can use ACL checks to refine access 
-control policies. This functionality is provided via L<<Catalyst::ActionRole::ACL>>. 
+control policies. This functionality is provided via L<Catalyst::ActionRole::ACL>. 
 Please consult the ACL documentation for steps to setup your application.
 The ACL checks work by allowing you to add additional attributes on your
 actions which control the particular role(s) required or allowed.
@@ -139,7 +139,7 @@ actions which control the particular role(s) required or allowed.
     BEGIN { extends 'Catalyst::Controller::ActionRole' }
 
     sub do_something : Chained('/login/required')
-                     : Does('ACL') RequiredRole('createinvoice') ACLDetachTo('/login') {}
+                     : Does('ACL') RequiresRole('createinvoice') ACLDetachTo('/login') {}
 
 
 You can also add a message, which will be put into the flash key 'error_msg'. Add
