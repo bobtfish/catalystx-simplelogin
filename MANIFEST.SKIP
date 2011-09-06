@@ -1,3 +1,4 @@
+^MYMETA\.
 ^t/lib/TestAppDBIC/testdbic.db$
 \..*.swp
 ^TODO
