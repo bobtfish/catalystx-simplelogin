@@ -1,4 +1,4 @@
-
+0.15 Tue, 6 Sept 2011 09:59:00 +0100
   * Various documentation fixes and improvements
   * Add tab index to forms
   * Fix login redirect to just use the URI, rather than trying to compose
