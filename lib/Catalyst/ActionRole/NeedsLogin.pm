@@ -74,9 +74,9 @@ of the action as it is.
 
 =over
 
-=item L<CatalystX::SimpleLogin::ControllerRole::Login::WithRedirect>
+=item L<CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect>
 
-=item L<CatalystX::SimpleLogin::ControllerRole::Login>
+=item L<CatalystX::SimpleLogin::Controller::Login>
 
 =item L<CatalystX::SimpleLogin::Form::Login>
 
