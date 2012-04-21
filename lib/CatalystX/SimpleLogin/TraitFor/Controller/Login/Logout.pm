@@ -36,7 +36,7 @@ has _redirect_after_logout_uri => (
 
 =head1 NAME
 
-CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout
+CatalystX::SimpleLogin::TraitFor::Controller::Login::Logout - log users out
 
 =head1 DESCRIPTION
 
