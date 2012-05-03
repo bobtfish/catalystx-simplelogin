@@ -55,7 +55,7 @@ after 'setup_components' => sub {
         into => $app,
         component => 'TestAppBase::View::HTML',
         as => 'HTML',
-    ) unless $app->controller('HTML');
+    ) unless $app->view('HTML');
 };
 
 1;
