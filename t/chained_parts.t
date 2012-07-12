@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use Test::More;
 use HTTP::Request::Common;
+use File::Path;
+use Path::Class;
 
 # setup library path
 use FindBin qw($Bin);
@@ -31,4 +33,5 @@ like($c->res->body, qr/Welcome bob/, 'Am logged in');
 ($res, $c) = ctx_request(GET 'http://localhost/chainedexample/foo', Cookie => $cookie);
 like($c->res->body, qr/bob you inputted foo/, 'Works for sub path');
 
+rmtree( dir( TestApp->_session_file_storage->{_Backend}{_Root} )->parent->parent , { } );
 done_testing;

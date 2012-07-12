@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use Test::More 'no_plan';
 use HTTP::Request::Common;
+use File::Path;
+use Path::Class;
 
 # setup library path
 use FindBin qw($Bin);
@@ -50,4 +52,4 @@ ok($res->header('Set-Cookie'), 'Cookie is reset by /logout');
 ($res, $c) = ctx_request(GET 'http://localhost/', Cookie => $cookie);
 ok($res->is_success, '/ success');
 unlike($c->res->body, qr/Logged in/, 'Am logged out');
-
+rmtree( dir( TestApp->_session_file_storage->{_Backend}{_Root} )->parent->parent , { } );

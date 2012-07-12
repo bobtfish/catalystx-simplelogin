@@ -35,6 +35,8 @@ test_requires 'Catalyst::Controller::ActionRole' => '0.12';
 test_requires 'Catalyst::ActionRole::ACL';
 test_requires 'CatalystX::InjectComponent';
 test_requires 'SQL::Translator';
+test_requires 'File::Path';
+test_requires 'Path::Class';
 
 author_requires 'Catalyst::Authentication::Credential::OpenID';
 author_requires 'Test::EOL' => '0.3';

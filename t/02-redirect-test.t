@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use Test::More;
 use HTTP::Request::Common;
+use File::Path;
+use Path::Class;
 
 use FindBin qw($Bin);
 use lib "$Bin/lib";
@@ -36,5 +38,6 @@ foreach my $path (qw|needslogin needslogin_chained needslogin_chained_subpart|) 
     is($res->code, 200, 'get 200 ok for page which needs login');
 }
 
+rmtree( dir( TestAppRedirect->_session_file_storage->{_Backend}{_Root} )->parent->parent , { } );
 done_testing;
 

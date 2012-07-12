@@ -4,6 +4,8 @@ use Test::More;
 use Test::Exception;
 use Class::MOP;
 use HTTP::Request::Common;
+use File::Path;
+use Path::Class;
 use FindBin qw/$Bin/;
 use lib "$Bin/lib";
 
@@ -55,5 +57,6 @@ is(request('/logout')->code, 302, 'Get 302 from /logout');
     ok($c->user, 'Have a user in $c');
 }
 
+rmtree( dir( TestAppDBIC->_session_file_storage->{_Backend}{_Root} )->parent->parent , { } );
 done_testing;
 

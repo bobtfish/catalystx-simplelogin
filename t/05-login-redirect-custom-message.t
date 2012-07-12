@@ -5,6 +5,8 @@ use warnings;
 use Test::More 'no_plan';
 use HTTP::Request::Common;
 use Data::Dumper;
+use File::Path;
+use Path::Class;
 # setup library path
 use FindBin qw($Bin);
 use lib "$Bin/lib";
@@ -18,3 +20,5 @@ my $cookie = $res->header('Set-Cookie');
 ok($cookie, 'Have a cookie');
 ($res, $c) = ctx_request(GET 'http://localhost/login', Cookie => $cookie);
 like($c->res->body, qr/Please Login to view this Test Action/, 'check for custom login msg');
+
+rmtree( dir( TestAppRedirect->_session_file_storage->{_Backend}{_Root} )->parent->parent , { } );

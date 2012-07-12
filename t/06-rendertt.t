@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use Test::More;
 use HTTP::Request::Common;
+use File::Path;
+use Path::Class;
 
 use FindBin qw($Bin);
 use lib "$Bin/lib";
@@ -45,4 +47,5 @@ ok($res->header('Set-Cookie'), 'Cookie is reset by /logout');
 ok($res->is_success, '/ success');
 unlike($c->res->body, qr/Logged in/, 'Am logged out');
 
+rmtree( dir( TestAppRenderTT->_session_file_storage->{_Backend}{_Root} )->parent->parent , { } );
 done_testing;
