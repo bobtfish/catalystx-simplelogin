@@ -1,6 +1,7 @@
 package TestAppBase;
 use Moose;
 use CatalystX::InjectComponent;
+use File::Temp qw/ tempdir /;
 use namespace::autoclean;
 
 use Catalyst qw/
@@ -41,6 +42,9 @@ __PACKAGE__->config(
                 },
             },
         },
+    },
+    'Plugin::Session' => {
+        storage => tempdir( CLEANUP => 1 ),
     },
 );
 
