@@ -1,3 +1,4 @@
+  * Ensure that temp directories created in tests get removed.
   * Fix for Catalyst versions >= 5.90013 RT#78340
 
 0.15 Tue, 6 Sept 2011 09:59:00 +0100
