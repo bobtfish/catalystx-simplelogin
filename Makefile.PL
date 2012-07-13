@@ -36,7 +36,6 @@ test_requires 'Catalyst::ActionRole::ACL';
 test_requires 'CatalystX::InjectComponent';
 test_requires 'SQL::Translator';
 
-author_requires 'Catalyst::Authentication::Credential::OpenID';
 author_requires 'Test::EOL' => '0.3';
 author_requires 'Test::NoTabs';
 author_requires 'Test::Pod' => '1.14';
