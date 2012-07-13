@@ -2,7 +2,7 @@ package TestApp::Controller::ChainedExample;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller::ActionRole' }
+BEGIN { extends 'Catalyst::Controller' }
 
 sub base : Chained('/login/required') PathPart('chainedexample') CaptureArgs(0) {} # Chain everything in the controller off of here.
 

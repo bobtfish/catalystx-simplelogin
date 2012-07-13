@@ -2,7 +2,7 @@ package TestAppFormArgs::Controller::NeedsAuth;
 use Moose;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller::ActionRole' }
+BEGIN { extends 'Catalyst::Controller' }
 
 sub foo : Chained('/') PathPart('needsauth') Args(0) Does('NeedsLogin') {
     my ($self, $c) = @_;
