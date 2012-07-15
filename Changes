@@ -1,3 +1,4 @@
+0.17 Sun, 15 July 2012 18:23:00 +0100
   * Better fix for Catalyst versions >= 5.90013 RT#78340, one module
     and some documentation was missed.
 
