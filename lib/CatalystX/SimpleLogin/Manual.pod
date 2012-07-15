@@ -77,7 +77,7 @@ and add the following lines:
 
     use Moose;
     use namespace::autoclean;
-    BEGIN { extends 'Catalyst::Controller::ActionRole' }
+    BEGIN { extends 'Catalyst::Controller' }
 
 Now add a new action to C< lib/MyApp/Controller/Root.pm > and include
 C< Does('NeedsLogin') > to use the Catalyst ActionRole that is part of SimpleLogin:
@@ -136,7 +136,7 @@ actions which control the particular role(s) required or allowed.
     );
 
     package MyApp::Controller::Foo;
-    BEGIN { extends 'Catalyst::Controller::ActionRole' }
+    BEGIN { extends 'Catalyst::Controller' }
 
     sub do_something : Chained('/login/required')
                      : Does('ACL') RequiresRole('createinvoice') ACLDetachTo('/login') {}

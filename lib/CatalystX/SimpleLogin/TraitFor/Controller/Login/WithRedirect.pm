@@ -41,9 +41,9 @@ users who login back to the page they originally requested.
     use Moose;
     use namespace::autoclean;
 
-    # One needs to inherit from Catalyst::Controller::ActionRole in order
+    # One needs to inherit from Catalyst::Controller in order
     # to get the Does('NeedsLogin') functionality.
-    BEGIN { extends 'Catalyst::Controller::ActionRole'; }
+    BEGIN { extends 'Catalyst::Controller'; }
 
     sub inbox : Path Does('NeedsLogin') {
         # Redirects to /login if not logged in

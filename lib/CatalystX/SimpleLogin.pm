@@ -193,7 +193,7 @@ L<Catalyst::Plugin::Session>
 
 =item *
 
-L<Catalyst::Controller::ActionRole> - Allows you to decorate actions with roles (E.g L<Catalyst::ActionRole::NeedsLogin|To force a redirect to the login page>)
+L<Catalyst::Controller> - Allows you to decorate actions with roles (E.g L<Catalyst::ActionRole::NeedsLogin|To force a redirect to the login page>)
 
 =item *
 

@@ -6,7 +6,7 @@ use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
 
-BEGIN { extends 'Catalyst::Controller::ActionRole'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
 with qw(
     CatalystX::Component::Traits
