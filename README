@@ -125,8 +125,8 @@ SEE ALSO
 
     *   Catalyst::Plugin::Session
 
-    *   Catalyst::Controller::ActionRole - Allows you to decorate actions
-        with roles (E.g Catalyst::ActionRole::NeedsLogin)
+    *   Catalyst::Controller - Allows you to decorate actions with roles
+        (E.g Catalyst::ActionRole::NeedsLogin)
 
     *   CatalystX::Component::Traits - Allows Moose::Role to be composed
         onto components from config

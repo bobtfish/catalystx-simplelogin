@@ -32,7 +32,6 @@ test_requires 'Catalyst::Action::RenderView';
 test_requires 'Catalyst::Plugin::Session::State::Cookie';
 test_requires 'Catalyst::Plugin::Session::Store::File';
 test_requires 'HTTP::Request::Common';
-test_requires 'Catalyst::Controller::ActionRole' => '0.12';
 test_requires 'Catalyst::ActionRole::ACL';
 test_requires 'CatalystX::InjectComponent';
 test_requires 'SQL::Translator';
