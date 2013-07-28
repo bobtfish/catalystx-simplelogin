@@ -54,7 +54,7 @@ using this code. Come back here when you're done there.
 CatalystX::SimpleLogin is an application class L<Moose::Role> which will
 inject a L<Catalyst::Controller>
 which is an instance of L<CatalystX::SimpleLogin::Controller::Login> into your
-application. This provides a simple login and logout page with the adition
+application. This provides a simple login and logout page with the addition
 of only one line of code and one template to your application.
 
 =head1 REQUIREMENTS
@@ -225,7 +225,7 @@ L<CatalystX::Component::Traits> - Allows L<Moose::Role|roles> to be composed ont
 
 Copyright 2009 Tomas Doran. Some rights reserved.
 
-This sofware is free software, and is licensed under the same terms as perl itself.
+This software is free software, and is licensed under the same terms as perl itself.
 
 =cut
 

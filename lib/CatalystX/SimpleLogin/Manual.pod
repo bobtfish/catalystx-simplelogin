@@ -169,7 +169,7 @@ to remove the 'RenderAsTTTemplate' trait, and add
     );
 
 Restart the server and try to view the hello_user page without being logged in.
-You should be reredireced to the login page with the error message displayed at
+You should be redireced to the login page with the error message displayed at
 the top.
 
 You can replace C< [% render_login_form %] > with your own html, and customize
