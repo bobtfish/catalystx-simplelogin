@@ -243,8 +243,8 @@ require registration (hence the name).
 
 =head2 redirect_after_login_uri
 
-If you are using WithRedirect (i.e. by default), then this methd is overridden
-to redirect the user back to the page they intially hit which required
+If you are using WithRedirect (i.e. by default), then this method is overridden
+to redirect the user back to the page they initially hit which required
 authentication.
 
 Note that even if the original URI was a post, then the redirect back will only
