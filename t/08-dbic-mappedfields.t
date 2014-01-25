@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use Test::Exception;
-use Class::MOP;
+use Class::Load;
 use HTTP::Request::Common;
 use FindBin qw/$Bin/;
 use lib "$Bin/lib";
@@ -15,7 +15,7 @@ BEGIN {
     /;
     plan skip_all => "One of the required classes for this test $@ (" . join(',', @needed) . ") not found."
         unless eval {
-            Class::MOP::load_class($_) for @needed; 1;
+            Class::Load::load_class($_) for @needed; 1;
         };
     plan skip_all => 'Test needs ' . DBIx::Class::Optional::Dependencies->req_missing_for('admin')
         unless DBIx::Class::Optional::Dependencies->req_ok_for('admin');
