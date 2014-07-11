@@ -25,7 +25,8 @@ requires 'HTML::FormHandler' => '0.28001';
 requires 'namespace::autoclean';
 requires 'Catalyst::Plugin::Session' => '0.27'; # Required as we use the 'Plugin::Session' config key in ::Manual
 
-test_requires 'Test::More' => '0.94';
+test_requires 'Test::More'  => '0.94';
+test_requires 'Class::Load' => '0.20';
 test_requires 'Test::Exception';
 test_requires 'File::Temp';
 test_requires 'Catalyst::Action::RenderView';
