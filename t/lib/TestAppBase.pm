@@ -8,7 +8,7 @@ use Catalyst qw/
     +CatalystX::SimpleLogin
     Authentication
     Session
-    Session::Store::File
+    Session::Store::Dummy
     Session::State::Cookie
 /;
 extends 'Catalyst';
