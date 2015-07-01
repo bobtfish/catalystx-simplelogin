@@ -103,7 +103,7 @@ sub login
 
     if( $form->process(ctx => $ctx, params => $p) ) {
         $self->do_post_login_redirect($ctx);
-        $ctx->extend_session_expires(999999999999)
+        $ctx->change_session_expires(999999999)
             if $form->field( 'remember' )->value;
     }
 
