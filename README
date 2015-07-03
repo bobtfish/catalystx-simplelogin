@@ -35,7 +35,7 @@ DESCRIPTION
     CatalystX::SimpleLogin is an application class Moose::Role which will
     inject a Catalyst::Controller which is an instance of
     CatalystX::SimpleLogin::Controller::Login into your application. This
-    provides a simple login and logout page with the adition of only one
+    provides a simple login and logout page with the addition of only one
     line of code and one template to your application.
 
 REQUIREMENTS
@@ -143,6 +143,6 @@ AUTHORS
 LICENSE
     Copyright 2009 Tomas Doran. Some rights reserved.
 
-    This sofware is free software, and is licensed under the same terms as
+    This software is free software, and is licensed under the same terms as
     perl itself.
 
