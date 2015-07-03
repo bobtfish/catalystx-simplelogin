@@ -42,6 +42,7 @@ is($res->code, 302, 'Set session requested (logged in) ... we are not yet logged
 ($res, $c) = ctx_request(POST 'login', [ username => 'william', password => 's3cr3t' ], Cookie => $cookie );
 is($res->code, 302, 'Logged in so therefore got 302 redirect');
 
+$cookie = $res->header('Set-Cookie');
 # Is there still something in the session?..
 ($res, $c) = ctx_request(GET '/viewsess', Cookie => $cookie);
 like($c->res->body, qr/session_var1_set=someval1/, '');

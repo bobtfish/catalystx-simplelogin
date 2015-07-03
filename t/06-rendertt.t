@@ -21,16 +21,17 @@ like($c->res->body, qr/Wrong username or password/, 'login error');
 
 
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r']);
+my $cookie = $res->header('Set-Cookie');
+($res, $c) = ctx_request(GET 'http://localhost/', Cookie => $cookie);
 ok( ($c->session_expires-time()-7200) <= 0, 'Session length low when no "remember"');
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r', remember => 1]);
-TODO: {
-    local $TODO = "Session expiry doesn't work";
-ok( ($c->session_expires-time()-7200) >= 0, 'Long session set when "remember"');
-}
+$cookie = $res->header('Set-Cookie');
 is($res->code, 302, 'get 302 redirect');
-my $cookie = $res->header('Set-Cookie');
-ok($cookie, 'Have a cookie');
 is($res->header('Location'), 'http://localhost/', 'Redirect to /');
+($res, $c) = ctx_request(GET 'http://localhost/', Cookie => $cookie);
+ok( ($c->session_expires-time()-7200) >= 0, 'Long session set when "remember"');
+$cookie = $res->header('Set-Cookie');
+ok($cookie, 'Have a cookie');
 ok($c->user, 'Have a user in $c');
 
 ($res, $c) = ctx_request(GET 'http://localhost/', Cookie => $cookie);

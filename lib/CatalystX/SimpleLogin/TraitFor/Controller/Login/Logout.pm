@@ -6,6 +6,7 @@ use namespace::autoclean;
 sub logout : Chained('/') PathPart('logout') Args(0) {
     my ($self, $c) = @_;
     $c->logout;
+    $c->change_session_id;
     $self->do_clear_session_on_logout($c) if $self->clear_session_on_logout;
     $c->res->redirect($self->redirect_after_logout_uri($c));
 }

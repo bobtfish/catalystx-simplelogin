@@ -102,6 +102,8 @@ sub login
     my $p = $ctx->req->parameters;
 
     if( $form->process(ctx => $ctx, params => $p) ) {
+        $ctx->change_session_id;
+
         my $expire = $form->field( 'remember' )->value ?
             999999999 : $ctx->initial_session_expires - time();
         # set expiry time in storage

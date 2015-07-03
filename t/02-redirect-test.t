@@ -28,6 +28,7 @@ foreach my $path (qw|needslogin needslogin_chained needslogin_chained_subpart|) 
     my $cookie = $res->header('Set-Cookie');
     ok($cookie, 'Have a cookie');
     ($res, $c) = ctx_request(POST '/login', [username => 'bob', password => 's00p3r'], Cookie => $cookie);
+    $cookie = $res->header('Set-Cookie');
     ok(!exists($c->session->{redirect_to_after_login}), '$c->session->{redirect_to_after_login} cleared');
     ok($c->user, 'Have a user in $c');
     is($res->code, 302, 'get 302 redirect to needslogin');
