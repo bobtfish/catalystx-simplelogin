@@ -102,9 +102,16 @@ sub login
     my $p = $ctx->req->parameters;
 
     if( $form->process(ctx => $ctx, params => $p) ) {
+        my $expire = $form->field( 'remember' )->value ?
+            999999999 : $ctx->initial_session_expires - time();
+        # set expiry time in storage
+        $ctx->change_session_expires($expire);
+        # refresh changed expiry time from storage
+        $ctx->reset_session_expires;
+        # update cookie TTL
+        $ctx->set_session_id($ctx->sessionid);
+
         $self->do_post_login_redirect($ctx);
-        $ctx->extend_session_expires(999999999999)
-            if $form->field( 'remember' )->value;
     }
 
     $ctx->stash(
