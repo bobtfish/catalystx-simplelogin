@@ -287,6 +287,17 @@ through your view, this is the place to hook into.
 A stub action that is anchored at the root of the site ("/") and does
 require registration (hence the name).
 
+=head2 remember_me
+
+An action that is called to deal with whether the remember me flag has
+been set or not.  If it has been it extends the session expiry time.
+
+This is only called if there was a succesful login so if you want a
+hook into that part of the process this is a good place to hook into.
+
+It is also obviously a good place to hook into if you want to change
+the behaviour of the remember me flag.
+
 =head1 SEE ALSO
 
 =over
