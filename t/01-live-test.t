@@ -43,8 +43,8 @@ $cookie = $res->header('Set-Cookie');
 my ($new_session_id) = $cookie=~/testapp_session=(.*?);/;
 isnt $session_id, $new_session_id, 'Session id should have changed.';
 ($res, $c) = ctx_request(GET 'http://localhost/', Cookie => $cookie);
-ok( ($c->session_expires-time()-7200)       >= 0 &&
-    ($c->session_expires-time()-1000000000) < 0 , 'Long session set when "remember"');
+ok( (($c->session_expires-time()-7200)       > 0) &&
+    (($c->session_expires-time()-1000000000) < 0) , 'Long session set when "remember"');
 
 $cookie = $res->header('Set-Cookie');
 ok($cookie, 'Have a cookie');

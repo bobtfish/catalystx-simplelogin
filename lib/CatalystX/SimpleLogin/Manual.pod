@@ -197,4 +197,15 @@ it as you please.
 Or you can customize it using L<HTML::FormHandler> HTML rendering features, and
 the 'login_form_args' config key.
 
+To alter the amount the remember me extends the session by alter the C<remember_me_expiry>
+configuration setting.
+
+    __PACKAGE__->config(
+        'Controller::Login' => {
+            remember_me_expiry => 999999999, # the default is about 32 years.
+        },
+        # Other config..
+    );
+
+
 =cut

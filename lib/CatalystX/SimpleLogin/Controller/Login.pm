@@ -1,7 +1,7 @@
 package CatalystX::SimpleLogin::Controller::Login;
 use Moose;
 use Moose::Autobox;
-use MooseX::Types::Moose qw/ HashRef ArrayRef ClassName Object Str /;
+use MooseX::Types::Moose qw/ HashRef ArrayRef ClassName Object Str Int/;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use CatalystX::SimpleLogin::Form::Login;
 use namespace::autoclean;
@@ -21,6 +21,7 @@ __PACKAGE__->config(
         RenderAsTTTemplate
         Logout
     /],
+    remember_me_expiry => 999999999,
 );
 
 sub BUILD {
@@ -50,6 +51,11 @@ has login_form_args => (
     isa => HashRef,
     is => 'ro',
     default => sub { {} },
+);
+
+has remember_me_expiry => (
+    isa => Int,
+    is => 'ro',
 );
 
 has login_form_stash_key => (
@@ -104,14 +110,7 @@ sub login
     if( $form->process(ctx => $ctx, params => $p) ) {
         $ctx->change_session_id;
 
-        my $expire = $form->field( 'remember' )->value ?
-            999999999 : $ctx->initial_session_expires - time();
-        # set expiry time in storage
-        $ctx->change_session_expires($expire);
-        # refresh changed expiry time from storage
-        $ctx->reset_session_expires;
-        # update cookie TTL
-        $ctx->set_session_id($ctx->sessionid);
+        $self->remember_me($ctx, $form->field( 'remember' )->value);
 
         $self->do_post_login_redirect($ctx);
     }
@@ -123,6 +122,19 @@ sub login
             $self->render_login_form($ctx, $form);
         }, $ctx),
     );
+}
+
+sub remember_me
+{
+    my ($self, $ctx, $remember) = @_;
+    my $expire = $remember ?
+        $self->remember_me_expiry : $ctx->initial_session_expires - time();
+    # set expiry time in storage
+    $ctx->change_session_expires($expire);
+    # refresh changed expiry time from storage
+    $ctx->reset_session_expires;
+    # update cookie TTL
+    $ctx->set_session_id($ctx->sessionid);
 }
 
 sub do_post_login_redirect {
