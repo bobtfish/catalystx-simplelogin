@@ -24,20 +24,33 @@ like($c->res->body, qr/Wrong username or password/, 'login error');
 like($c->res->body, qr/submit/, 'submit button on form');
 
 ($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r']);
-ok( ($c->session_expires-time()-7200) <= 0, 'Session length low when no "remember"');
-($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r', remember => 1]);
-TODO: {
-    local $TODO = "Session expiry doesn't work";
-ok( ($c->session_expires-time()-7200) >= 0, 'Long session set when "remember"');
-}
 is($res->code, 302, 'get 302 redirect');
 my $cookie = $res->header('Set-Cookie');
 ok($cookie, 'Have a cookie');
 is($res->header('Location'), 'http://localhost/', 'Redirect to /');
 ok($c->user, 'Have a user in $c');
-
 ($res, $c) = ctx_request(GET 'http://localhost/', Cookie => $cookie);
 like($c->res->body, qr/Logged in/, 'Am logged in');
+ok( $c->session_is_valid, 'Session is valid');
+ok( ($c->session_expires && $c->session_expires-time()-7200) <= 0, 'Session length low when no "remember"');
+
+($res, $c) = ctx_request(GET 'http://localhost/logout', Cookie => $cookie);
+ok(!$c->user_exists, 'No user in $c after logout');
+
+($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r', remember => 1], Cookie => $cookie);
+ok( ($c->session_expires-time()-7200)       >= 0 &&
+    ($c->session_expires-time()-1000000000) < 0 , 'Long session set when "remember"');
+
+$cookie = $res->header('Set-Cookie');
+ok($cookie, 'Have a cookie');
+ok($c->user_exists, 'have the user back after re-login with "remember"');
+
+($res, $c) = ctx_request(GET 'http://localhost/logout', Cookie => $cookie);
+ok(!$c->user_exists, 'No user in $c after logout from long session');
+$cookie = $res->header('Set-Cookie');
+
+($res, $c) = ctx_request(POST 'http://localhost/login', [username => 'bob', password => 's00p3r'], Cookie => $cookie);
+ok( ($c->session_expires && $c->session_expires-time()-7200) <= 0, 'Session length is low again when no "remember"');
 
 $res = request(GET 'http://localhost/needsauth', Cookie => $cookie);
 is($res->code, 200, '/needsauth 200OK now');

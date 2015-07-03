@@ -23,7 +23,7 @@ requires 'MooseX::RelatedClassRoles' => '0.004';
 requires 'Moose::Autobox';
 requires 'HTML::FormHandler' => '0.28001';
 requires 'namespace::autoclean';
-requires 'Catalyst::Plugin::Session' => '0.27'; # Required as we use the 'Plugin::Session' config key in ::Manual
+requires 'Catalyst::Plugin::Session' => '0.35'; # Required as we use the 'Plugin::Session' config key in ::Manual
 
 test_requires 'Test::More'  => '0.94';
 test_requires 'Class::Load' => '0.20';
