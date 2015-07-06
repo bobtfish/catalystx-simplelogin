@@ -1,6 +1,7 @@
   * Remove test dependency on Session::Store::File
   * Fix "remember" checkbox (Yaroslav Polyakov)
   * Made remember me behaviour extensible and configurable.
+  * Rotate session id after login/logout
 
 0.18 Sat, 21 July 2012 14:39:00 +0100
   * Stop depending on the now unused Catalyst::Controller::ActionRole
