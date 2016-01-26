@@ -1,5 +1,6 @@
 package CatalystX::SimpleLogin::Form::Login;
 use HTML::FormHandler::Moose;
+use Try::Tiny;
 use namespace::autoclean;
 
 extends 'HTML::FormHandler';
@@ -44,8 +45,12 @@ has_field 'submit'   => ( type => 'Submit', value => 'Login', tabindex => 4 );
 sub validate {
     my $self = shift;
 
+    # as HTML::Formhandler doesn't handle exceptions thrown by user provided
+    # validate methods and fails to clear the 'posted' attribute we need to
+    # catch them
     unless (
-        $self->ctx->authenticate(
+        try {
+            $self->ctx->authenticate(
             {
                 (map {
                     my $param_name = sprintf("authenticate_%s_field_name", $_);
@@ -56,18 +61,25 @@ sub validate {
                 ($self->has_authenticate_args ? %{ $self->authenticate_args } : ()),
             },
             ($self->has_authenticate_realm ? $self->authenticate_realm : ()),
-        )
+            );
+        }
+        catch {
+            $self->ctx->log->error("$_");
+            return 0;
+        }
     ) {
         $self->add_auth_errors;
-        return;
+        # the return value of this method is ignored by HTML::FormHandler
+        # 0.40064, only errors added to the form itself or its fields control
+        # the forms' 'validated' attribute
+        return 0;
     }
     return 1;
 }
 
 sub add_auth_errors {
     my $self = shift;
-    $self->field( 'password' )->add_error( $self->login_error_message )
-        if $self->field( 'username' )->has_value && $self->field( 'password' )->has_value;
+    $self->field( 'password' )->add_error( $self->login_error_message );
 }
 
 __PACKAGE__->meta->make_immutable;
