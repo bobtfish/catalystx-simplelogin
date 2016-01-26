@@ -44,7 +44,6 @@ has_field 'submit'   => ( type => 'Submit', value => 'Login', tabindex => 4 );
 sub validate {
     my $self = shift;
 
-    my %values = %{$self->values}; # copy the values
     unless (
         $self->ctx->authenticate(
             {
