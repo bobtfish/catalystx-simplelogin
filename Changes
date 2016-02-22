@@ -1,3 +1,4 @@
+0.19 Mon, 22 February 2016 18:16:00 +0100
   * Remove test dependency on Session::Store::File
   * Fix "remember" checkbox (Yaroslav Polyakov)
   * Made remember me behaviour extensible and configurable.
