@@ -292,7 +292,7 @@ require registration (hence the name).
 An action that is called to deal with whether the remember me flag has
 been set or not.  If it has been it extends the session expiry time.
 
-This is only called if there was a succesful login so if you want a
+This is only called if there was a successful login so if you want a
 hook into that part of the process this is a good place to hook into.
 
 It is also obviously a good place to hook into if you want to change
