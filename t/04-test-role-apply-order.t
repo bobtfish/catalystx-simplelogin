@@ -17,4 +17,3 @@ TODO: {
     local $TODO = 'Known broken';
 is($res->code, 302, 'ACL Role got applied before NeedsLogin role');
 }
-

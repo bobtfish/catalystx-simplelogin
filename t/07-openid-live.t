@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use Test::More;
 use HTTP::Request::Common;
+use File::Path;
+use Path::Class;
 
 # setup library path
 use FindBin qw($Bin);
@@ -35,5 +37,6 @@ my $user = $c->user;
 is( $user->{url}, 'http://mock.open.id.server', 'user url' );
 is( $user->{display}, 'mocked_user', 'user display' );
 
+rmtree( dir( TestAppOpenID->_session_file_storage->{_Backend}{_Root} )->parent->parent , { } );
 done_testing;
 

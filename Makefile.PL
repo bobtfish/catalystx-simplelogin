@@ -36,6 +36,8 @@ test_requires 'HTTP::Request::Common';
 test_requires 'Catalyst::ActionRole::ACL';
 test_requires 'CatalystX::InjectComponent';
 test_requires 'SQL::Translator';
+test_requires 'File::Path';
+test_requires 'Path::Class';
 
 author_requires 'Test::EOL' => '0.3';
 author_requires 'Test::NoTabs';

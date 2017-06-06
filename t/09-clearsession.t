@@ -5,6 +5,8 @@ use warnings;
 use Test::More;
 use LWP::UserAgent;
 use HTTP::Request::Common;
+use File::Path;
+use Path::Class;
 
 use FindBin qw($Bin);
 use lib "$Bin/lib";
@@ -67,6 +69,8 @@ is($res->code, 302, 'Set session requested (logged in)');
 # Is there something new in the session?..
 ($res, $c) = ctx_request(GET '/viewsess', Cookie => $cookie);
 like($c->res->body, qr/In the session::/, 'Should be seeing a cleared session');
+
+rmtree( dir( TestAppClearSession->_session_file_storage->{_Backend}{_Root} )->parent->parent , { } );
 
 done_testing;
 
