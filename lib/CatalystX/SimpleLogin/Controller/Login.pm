@@ -1,6 +1,5 @@
 package CatalystX::SimpleLogin::Controller::Login;
 use Moose;
-use Moose::Autobox;
 use MooseX::Types::Moose qw/ HashRef ArrayRef ClassName Object Str Int/;
 use MooseX::Types::Common::String qw/ NonEmptySimpleStr /;
 use CatalystX::SimpleLogin::Form::Login;
@@ -74,9 +73,9 @@ with 'MooseX::RelatedClassRoles' => { name => 'login_form' };
 
 sub _build_login_form {
     my $self = shift;
-    $self->apply_login_form_class_roles($self->login_form_class_roles->flatten)
-        if scalar $self->login_form_class_roles->flatten; # FIXME - Should MX::RelatedClassRoles
-                                                          #         do this automagically?
+    $self->apply_login_form_class_roles(@{$self->login_form_class_roles})
+        if scalar @{$self->login_form_class_roles}; # FIXME - Should MX::RelatedClassRoles
+                                                    #         do this automagically?
     return $self->login_form_class->new($self->login_form_args);
 }
 

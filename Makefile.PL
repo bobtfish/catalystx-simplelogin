@@ -16,11 +16,9 @@ requires 'Catalyst::Plugin::Authentication';
 requires 'Catalyst::View::TT';
 requires 'CatalystX::InjectComponent';
 requires 'CatalystX::Component::Traits' => '0.13';
-requires 'Moose::Autobox' => '0.09';
 requires 'MooseX::Types::Common';
 requires 'MooseX::Types';
 requires 'MooseX::RelatedClassRoles' => '0.004';
-requires 'Moose::Autobox';
 requires 'HTML::FormHandler' => '0.28001';
 requires 'namespace::autoclean';
 requires 'Catalyst::Plugin::Session' => '0.35'; # Required as we use the 'Plugin::Session' config key in ::Manual

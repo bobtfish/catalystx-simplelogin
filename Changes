@@ -1,4 +1,5 @@
   * Fix spelling error (RT#116452, thanks Nick Morrott)
+  * Don't use Moose::Autobox (fixes RT#113157)
 
 0.19 Mon, 22 February 2016 18:16:00 +0100
   * Remove test dependency on Session::Store::File

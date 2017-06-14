@@ -1,6 +1,5 @@
 package CatalystX::SimpleLogin::TraitFor::Controller::Login::WithRedirect;
 use MooseX::MethodAttributes::Role;
-use Moose::Autobox;
 use namespace::autoclean;
 
 requires qw/
@@ -67,7 +66,7 @@ user was previously redirected. Goes hand in hand with L<Catalyst::ActionRole::N
 
 =head2 redirect_after_login_uri
 
-Make it use and extract C<< $c->session->{redirect_to_after_login} >> 
+Make it use and extract C<< $c->session->{redirect_to_after_login} >>
 if it exists.
 
 =head1 METHODS
