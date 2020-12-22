@@ -1,3 +1,5 @@
+  * Change bugtracker to github.com
+
 0.20 Wed, 14 June 2017 21:30:00 +0200
   * Fix spelling error (RT#116452, thanks Nick Morrott)
   * Don't use Moose::Autobox (fixes RT#113157)
